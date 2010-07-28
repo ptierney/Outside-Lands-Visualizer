@@ -25,6 +25,8 @@ void setup() {
 }
 
 void draw() {
+  background(0);
+  
   for (int i = 0; i < boxes.size(); ++i) { 
     Box b = (Box) boxes.get(i);
     b.draw();
