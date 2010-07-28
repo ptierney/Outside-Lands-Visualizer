@@ -25,6 +25,7 @@ class Box {
       fill(0);
       textFont(label_font, 12);
       text(side_dim_, 0, side_dim_ / 2 + 12 + box_spacing);
+      text(text_size_, 0, side_dim_ / 2 + 24 + box_spacing * 2);
     popMatrix();
   }
   

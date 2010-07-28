@@ -14,7 +14,7 @@ void setup() {
   background(255);
   noStroke();
   rectMode(CENTER);
-  
+  smooth();
   //font = loadFont("Shruti-Bold-48.vlw");
   //font = loadFont("Consolas-48.vlw");
   font = loadFont("ArialMT-64.vlw");
