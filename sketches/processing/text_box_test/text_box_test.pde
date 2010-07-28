@@ -1,6 +1,6 @@
 
 int size_min = 8;
-int size_max = 64;
+int size_max = 130;
 
 int size_step = 2;
 
@@ -10,7 +10,8 @@ PFont font;
 PFont label_font;
 
 void setup() {
-  size(640, 480);
+  //size(640, 480);
+  size(1280, 960);
   background(255);
   noStroke();
   rectMode(CENTER);
@@ -30,7 +31,7 @@ void draw() {
 
 void create_boxes() {
   int curr_x = box_spacing + size_min * 2;
-  int curr_y = box_spacing + size_min * 2;
+  int curr_y = box_spacing + size_min * 4;
   
   for (int curr_size = size_min; curr_size <= size_max; ) {
     Box b = new Box(curr_size, get_text_size(curr_size), "Kings of Leon", 
