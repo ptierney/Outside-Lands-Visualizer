@@ -15,10 +15,15 @@ boolean scrolling;
 PFont text_font;
 int text_size;
 
-PImage photo_1;
-PImage photo_2;
+PImage[] eco_images;
+PImage[] music_images;
+PImage[] wine_images;
 
-PImage dog_turd;
+String[] eco_names;
+String[] music_names;
+String[] wine_names;
+
+PImage banner_image;
 boolean draw_banner = true;
 
 VoteBox[] vote_box;
@@ -26,8 +31,11 @@ ArrayList vote_boxes;
 BoxFactory box_factory;
 
 color background_color = color(26, 26, 26);
-color music_background = color(246, 18, 118);
-color top_5_music_color = color(0, 172, 221);
+color profile_color = color(45, 77, 125);
+color eco_color = color(114, 160, 42);
+color food_color = color(247, 147, 30);
+color wine_color = color(102, 14, 60);
+color music_color = color(237, 30, 121);
 
 void setup() {
   size(1024, 768);
@@ -39,13 +47,11 @@ void setup() {
   text_font = loadFont("GillSansMT-18.vlw");
   text_size = 18;
   
-  photo_1 = loadImage("photo_2.png");
-  photo_2 = loadImage("photo_5.png");
-  dog_turd = loadImage("banner.png");
+  banner_image = loadImage("banner.png");
+  load_images();
   
   box_factory = new BoxFactory();
   vote_boxes = new ArrayList();
-  
 }
 
 void draw() {
@@ -66,7 +72,7 @@ void draw() {
   }
   
   if (draw_banner)
-    image(dog_turd, 0, 0);
+    image(banner_image, 0, 0);
 }
 
 void keyPressed() {
