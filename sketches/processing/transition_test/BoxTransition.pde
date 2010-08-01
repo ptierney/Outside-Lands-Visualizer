@@ -24,6 +24,7 @@ abstract class SlideTransition extends BoxTransition {
   int counter_; // goes from 0 to unit_dim (for # of pixels transitioned)
   PImage transition_buffer_;
   boolean normal_direction_;
+  int trans_unit_dim_;
   
   SlideTransition() {
     super();
@@ -35,7 +36,9 @@ abstract class SlideTransition extends BoxTransition {
   void load_transition(TransitionState start, 
     TransitionState end) {
     super.load_transition(start, end);
-
+    
+    trans_unit_dim_ = start_image_.width;
+    
     transition_buffer_ = start_image_;
   }
   
@@ -75,14 +78,14 @@ class VerticalSlideTransition extends SlideTransition {
     int trans_counter = (start_image_.height -1 - c) * start_image_.width;
 
     // Outer loop walks the start image array rows
-    for (int i = start_counter; i >= (c * unit_dim); i -= unit_dim) {
+    for (int i = start_counter; i >= (c * trans_unit_dim_); i -= trans_unit_dim_) {
       int start_pix = i;
       // inner loop copies the start image column into a transition_buffer column
       for (int j = trans_counter; j < trans_counter + transition_buffer_.width; ++j, ++start_pix) {
         transition_buffer_.pixels[j] = start_image_.pixels[start_pix];
       }
-      start_counter -= unit_dim;
-      trans_counter -= unit_dim;
+      start_counter -= trans_unit_dim_;
+      trans_counter -= trans_unit_dim_;
     }  
   }
   
@@ -91,14 +94,14 @@ class VerticalSlideTransition extends SlideTransition {
     int trans_counter = (transition_buffer_.height - c) * transition_buffer_.width;
     
     // Outer loop walks the end image from row 0 downward
-    for (int i = end_counter; i < c * unit_dim; i += unit_dim) {
+    for (int i = end_counter; i < c * trans_unit_dim_; i += trans_unit_dim_) {
       int end_pix = i;
       // Inner loop copies a row from end image into transition buffer
-      for (int j = trans_counter; j < trans_counter + unit_dim; ++j, ++end_pix) {
+      for (int j = trans_counter; j < trans_counter + trans_unit_dim_; ++j, ++end_pix) {
         transition_buffer_.pixels[j] = end_image_.pixels[end_pix];
       }
-      end_counter += unit_dim;
-      trans_counter += unit_dim;
+      end_counter += trans_unit_dim_;
+      trans_counter += trans_unit_dim_;
     }
   }
 }
@@ -111,12 +114,13 @@ class HorizontalSlideTransition extends SlideTransition {
   void copy_start_into_buffer(int c) {
     int start_counter = start_image_.width - 1; // Always start copying from the last column of the start image
     int trans_counter = start_image_.width -1 - c;
+    int num_pix = trans_unit_dim_ * trans_unit_dim_;
     // Walk along each column of the start image
     // Outer loop walks the start image array
     for (int i = start_counter; i >= c; --i) {
       int start_pix = i;
       // inner loop copies the start image column into a transition_buffer column
-      for (int j = trans_counter; j < unit_pixels; j += unit_dim, start_pix += unit_dim) {
+      for (int j = trans_counter; j < num_pix; j += trans_unit_dim_, start_pix += trans_unit_dim_) {
         transition_buffer_.pixels[j] = start_image_.pixels[start_pix];
       }
       --start_counter;
@@ -127,12 +131,13 @@ class HorizontalSlideTransition extends SlideTransition {
   void copy_end_into_buffer(int c) {
     int end_counter = 0; // Determine the start column of the end image
     int trans_counter = start_image_.width - c;
+    int num_pix = trans_unit_dim_ * trans_unit_dim_;
     
     // Outer loop walks the end image from column 0 rightward
     for (int i = 0; i < c; ++i) {
       int end_pix = i;
       // Inner loop copies a column from end image into transition buffer
-      for (int j = trans_counter; j < unit_pixels; j += unit_dim, end_pix += unit_dim) {
+      for (int j = trans_counter; j < num_pix; j += trans_unit_dim_, end_pix += trans_unit_dim_) {
         transition_buffer_.pixels[j] = end_image_.pixels[end_pix];
       }
       ++end_counter;

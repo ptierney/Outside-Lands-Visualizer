@@ -8,6 +8,11 @@ abstract class Box {
     this.y_ = y_;
   }
   
+  void update() {
+    if (y_ < height - h_unit_dim - box_gap)
+      y_ += fall_speed;
+  }
+  
   abstract void draw();
 }
 
@@ -28,8 +33,8 @@ class DynamicBox extends Box {
     transition_states_.add(new CompositeState(new PhotoState(photo_2),
       new TextState("Patrick Tierney")));
     //transition_states_.add(new PhotoState(photo_2));
-    //box_transition_ = new HorizontalSlideTransition();
-    box_transition_ = new VerticalSlideTransition();
+    box_transition_ = new HorizontalSlideTransition();
+    //box_transition_ = new VerticalSlideTransition();
     box_transition_.load_transition( (TransitionState) transition_states_.get(0),
       (TransitionState) transition_states_.get(1));
   }
@@ -42,6 +47,7 @@ class DynamicBox extends Box {
   }
   
   void update() {
+    super.update();
     box_transition_.perform_transition();
   }
   
