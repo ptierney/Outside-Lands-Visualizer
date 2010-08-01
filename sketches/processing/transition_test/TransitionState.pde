@@ -7,6 +7,27 @@ abstract class TransitionState {
   abstract PImage get_image();
 }
 
+class CompositeState extends TransitionState {
+  PhotoState photo_state_;
+  TextState text_state_;
+  PGraphics composite_graphics_;
+  
+  CompositeState(PhotoState photo_state_, TextState text_state_) {
+    this.photo_state_ = photo_state_;
+    this.text_state_ = text_state_;
+    
+    composite_graphics_ = createGraphics(unit_dim, unit_dim, JAVA2D);
+    composite_graphics_.beginDraw();
+    composite_graphics_.image(photo_state_.get_image(), 0, 0);
+    composite_graphics_.image(text_state_.get_image(), 0, 0);
+    composite_graphics_.endDraw();
+  }
+  
+  PImage get_image() {
+    return composite_graphics_;
+  }
+}
+
 class PhotoState extends TransitionState {
   PImage state_image_;
   
