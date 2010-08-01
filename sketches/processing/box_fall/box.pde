@@ -75,7 +75,7 @@ class Box {
   void check_collisions() {
     for (int i = 0; i < boxes.size(); ++i) {
       Box b = (Box) boxes.get(i);
-      int test_y = int(y_ + side_dim_ / 2 + box_spacing);
+      int test_y = int(y_ + side_dim_ / 2 + box_spacing + fall_rate);
       
       // if it's a trend box you have to probe both sides because there could be 2 collisions
       if (trend_box_) {

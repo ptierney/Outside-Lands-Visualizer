@@ -1,5 +1,5 @@
 
-float fall_rate = 2.5;
+float fall_rate = 7.5;
 
 PFont box_font;
 int box_text_size = 12;

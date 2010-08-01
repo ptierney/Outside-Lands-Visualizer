@@ -1,0 +1,4 @@
+
+class TrendBox extends TempBox {
+  
+}
