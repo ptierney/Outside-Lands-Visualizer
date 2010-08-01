@@ -11,12 +11,16 @@ PImage photo_2;
 
 VoteBox vote_box;
 
+PApplet main_sketch;
+
 void setup() {
   size(1024, 768);
   rectMode(CENTER);
   
-  text_font = loadFont("GillSansMT-14.vlw");
-  int text_size = 14;
+  main_sketch = this;
+  
+  text_font = loadFont("GillSansMT-18.vlw");
+  text_size = 18;
   
   photo_1 = loadImage("photo_1.png");
   photo_2 = loadImage("photo_3.png");
@@ -27,6 +31,7 @@ void setup() {
 void draw() {
   background(0);
   vote_box.draw();
+  //text("hi", 100, 100);
 }
 
 void keyPressed() {

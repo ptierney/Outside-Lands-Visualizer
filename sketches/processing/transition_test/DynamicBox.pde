@@ -14,13 +14,16 @@ abstract class Box {
 class DynamicBox extends Box {
   ArrayList transition_states_;
   BoxTransition box_transition_;
+  color box_color_;
   
   DynamicBox(float x_, float y_) {
     super(x_, y_);
+    box_color_ = color(int(random(255)), int(random(255)),
+      int(random(255)));
     
     transition_states_ = new ArrayList();
     transition_states_.add(new PhotoState(photo_1));
-    transition_states_.add(new TextState("hi"));
+    transition_states_.add(new TextState("Patrick Tierney"));
     //transition_states_.add(new PhotoState(photo_2));
     box_transition_ = new HorizontalSlideTransition();
     box_transition_.load_transition( (TransitionState) transition_states_.get(0),
@@ -34,13 +37,15 @@ class DynamicBox extends Box {
   void draw() {
     pushMatrix();
       translate(x_, y_);
+      fill(box_color_);
+      rect(0, 0, unit_dim, unit_dim);
       box_transition_.draw();
     popMatrix();
-  } 
+  }
 }
 
 // A thin wrapper around DyramicBox
-class VoteBox extends DynamicBox {
+class VoteBox extends DynamicBox { 
   VoteBox(float x_, float y_) {
     super(x_, y_);
   }
