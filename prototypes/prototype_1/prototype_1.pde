@@ -87,17 +87,14 @@ void draw() {
 
 void keyPressed() {
   if (key == ' ') {
-    for (int i = 0; i < vote_boxes.size(); ++i) {
-      VoteBox b = (VoteBox) vote_boxes.get(i);
-      b.update();
-    }
+    clear_all();
   } 
   else if (key == 'a') {
     vote_boxes.add(box_factory.create_box());
   } 
   else if (key == 'b') {
     draw_banner = !draw_banner;
-  }
+  } 
 }
 
 void check_all_scroll() {
@@ -121,6 +118,10 @@ void delete_bottom_row() {
       ++i;
     }
   }
+}
+
+void clear_all() {
+  vote_boxes.clear();
 }
 
 void fall_all() {

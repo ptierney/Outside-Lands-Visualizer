@@ -52,3 +52,43 @@ class BoxFactory {
   }
 }
 
+// Generates the top five for a category
+class TopFiveFactory {
+  int category_;
+  int first_index_;
+  int second_index_;
+  int third_index_;
+  int forth_index_;
+  int fifth_index_;
+  
+  TopFiveFactory(int category_, int first_index_, int second_index_, int third_index_,
+    int forth_index_, int fifth_index_) {
+    this.category_ = category_;
+    this.first_index_ = first_index_;
+    this.second_index_ = second_index_;
+    this.third_index_ = third_index_;
+    this.forth_index_ = forth_index_;
+    this.fifth_index_ = fifth_index_;
+  }
+  
+  void make_first_box() {
+    
+  }
+  
+  void make_second_box() {
+    
+  }
+  
+  void make_third_box() {
+    
+  }
+  
+  void make_forth_box() {
+    
+  }
+  
+  void make_fifth_box() {
+    
+  }
+}
+
