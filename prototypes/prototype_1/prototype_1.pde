@@ -1,9 +1,9 @@
 
 
-int unit_dim = 110;
+int unit_dim = 110; // requested 148
 int h_unit_dim = unit_dim / 2;
 int unit_pixels = unit_dim * unit_dim;
-int box_gap = 15;
+int box_gap = 15; // requested 19
 
 int num_cols;
 
@@ -44,7 +44,7 @@ color wine_color = color(102, 14, 60);
 color music_color = color(237, 30, 121);
 
 void setup() {
-  size(1024, 768);
+  size(1024, 768, P3D);
 
   num_cols = width / (unit_dim + box_gap);
   scroll_thresh = height / 3;
