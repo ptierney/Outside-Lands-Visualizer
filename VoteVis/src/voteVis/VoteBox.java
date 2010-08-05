@@ -17,11 +17,17 @@ public class VoteBox extends DynamicBox {
 	}
 	
 	private void set_pane_transition_states() {
-		/*
-		box_pane_.add_transition_state(
-			Settings.get_vote_box_text_state(type_, index_));
-		box_pane_.add_transition_state(
-			Settings.get_vote_box_photo_state(type_, index_));
-			*/
+		box_pane_.add_transition_state(get_text_state());
+		box_pane_.add_transition_state(get_photo_state());
+	}
+	
+	private TextState get_text_state() {
+		return new TextState(p_, p_.loader().get_candidate_name(type_, index_),
+			p_.settings().get_vote_box_color_for_type(type_),
+			Settings.VOTE_PANE_DIM, );
+	}
+	
+	private PhotoState get_photo_state() {
+		
 	}
 }
