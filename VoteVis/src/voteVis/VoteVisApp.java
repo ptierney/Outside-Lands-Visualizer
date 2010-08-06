@@ -58,6 +58,8 @@ public class VoteVisApp extends PApplet {
 		} else if (key == 'o') {
 			manager_.add_box(new VoteBox(this, Utility.get_aligned_position(Settings.UNIT_DIM, 3), 
 				0, Type.ECO, 0));
+		} else if (key == 'e') {
+			vote_factory_.profile_test.expand_fully();
 		}
 	}
 

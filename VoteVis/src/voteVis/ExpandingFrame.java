@@ -10,7 +10,7 @@ public abstract class ExpandingFrame extends BoxFrame {
 	protected int max_unit_width_; // how many multiples of UNIT_DIM
 	protected float counter_; // ranges from 0.0 (full retraction) to 1.0 (full extension)
 	
-	private static float EXPAND_SPEED = 0.1f;
+	private static float EXPAND_SPEED = 0.018f;
 	
 	private boolean expanding_;
 	private boolean contracting_;
@@ -39,7 +39,7 @@ public abstract class ExpandingFrame extends BoxFrame {
 			expanding_ = true;
 	}
 	
-	public void retract_fully() {
+	public void contract_fully() {
 		if (counter_ > 0.0f)
 			contracting_ = true;
 	}

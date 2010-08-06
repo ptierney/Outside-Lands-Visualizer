@@ -9,6 +9,8 @@ public class VoteBoxFactory {
 	private VoteVisApp p_;
 	private static int BOX_STAGGER = Settings.UNIT_DIM;
 	private ArrayList<VoteRow> vote_rows_;
+	
+	public ProfileBox profile_test;
 
 	public VoteBoxFactory(VoteVisApp p_) {
 		this.p_ = p_;
@@ -18,13 +20,6 @@ public class VoteBoxFactory {
 	// this make all the boxes at the
 	void make_vote_row(Ballot ballot) {
 		ArrayList<Box> row = new ArrayList<Box>();
-		
-		// TODO: should be profile box
-		Box profile = new VoteBox(p_, Utility.get_aligned_position(Settings.UNIT_DIM, 0), 
-			-BOX_STAGGER * 5, Type.MUSIC, ballot.votes()[Type.MUSIC.ordinal()]);
-		
-		p_.manager().add_box(profile);
-		row.add(profile);
 		
 		Box v1 = new VoteBox(p_, Utility.get_aligned_position(Settings.UNIT_DIM, 1), 
 			-BOX_STAGGER * 4, Type.MUSIC, ballot.votes()[Type.MUSIC.ordinal()]);
@@ -55,6 +50,14 @@ public class VoteBoxFactory {
 		
 		p_.manager().add_box(v5);
 		row.add(v5);
+		
+		// this should be drawn on top of the other boxes
+		Box profile = new ProfileBox(p_, Utility.get_aligned_position(Settings.UNIT_DIM, 0),
+			-BOX_STAGGER * 5, 0);
+			
+		p_.manager().add_box(profile);
+		row.add(profile);
+		profile_test = (ProfileBox) profile;
 		
 		vote_rows_.add(new VoteRow(row));
 	}

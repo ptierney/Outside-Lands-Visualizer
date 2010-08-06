@@ -32,6 +32,11 @@ public class ImageLoader {
 	public String get_profile_name(int index) {
 		return profile_names_[index];
 	}
+	
+	// TODO: implement this really
+	public PImage get_dummy_profile_image() {
+		return profile_images_[0];
+	}
 
 	private void load_images_and_names() {
 		candidate_images_ = new PImage[5][];
