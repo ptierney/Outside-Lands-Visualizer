@@ -24,6 +24,7 @@ public class Settings {
 	private int wine_color_;
 	private int food_color_;
 	private int art_color_;
+	private int profile_color_;
 	
 	private int background_color_;
 	
@@ -41,6 +42,7 @@ public class Settings {
 		wine_color_ = p_.color(102, 14, 60);
 		food_color_ = p_.color(247, 147, 30);
 		art_color_ = p_.color(49, 193, 182);
+		profile_color_ = p_.color(37, 133, 247);
 		
 		background_color_ = p_.color(27, 27, 27);
 		
@@ -88,6 +90,10 @@ public class Settings {
 	
 	public int background_color() {
 		return background_color_;
+	}
+	
+	public int profile_color() {
+		return profile_color_;
 	}
 	
 	public void load_vote_box_font() {

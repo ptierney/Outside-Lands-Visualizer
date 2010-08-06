@@ -7,7 +7,7 @@ public class VoteBox extends DynamicBox {
 	private int index_;
 	
 	public VoteBox(VoteVisApp p_, float x_, float y_, Type type_, int index_) {
-		super(p_, x_, y_, Settings.VOTE_BOX_SIDE_DIM);
+		super(p_, x_, y_);
 		
 		this.type_ = type_;
 		this.index_ = index_;

@@ -9,10 +9,20 @@ public class DynamicBox extends Box {
 	protected BoxPane box_pane_;
 	protected BoxFrame box_frame_;
 	
-	DynamicBox(VoteVisApp p_, float x_, float y_, int side_dim_) {
-		super(p_, x_, y_, side_dim_);
+	public DynamicBox(VoteVisApp p_, float x_, float y_) {
+		super(p_, x_, y_);
 		
 		box_pane_ = new BoxPane(p_);
+	}
+	
+	@Override
+	public int get_width() {
+		return box_frame_.get_width();
+	}
+	
+	@Override
+	public int get_height() {
+		return box_frame_.get_height();
 	}
 
 	@Override
