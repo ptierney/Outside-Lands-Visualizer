@@ -14,6 +14,7 @@ public class VoteBox extends DynamicBox {
 		
 		set_pane_transition_states();
 		box_pane_.load_transition(); // prep the box for a transition
+		box_frame_ = new VoteFrame(p_, type_);
 	}
 	
 	private void set_pane_transition_states() {

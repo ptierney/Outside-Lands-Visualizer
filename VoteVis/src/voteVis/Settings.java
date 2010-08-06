@@ -6,7 +6,7 @@ public class Settings {
 	private VoteVisApp p_;
 	
 	public static int UNIT_DIM = 150;
-	public static int VOTE_PANE_DIM = 135;
+	public static int VOTE_PANE_DIM = 138;
 	public static int BOX_GAP = 10;
 	public static int FALL_SPEED = 10;
 	public static int VOTE_BOX_SIDE_DIM = UNIT_DIM;

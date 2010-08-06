@@ -4,6 +4,8 @@ public abstract class BoxFrame {
 	BoxFrame() {
 	}
 	
+	public abstract void draw();
+	
 	// used for pane placement
 	public abstract int get_pane_x();
 	public abstract int get_pane_y();
