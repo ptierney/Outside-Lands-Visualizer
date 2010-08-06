@@ -26,7 +26,6 @@ public class DynamicBox extends Box {
 	public void draw() {
 		p_.pushMatrix();
 			p_.translate(x_, y_);
-			p_.image(background_image_, -side_dim_ / 2, -side_dim_ / 2);
 			box_pane_.draw();
 		p_.popMatrix();
 	}

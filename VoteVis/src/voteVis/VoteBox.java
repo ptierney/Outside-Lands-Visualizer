@@ -29,6 +29,7 @@ public class VoteBox extends DynamicBox {
 	}
 	
 	private PhotoState get_photo_state() {
-		return new PhotoState(p_, p_.loader().get_candidate_image(type_, index_));
+		return new PhotoState(p_, p_.utility().scale_to_vote_pane_size(
+			p_.loader().get_candidate_image(type_, index_)));
 	}
 }

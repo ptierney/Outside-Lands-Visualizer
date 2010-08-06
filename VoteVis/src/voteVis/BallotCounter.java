@@ -64,7 +64,7 @@ public class BallotCounter {
 			}
 			ret_int[i] = top_key.intValue();
 			if (counter.containsKey(top_key)) // this is needed if there are under 5 ballots
-					counter.remove(top_key);
+				counter.remove(top_key);
 		}
 		
 		return ret_int;

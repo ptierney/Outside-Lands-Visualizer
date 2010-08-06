@@ -35,7 +35,8 @@ public class ImageLoader {
 
 	private void load_images_and_names() {
 		candidate_images_ = new PImage[5][];
-		
+		candidate_names_ = new String[5][];
+
 		candidate_names_[Type.ECO.ordinal()] = new String[5];
 		candidate_images_[Type.ECO.ordinal()] = new PImage[5];
 		candidate_names_[Type.ECO.ordinal()][0] = "California Academy of Sciences";

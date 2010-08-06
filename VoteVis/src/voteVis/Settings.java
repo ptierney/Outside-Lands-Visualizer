@@ -5,9 +5,9 @@ import processing.core.*;
 public class Settings {
 	private VoteVisApp p_;
 	
-	public static int UNIT_DIM = 110;
-	public static int VOTE_PANE_DIM = 100;
-	public static int BOX_GAP = 15;
+	public static int UNIT_DIM = 150;
+	public static int VOTE_PANE_DIM = 135;
+	public static int BOX_GAP = 10;
 	public static int FALL_SPEED = 10;
 	public static int VOTE_BOX_SIDE_DIM = UNIT_DIM;
 	public static String DEFAULT_PROFILE_IMAGE = "profile_1-110.png";
@@ -25,9 +25,13 @@ public class Settings {
 	private int food_color_;
 	private int art_color_;
 	
+	private int background_color_;
 	
 	private PFont vote_box_font_;
 	public static int VOTE_BOX_FONT_SIZE = 18;
+	
+	private PFont[] trend_box_fonts_;
+	private int[] trend_box_font_sizes_;
 	
 	public Settings(VoteVisApp p_) {
 		this.p_ = p_;
@@ -38,8 +42,24 @@ public class Settings {
 		food_color_ = p_.color(247, 147, 30);
 		art_color_ = p_.color(49, 193, 182);
 		
+		background_color_ = p_.color(27, 27, 27);
+		
 		// TODO: load this font with processing
 		vote_box_font_ = p_.loadFont("GillSansMT-18.vlw");
+		
+		trend_box_font_sizes_ = new int[5];
+		trend_box_font_sizes_[Size.XS.ordinal()] = 14;
+		trend_box_font_sizes_[Size.S.ordinal()] = 18;
+		trend_box_font_sizes_[Size.M.ordinal()] = 20;
+		trend_box_font_sizes_[Size.L.ordinal()] = 24;
+		trend_box_font_sizes_[Size.XL.ordinal()] = 30;
+		
+		trend_box_fonts_ = new PFont[5];
+		trend_box_fonts_[Size.XS.ordinal()] = p_.loadFont("GillSansMT-18.vlw");
+		trend_box_fonts_[Size.S.ordinal()] = p_.loadFont("GillSansMT-18.vlw");
+		trend_box_fonts_[Size.M.ordinal()] = p_.loadFont("GillSansMT-18.vlw");
+		trend_box_fonts_[Size.L.ordinal()] = p_.loadFont("GillSansMT-18.vlw");
+		trend_box_fonts_[Size.XL.ordinal()] = p_.loadFont("GillSansMT-18.vlw");
 	}
 	
 	public static int HALF_UNIT_DIM () {
@@ -65,5 +85,25 @@ public class Settings {
 	public PFont get_vote_box_font() {
 		return vote_box_font_;
 	}
-
+	
+	public int background_color() {
+		return background_color_;
+	}
+	
+	public void load_vote_box_font() {
+		p_.textFont(vote_box_font_, VOTE_BOX_FONT_SIZE);
+	}
+	
+	public void load_trend_box_font(Size size) {
+		p_.textFont(get_trend_box_font(size), 
+			get_trend_box_font_size(size));
+	}
+	
+	public int get_trend_box_font_size(Size size) {
+		return trend_box_font_sizes_[size.ordinal()];
+	}
+	
+	public PFont get_trend_box_font(Size size) {
+		return trend_box_fonts_[size.ordinal()];
+	}
 }

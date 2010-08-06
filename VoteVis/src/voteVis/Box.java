@@ -9,13 +9,16 @@ public abstract class Box {
 	protected float y_;
 	protected boolean falling_;
 	protected int side_dim_;
-
+	protected float lower_bound_; // the ground plane it should look for intersections
+	
 	public Box(VoteVisApp p_, float x_, float y_, int side_dim_) {
 		this.p_ = p_;
 		this.settings_ = p_.settings();
 		this.x_ = x_;
 		this.y_ = y_;
 		this.side_dim_ = side_dim_;
+		
+		falling_ = true;
 	}
 
 	public void update() {
@@ -98,6 +101,11 @@ public abstract class Box {
 	boolean is_inside(float ox, float oy) {
 		return ox < (x_ + side_dim_ / 2) && ox > (x_ - side_dim_ / 2)
 			&& oy < (y_ + side_dim_ / 2) && oy > (y_ - side_dim_ / 2);
+	}
+	
+	// this sets the lower_bound to a level so that it will fall off the screen
+	public void fall_off_screen() {
+		
 	}
 
 	public abstract void draw();

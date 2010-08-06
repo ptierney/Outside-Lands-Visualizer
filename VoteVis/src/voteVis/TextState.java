@@ -52,6 +52,7 @@ public class TextState extends TransitionState {
 
 	// method with help of Gleb
 	private TextDetails get_text_details(String message) {
+		p_.textFont(text_font_, text_size_);
 		float line_height = p_.textAscent() + p_.textDescent();
 		TextDetails details;
 
