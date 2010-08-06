@@ -10,12 +10,21 @@ public class Settings {
 	public static int BOX_GAP = 15;
 	public static int FALL_SPEED = 10;
 	public static int VOTE_BOX_SIDE_DIM = UNIT_DIM;
+	public static String DEFAULT_PROFILE_IMAGE = "profile_1-110.png";
+	
+	// TODO: update this to real values
+	public static int NUM_ECO = 10;
+	public static int NUM_MUSIC = 10;
+	public static int NUM_ART = 10;
+	public static int NUM_FOOD = 10;
+	public static int NUM_WINE = 10;
 	
 	private int music_color_;
 	private int eco_color_;
 	private int wine_color_;
 	private int food_color_;
 	private int art_color_;
+	
 	
 	private PFont vote_box_font_;
 	public static int VOTE_BOX_FONT_SIZE = 18;
@@ -29,7 +38,8 @@ public class Settings {
 		food_color_ = p_.color(247, 147, 30);
 		art_color_ = p_.color(49, 193, 182);
 		
-		//vote_box_font_ = p_.loadFont("")
+		// TODO: load this font with processing
+		vote_box_font_ = p_.loadFont("GillSansMT-18.vlw");
 	}
 	
 	public static int HALF_UNIT_DIM () {
@@ -55,16 +65,5 @@ public class Settings {
 	public PFont get_vote_box_font() {
 		return vote_box_font_;
 	}
-	
-	/*
-	public static TextState get_vote_box_text_state(Type type, int index) {
-		
-		
-	}
-	
-	public static PhotoState get_vote_box_photo_state(Type type, int index) {
-		
-	}
-	*/
 
 }

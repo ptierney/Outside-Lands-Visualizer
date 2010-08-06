@@ -24,10 +24,11 @@ public class VoteBox extends DynamicBox {
 	private TextState get_text_state() {
 		return new TextState(p_, p_.loader().get_candidate_name(type_, index_),
 			p_.settings().get_vote_box_color_for_type(type_),
-			Settings.VOTE_PANE_DIM, );
+			Settings.VOTE_PANE_DIM, p_.settings().get_vote_box_font(), 
+			Settings.VOTE_BOX_FONT_SIZE);
 	}
 	
 	private PhotoState get_photo_state() {
-		
+		return new PhotoState(p_, p_.loader().get_candidate_image(type_, index_));
 	}
 }

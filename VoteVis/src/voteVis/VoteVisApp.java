@@ -13,6 +13,7 @@ public class VoteVisApp extends PApplet {
 	private ArrayList<Box> boxes_;
 	private PImage banner_;
 	private Box box_;
+	private BallotCounter counter_;
 	
 	@Override
 	public void setup() {
@@ -20,18 +21,34 @@ public class VoteVisApp extends PApplet {
 		background(0);
 		
 		settings_ = new Settings(this);
-		loader_ = new ImageLoader(this);
+		//loader_ = new ImageLoader(this);
 		boxes_ = new ArrayList<Box>();
 		
 		banner_ = loadImage("banner.png");
 		
-		box_ = new VoteBox(this, width / 2, 0, Type.MUSIC, 0);
+		//box_ = new VoteBox(this, width / 2, 0, Type.MUSIC, 0);
+		
+		counter_ = new BallotCounter(this);
+		
+		for (int i = 0; i < 20; ++i) {
+			counter_.add_random_ballot();
+		}
+		
+		int[] top_five = counter_.get_top_five(Type.MUSIC);
+		
+		for (int i = 0; i < 5; ++i) {
+			PApplet.println(top_five[i]);
+		}
+		
 	}
 	
 	@Override
 	public void draw() {
-		box_.update();
-		box_.draw();
+		background(0);
+		stroke(255);
+		line(0, 0, mouseX, mouseY);
+		//box_.update();
+		//box_.draw();
 		// required by law to be here
 		image(banner_, 0, 0); 
 	}
