@@ -3,8 +3,8 @@ package voteVis;
 import java.util.ArrayList;
 
 import processing.core.*;
-import processing.opengl.*;
-import javax.media.opengl.GL;
+//import processing.opengl.*;
+//import javax.media.opengl.GL;
 
 @SuppressWarnings("serial")
 public class VoteVisApp extends PApplet {
@@ -23,7 +23,7 @@ public class VoteVisApp extends PApplet {
 
 	@Override
 	public void setup() {
-		size(1024, 768, OPENGL);
+		size(1024, 768, P3D);
 		background(0);
 
 		settings_ = new Settings(this);
@@ -42,6 +42,7 @@ public class VoteVisApp extends PApplet {
 
 		manager_.update_boxes();
 		manager_.draw_boxes();
+		manager_.clean_up();
 		
 		// required by law to be here
 		image(banner_, 0, 0);
@@ -49,9 +50,15 @@ public class VoteVisApp extends PApplet {
 	
 	@Override
 	public void keyPressed() {
-		counter_.add_random_ballot();
-		
-		vote_factory_.make_vote_row(counter_.get_last_ballot());
+		if (key == ' ') {
+			counter_.add_random_ballot();
+			vote_factory_.make_vote_row(counter_.get_last_ballot());
+		} else if (key == 'a') {
+			vote_factory_.drop_bottom_row();
+		} else if (key == 'o') {
+			manager_.add_box(new VoteBox(this, Utility.get_aligned_position(Settings.UNIT_DIM, 3), 
+				0, Type.ECO, 0));
+		}
 	}
 
 	public Settings settings() {

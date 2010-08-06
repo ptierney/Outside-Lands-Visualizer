@@ -51,6 +51,13 @@ public class BoxManager {
 		delete_list_.add(box);
 	}
 	
+	public void set_all_falling() {
+		Iterator<Box> it = boxes_.iterator();
+		while (it.hasNext()) {
+			it.next().set_falling(true);
+		}
+	}
+	
 	// run through the delete list and delete all the appropriate boxes
 	public void clean_up() {
 		if (delete_list_.size() == 0)

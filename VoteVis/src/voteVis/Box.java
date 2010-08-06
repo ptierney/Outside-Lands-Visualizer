@@ -11,7 +11,7 @@ public abstract class Box {
 	protected int side_dim_;
 	protected float lower_bound_; // the ground plane it should look for intersections
 	protected boolean falling_off_screen_;
-	
+	// TODO: introduce an intro falling speed, and a normal falling speed
 	public Box(VoteVisApp p_, float x_, float y_, int side_dim_) {
 		this.p_ = p_;
 		this.settings_ = p_.settings();
@@ -114,6 +114,7 @@ public abstract class Box {
 	public void fall_off_screen() {
 		lower_bound_ = p_.height + side_dim_ * 2;
 		falling_off_screen_ = true;
+		falling_ = true;
 	}
 
 	public abstract void draw();

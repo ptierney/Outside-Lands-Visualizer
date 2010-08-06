@@ -1,0 +1,7 @@
+
+- We haven't been designing this program to use threads (so far it hasn't needed it), could you make a factory class that starts whatever thread your objects need.
+
+- Since you have some familiarity with Processing and Eclipse, can you have the ParsedTweet class return PImages object (fold that functionality into another class). I believe this would require the class getting ahold of my main PApplet object.
+
+
+
