@@ -40,24 +40,24 @@ public class BallotCounter {
 	}
 	
 	public int[] get_top_five(Type type) {
-		PApplet.println("get_top_five_top");
 		// This holds the index (which musician, etc), and the number of votes for him/her.
 		HashMap<Integer, Integer> counter = new HashMap<Integer, Integer>();
-		PApplet.println("about to for");
 		for (int i = 0; i < ballots_.size(); ++i) {
 			Integer key = ballots_.get(i).votes()[type.ordinal()];
 			Integer last_number = counter.get(key);
-			counter.put(key, new Integer(last_number + 1));
+			if (last_number == null)
+				counter.put(key, new Integer(0));
+			else
+				counter.put(key, new Integer(last_number + 1));
 		}
 		
 		int[] ret_int = new int[5];
-		PApplet.println("about to for 2");
 		for(int i = 0; i < 5; ++i) {
 			Integer top_key = 0;
 			Integer top_amount = 0;
 			
 			for (Integer key : counter.keySet()) {
-				if (counter.get(key) > top_amount) {
+				if (counter.get(key) >= top_amount) {
 					top_key = key;
 					top_amount = counter.get(key);
 				}

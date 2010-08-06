@@ -30,16 +30,15 @@ public class VoteVisApp extends PApplet {
 		
 		counter_ = new BallotCounter(this);
 		
-		for (int i = 0; i < 20; ++i) {
+		for (int i = 0; i < 3; ++i) {
 			counter_.add_random_ballot();
 		}
-		
+
 		int[] top_five = counter_.get_top_five(Type.MUSIC);
 		
 		for (int i = 0; i < 5; ++i) {
 			PApplet.println(top_five[i]);
-		}
-		
+		}		
 	}
 	
 	@Override
