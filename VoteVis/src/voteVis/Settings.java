@@ -13,11 +13,11 @@ public class Settings {
 	public static String DEFAULT_PROFILE_IMAGE = "profile_1-110.png";
 	
 	// TODO: update this to real values
-	public static int NUM_ECO = 10;
-	public static int NUM_MUSIC = 10;
-	public static int NUM_ART = 10;
-	public static int NUM_FOOD = 10;
-	public static int NUM_WINE = 10;
+	public static int NUM_ECO = 5;
+	public static int NUM_MUSIC = 5;
+	public static int NUM_ART = 5;
+	public static int NUM_FOOD = 5;
+	public static int NUM_WINE = 5;
 	
 	private int music_color_;
 	private int eco_color_;

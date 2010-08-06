@@ -75,6 +75,32 @@ public class ImageLoader {
 		candidate_images_[Type.WINE.ordinal()][3] = p_.loadImage("rsinskey-110.png");
 		candidate_names_[Type.WINE.ordinal()][4] = "Tallulah";
 		candidate_images_[Type.WINE.ordinal()][4] = p_.loadImage("tallulah-110.png");
+		
+		candidate_names_[Type.FOOD.ordinal()] = new String[5];
+		candidate_images_[Type.FOOD.ordinal()] = new PImage[5];
+		candidate_names_[Type.FOOD.ordinal()][0] = "Food 1";
+		candidate_images_[Type.FOOD.ordinal()][0] = p_.loadImage("food-1.png");
+		candidate_names_[Type.FOOD.ordinal()][1] = "Food 2";
+		candidate_images_[Type.FOOD.ordinal()][1] = p_.loadImage("food-2.png");
+		candidate_names_[Type.FOOD.ordinal()][2] = "Food 3";
+		candidate_images_[Type.FOOD.ordinal()][2] = p_.loadImage("food-3.png");
+		candidate_names_[Type.FOOD.ordinal()][3] = "Food 4";
+		candidate_images_[Type.FOOD.ordinal()][3] = p_.loadImage("food-4.png");
+		candidate_names_[Type.FOOD.ordinal()][4] = "Food 5";
+		candidate_images_[Type.FOOD.ordinal()][4] = p_.loadImage("food-5.png");
+
+		candidate_names_[Type.ART.ordinal()] = new String[5];
+		candidate_images_[Type.ART.ordinal()] = new PImage[5];
+		candidate_names_[Type.ART.ordinal()][0] = "Art 1";
+		candidate_images_[Type.ART.ordinal()][0] = p_.loadImage("art-1.png");
+		candidate_names_[Type.ART.ordinal()][1] = "Art 2";
+		candidate_images_[Type.ART.ordinal()][1] = p_.loadImage("art-2.png");
+		candidate_names_[Type.ART.ordinal()][2] = "Art 3";
+		candidate_images_[Type.ART.ordinal()][2] = p_.loadImage("art-3.png");
+		candidate_names_[Type.ART.ordinal()][3] = "Art 4";
+		candidate_images_[Type.ART.ordinal()][3] = p_.loadImage("art-4.png");
+		candidate_names_[Type.ART.ordinal()][4] = "Art 5";
+		candidate_images_[Type.ART.ordinal()][4] = p_.loadImage("art-5.png");
 	}
 
 	private void load_profiles() {

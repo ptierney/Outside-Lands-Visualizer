@@ -34,6 +34,10 @@ public class BoxManager {
 			it.next().draw();
 		}
 	}
+
+	public LinkedHashSet<Box> boxes() {
+		return boxes_;
+	}
 	
 	public void add_box(Box box) {
 		boxes_.add(box);

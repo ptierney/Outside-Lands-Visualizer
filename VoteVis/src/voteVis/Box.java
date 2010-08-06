@@ -1,6 +1,6 @@
 package voteVis;
 
-import processing.core.*;
+import java.util.Iterator;
 
 public abstract class Box {
 	protected VoteVisApp p_;
@@ -10,6 +10,7 @@ public abstract class Box {
 	protected boolean falling_;
 	protected int side_dim_;
 	protected float lower_bound_; // the ground plane it should look for intersections
+	protected boolean falling_off_screen_;
 	
 	public Box(VoteVisApp p_, float x_, float y_, int side_dim_) {
 		this.p_ = p_;
@@ -19,6 +20,8 @@ public abstract class Box {
 		this.side_dim_ = side_dim_;
 		
 		falling_ = true;
+		lower_bound_ = p_.height;
+		falling_off_screen_ = false;
 	}
 
 	public void update() {
@@ -41,7 +44,8 @@ public abstract class Box {
 		case 2:
 		default:
 			falling_ = false;
-			// maybe check to delete the bottom row
+			if (falling_off_screen_)
+				p_.manager().delete_me(this);
 			break;
 		}
 	}
@@ -78,8 +82,11 @@ public abstract class Box {
 	// 1 = collision inside 2 * fall_speed
 	// 2 = collision inside 1 * fall_speed
 	int check_collisions() {
-		for (int i = 0; i < p_.boxes().size(); ++i) {
-			Box b = p_.boxes().get(i);
+		Iterator<Box> it = p_.manager().boxes().iterator();
+		
+		while (it.hasNext()) {
+			Box b = it.next();
+			
 			if (b == this)
 				continue;
 
@@ -90,9 +97,9 @@ public abstract class Box {
 		}
 
 		// check a collision against the bottom of the screen
-		if (y_ + side_dim_ / 2 + Settings.BOX_GAP >= p_.height)
+		if (y_ + side_dim_ / 2 + Settings.BOX_GAP >= lower_bound_)
 			return 2;
-		else if (y_ + side_dim_ / 2 + Settings.FALL_SPEED * 2 >= p_.height)
+		else if (y_ + side_dim_ / 2 + Settings.FALL_SPEED * 2 >= lower_bound_)
 			return 1;
 
 		return 0;
@@ -105,7 +112,8 @@ public abstract class Box {
 	
 	// this sets the lower_bound to a level so that it will fall off the screen
 	public void fall_off_screen() {
-		
+		lower_bound_ = p_.height + side_dim_ * 2;
+		falling_off_screen_ = true;
 	}
 
 	public abstract void draw();

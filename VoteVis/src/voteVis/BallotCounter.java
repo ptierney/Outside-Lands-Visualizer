@@ -19,6 +19,14 @@ public class BallotCounter {
 		return ballots_;
 	}
 	
+	public Ballot get_ballot(int index) {
+		return ballots_.get(index);
+	}
+	
+	public Ballot get_last_ballot() {
+		return ballots_.get(ballots_.size() -1);
+	}
+	
 	public void add_ballot(Ballot ballot) {
 		ballots_.add(ballot);
 	}

@@ -11,11 +11,14 @@ public class VoteVisApp extends PApplet {
 	private Settings settings_;
 	private ImageLoader loader_;
 	private Utility utility_;
-	
-	private ArrayList<Box> boxes_;
-	private PImage banner_;
-	private Box box_;
+	private BoxManager manager_;
 	private BallotCounter counter_;
+	private VoteBoxFactory vote_factory_;
+	
+	private PImage banner_;
+	
+	// Testing vars
+	private Box box_;
 	private PFont text_font_;
 
 	@Override
@@ -23,32 +26,32 @@ public class VoteVisApp extends PApplet {
 		size(1024, 768, OPENGL);
 		background(0);
 
-		text_font_ = loadFont("GillSansMT-18.vlw");
-		// All text is drawn on PGraphics objects, but this is needed
-		// for utility methods to calculate text sizese
-		textFont(text_font_, 18);
-
 		settings_ = new Settings(this);
 		loader_ = new ImageLoader(this);
 		utility_ = new Utility(this);
-		boxes_ = new ArrayList<Box>();
-
+		manager_ = new BoxManager(this);
+		counter_ = new BallotCounter(this);
+		vote_factory_ = new VoteBoxFactory(this);
+		
 		banner_ = loadImage("banner.png");
-
-		box_ = new VoteBox(this, width / 2, 0, Type.MUSIC, 0);
-
 	}
 
 	@Override
 	public void draw() {
 		background(settings().background_color());
 
-		box_.update();
-		box_.draw();
-		
+		manager_.update_boxes();
+		manager_.draw_boxes();
 		
 		// required by law to be here
 		image(banner_, 0, 0);
+	}
+	
+	@Override
+	public void keyPressed() {
+		counter_.add_random_ballot();
+		
+		vote_factory_.make_vote_row(counter_.get_last_ballot());
 	}
 
 	public Settings settings() {
@@ -63,7 +66,7 @@ public class VoteVisApp extends PApplet {
 		return utility_;
 	}
 
-	public ArrayList<Box> boxes() {
-		return boxes_;
+	public BoxManager manager() {
+		return manager_;
 	}
 }

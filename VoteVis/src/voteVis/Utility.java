@@ -34,4 +34,10 @@ public class Utility {
 		
 		return graphics;
 	}
+	
+	// takes a unit width of a box (its side length) and an index, and returns the starting x position
+	// of the box
+	public static int get_aligned_position(int unit_width, int index) {
+		return (unit_width + Settings.BOX_GAP) * index + Settings.BOX_GAP + unit_width / 2;
+	}
 }
