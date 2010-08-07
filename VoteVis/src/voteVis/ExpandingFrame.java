@@ -14,8 +14,8 @@ public abstract class ExpandingFrame extends BoxFrame {
 	private static int EXPAND_TIME = 1500; // time in millis
 	private int action_start_time_;
 	
-	private boolean expanding_;
-	private boolean contracting_;
+	protected boolean expanding_;
+	protected boolean contracting_;
 	
 	public ExpandingFrame(VoteVisApp p_, int max_unit_width_) {
 		super();

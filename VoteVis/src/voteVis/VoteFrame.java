@@ -25,7 +25,7 @@ public class VoteFrame extends BoxFrame {
 		PGraphics graphics = p_.createGraphics(side_dim_, side_dim_, PApplet.JAVA2D);
 		
 		graphics.beginDraw();
-		graphics.background(p_.settings().get_vote_box_color_for_type(type_));
+		graphics.background(Settings.instance().get_vote_box_color_for_type(type_));
 		graphics.endDraw();
 		
 		frame_image_ = graphics;

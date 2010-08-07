@@ -3,9 +3,11 @@ package voteVis;
 import processing.core.*;
 
 public class Utility {
+	private static Utility instance_;
 	private VoteVisApp p_;
 
 	public Utility(VoteVisApp p_) {
+		instance_ = this;
 		this.p_ = p_;
 	}
 	
@@ -39,5 +41,9 @@ public class Utility {
 	// of the box
 	public static int get_aligned_position(int unit_width, int index) {
 		return (unit_width + Settings.BOX_GAP) * index + Settings.BOX_GAP + unit_width / 2;
+	}
+	
+	public static Utility instance() {
+		return instance_;
 	}
 }

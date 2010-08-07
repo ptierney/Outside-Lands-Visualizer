@@ -3,6 +3,7 @@ package voteVis;
 import processing.core.*;
 
 public class Settings {
+	private static Settings instance_;
 	private VoteVisApp p_;
 	
 	public static int UNIT_DIM = 150;
@@ -32,13 +33,15 @@ public class Settings {
 	public static int VOTE_BOX_FONT_SIZE = 18;
 	
 	private PFont profile_box_font_;
-	public static int PROFILE_BOX_FONT_SIZE = 30;
+	public static int PROFILE_BOX_FONT_SIZE = 100;
 	
 	private PFont[] trend_box_fonts_;
 	private int[] trend_box_font_sizes_;
 	
 	public Settings(VoteVisApp p_) {
 		this.p_ = p_;
+		
+		instance_ = this;
 		
 		music_color_ = p_.color(237, 30, 121);
 		eco_color_ = p_.color(114, 160, 42);
@@ -50,8 +53,8 @@ public class Settings {
 		background_color_ = p_.color(27, 27, 27);
 		
 		// TODO: load this font with processing
-		vote_box_font_ = p_.loadFont("GillSansMT-18.vlw");
-		profile_box_font_ = p_.loadFont("GillSansMT-18.vlw");
+		vote_box_font_ = p_.loadFont("AkzidenzGroteskBE-Bold-48.vlw");
+		profile_box_font_ = p_.loadFont("AkzidenzGroteskBE-Bold-100.vlw");
 		
 		trend_box_font_sizes_ = new int[5];
 		trend_box_font_sizes_[Size.XS.ordinal()] = 14;
@@ -61,11 +64,11 @@ public class Settings {
 		trend_box_font_sizes_[Size.XL.ordinal()] = 30;
 		
 		trend_box_fonts_ = new PFont[5];
-		trend_box_fonts_[Size.XS.ordinal()] = p_.loadFont("GillSansMT-18.vlw");
-		trend_box_fonts_[Size.S.ordinal()] = p_.loadFont("GillSansMT-18.vlw");
-		trend_box_fonts_[Size.M.ordinal()] = p_.loadFont("GillSansMT-18.vlw");
-		trend_box_fonts_[Size.L.ordinal()] = p_.loadFont("GillSansMT-18.vlw");
-		trend_box_fonts_[Size.XL.ordinal()] = p_.loadFont("GillSansMT-18.vlw");
+		trend_box_fonts_[Size.XS.ordinal()] = p_.loadFont("AkzidenzGroteskBE-Bold-48.vlw");
+		trend_box_fonts_[Size.S.ordinal()] = p_.loadFont("AkzidenzGroteskBE-Bold-48.vlw");
+		trend_box_fonts_[Size.M.ordinal()] = p_.loadFont("AkzidenzGroteskBE-Bold-48.vlw");
+		trend_box_fonts_[Size.L.ordinal()] = p_.loadFont("AkzidenzGroteskBE-Bold-48.vlw");
+		trend_box_fonts_[Size.XL.ordinal()] = p_.loadFont("AkzidenzGroteskBE-Bold-48.vlw");
 	}
 	
 	public static int HALF_UNIT_DIM () {
@@ -92,7 +95,7 @@ public class Settings {
 		return vote_box_font_;
 	}
 	
-	public PFont get_profile_box_font() {
+	public PFont profile_box_font() {
 		return profile_box_font_;
 	}
 	
@@ -119,5 +122,9 @@ public class Settings {
 	
 	public PFont get_trend_box_font(Size size) {
 		return trend_box_fonts_[size.ordinal()];
+	}
+	
+	public static Settings instance() {
+		return instance_;
 	}
 }

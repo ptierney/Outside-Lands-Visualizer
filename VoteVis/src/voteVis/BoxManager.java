@@ -10,11 +10,13 @@ import java.util.Iterator;
 // to delete them.
 
 public class BoxManager {
+	private static BoxManager instance_;
 	private VoteVisApp p_;
 	private LinkedHashSet<Box> boxes_; // LinkedHashSet is supposed to maintain order
 	private ArrayList<Box> delete_list_;
 	
 	public BoxManager(VoteVisApp p_) {
+		instance_ = this;
 		this.p_ = p_;
 		
 		boxes_ = new LinkedHashSet<Box>();
@@ -68,6 +70,10 @@ public class BoxManager {
 		}
 		
 		delete_list_.clear();
+	}
+	
+	public static BoxManager instance() {
+		return instance_;
 	}
 	
 }

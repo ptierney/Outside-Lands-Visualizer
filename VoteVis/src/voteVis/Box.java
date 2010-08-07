@@ -4,7 +4,6 @@ import java.util.Iterator;
 
 public abstract class Box {
 	protected VoteVisApp p_;
-	protected Settings settings_;
 	protected float x_;
 	protected float y_;
 	protected boolean falling_;
@@ -14,7 +13,6 @@ public abstract class Box {
 	// TODO: introduce an intro falling speed, and a normal falling speed
 	public Box(VoteVisApp p_, float x_, float y_) {
 		this.p_ = p_;
-		this.settings_ = p_.settings();
 		this.x_ = x_;
 		this.y_ = y_;
 		
@@ -45,7 +43,7 @@ public abstract class Box {
 		default:
 			falling_ = false;
 			if (falling_off_screen_)
-				p_.manager().delete_me(this);
+				BoxManager.instance().delete_me(this);
 			else
 				stopped_falling();
 			break;
@@ -80,7 +78,7 @@ public abstract class Box {
 	// 1 = collision inside 2 * fall_speed
 	// 2 = collision inside 1 * fall_speed
 	int check_collisions() {
-		Iterator<Box> it = p_.manager().boxes().iterator();
+		Iterator<Box> it = BoxManager.instance().boxes().iterator();
 		
 		while (it.hasNext()) {
 			Box b = it.next();

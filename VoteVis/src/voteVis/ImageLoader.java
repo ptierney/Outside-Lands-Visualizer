@@ -3,6 +3,7 @@ package voteVis;
 import processing.core.*;
 
 public class ImageLoader {
+	private static ImageLoader instance_;
 	private VoteVisApp p_;
 
 	private PImage[][] candidate_images_;
@@ -12,6 +13,7 @@ public class ImageLoader {
 	private String[] profile_names_;
 
 	ImageLoader(VoteVisApp p_) {
+		instance_ = this;
 		this.p_ = p_;
 		load_images_and_names();
 		load_profiles();
@@ -121,6 +123,10 @@ public class ImageLoader {
 		profile_images_[3] = p_.loadImage("profile_4-110.png");
 		profile_names_[4] = "Casey Cropper";
 		profile_images_[4] = p_.loadImage("profile_5-110.png");
+	}
+	
+	public static ImageLoader instance() {
+		return instance_;
 	}
 
 }

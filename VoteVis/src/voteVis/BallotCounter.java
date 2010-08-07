@@ -5,11 +5,13 @@ import java.util.HashMap;
 import processing.core.*;
 
 public class BallotCounter {
+	private static BallotCounter instance_;
 	private ArrayList<Ballot> ballots_;
 	private VoteVisApp p_;
 	private PImage stock_profile_;
 	
 	BallotCounter(VoteVisApp p_) {
+		instance_ = this;
 		ballots_ = new ArrayList<Ballot>();
 		this.p_ = p_;
 		stock_profile_ = p_.loadImage(Settings.DEFAULT_PROFILE_IMAGE);
@@ -76,6 +78,10 @@ public class BallotCounter {
 		}
 		
 		return ret_int;
+	}
+	
+	public static BallotCounter instance() {
+		return instance_;
 	}
 	
 	

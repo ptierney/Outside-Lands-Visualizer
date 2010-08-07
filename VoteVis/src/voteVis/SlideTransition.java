@@ -52,6 +52,5 @@ public abstract class SlideTransition extends PaneTransition {
 	}
 
 	abstract void copy_start_into_buffer(int c);
-
 	abstract void copy_end_into_buffer(int c);
 }
