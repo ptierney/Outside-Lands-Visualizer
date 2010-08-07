@@ -2,3 +2,4 @@
 *.exe
 #ignore dia backup files
 *.dia~
+*.applet

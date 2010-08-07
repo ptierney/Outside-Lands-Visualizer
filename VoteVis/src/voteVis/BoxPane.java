@@ -10,6 +10,7 @@ public class BoxPane {
 	private int transition_counter_;
 	private int advance_delay_ = 260; // in frames
 	private int delay_counter_;
+	private boolean advancing_;
 
 	BoxPane(VoteVisApp p_) {
 		this.p_ = p_;
@@ -53,5 +54,9 @@ public class BoxPane {
 
 	public void draw() {
 		pane_transition_.draw();
+	}
+	
+	public void set_advancing(boolean new_advance) {
+		advancing_ = new_advance;
 	}
 }

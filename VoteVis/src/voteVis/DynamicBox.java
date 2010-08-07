@@ -50,5 +50,13 @@ public class DynamicBox extends Box {
 			p_.popMatrix();
 		p_.popMatrix();
 	}
+	
+	public BoxFrame box_frame() {
+		return box_frame_;
+	}
+	
+	public BoxPane box_pane() {
+		return box_pane_;
+	}
 
 }

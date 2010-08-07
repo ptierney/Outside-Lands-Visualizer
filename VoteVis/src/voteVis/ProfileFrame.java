@@ -3,6 +3,7 @@ package voteVis;
 import processing.core.*;
 
 public class ProfileFrame extends ExpandingFrame {
+	private ProfileBox profile_box_;
 	private PImage left_cap_;
 	private PImage right_cap_;
 	private PImage spacer_;
@@ -16,15 +17,21 @@ public class ProfileFrame extends ExpandingFrame {
 	private static int TEXT_DISPLAY_TIME = 2000; // in millis
 	
 	private boolean displaying_text_;
+	private int text_display_counter_;
+	private int text_size_;
+	private static String TEXT_BASE = "'S TOP FIVE";
+	private String text_string_;
 	
-	public ProfileFrame(VoteVisApp p_, int frame_height_) {
+	public ProfileFrame(VoteVisApp p_, ProfileBox box_, int frame_height_) {
 		super(p_, 6); // these expand the entire length of the window
 		
+		profile_box_ = box_;
 		this.frame_height_ = frame_height_;
 		left_graphic_width_ = frame_height_ - RIGHT_GRAPHIC_WIDTH;
 		last_counter_ = 0.0f;
 		spacer_width_ = 0;
 		displaying_text_ = false;
+		determine_text_size();
 		
 		load_media();
 	}
@@ -118,7 +125,8 @@ public class ProfileFrame extends ExpandingFrame {
 	protected void done_expanding() {
 		p_.vote_box_factory().display_top_row();
 		
-		contract_fully();
+		displaying_text_ = true;
+		text_display_counter_ = p_.millis();
 	}
 	
 	private void draw_text() {
@@ -126,6 +134,12 @@ public class ProfileFrame extends ExpandingFrame {
 	}
 	
 	private void update_text_counter() {
-		
+		// check if we're over counter
+		displaying_text_ = false;
+		contract_fully();
+	}
+	
+	private void determine_text_size() {
+		text_string = 
 	}
 }

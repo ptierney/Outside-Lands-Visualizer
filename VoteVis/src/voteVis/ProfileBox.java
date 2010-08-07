@@ -14,10 +14,11 @@ public class ProfileBox extends DynamicBox {
 		this.user_id_ = user_id_;
 		
 		// create BoxFrame
-		box_frame_ = new ProfileFrame(p_, Settings.VOTE_BOX_SIDE_DIM);
+		box_frame_ = new ProfileFrame(p_, this, Settings.VOTE_BOX_SIDE_DIM);
 		
 		box_pane_.add_transition_state(new PhotoState(p_, 
 			p_.utility().scale_to_pane_size(p_.loader().get_dummy_profile_image(),  PROFILE_PANE_SIZE)));
+		box_pane_.add_transition_state(new TextState(p_));
 		box_pane_.load_transition();
 	}
 	
@@ -32,5 +33,9 @@ public class ProfileBox extends DynamicBox {
 	@Override
 	protected void stopped_falling() {
 		expand_fully();
+	}
+	
+	public int user_id() {
+		return user_id_;
 	}
 }
