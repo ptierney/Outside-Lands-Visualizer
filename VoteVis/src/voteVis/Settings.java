@@ -1,5 +1,5 @@
 package voteVis;
-foo bar
+
 import processing.core.*;
 
 public class Settings {
