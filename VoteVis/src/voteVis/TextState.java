@@ -26,7 +26,7 @@ public class TextState extends TransitionState {
 
 		this.state_text_ = state_text_;
 		// rendering with P3D does not look smooth hence JAVA2D
-		state_graphics_ = p_.createGraphics(state_dim_, state_dim_, PApplet.JAVA2D);
+		state_graphics_ = p_.createGraphics(state_dim_, state_dim_, PApplet.P3D);
 		state_graphics_.beginDraw();
 		state_graphics_.background(bg_color); // Assume additive blending for
 												// now

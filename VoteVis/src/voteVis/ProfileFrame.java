@@ -140,6 +140,12 @@ public class ProfileFrame extends ExpandingFrame {
 		displaying_text_ = true;
 		text_display_counter_ = p_.millis();
 	}
+	
+	@Override
+	protected void done_contracting() {
+		// set the pane to start advancing
+		profile_box_.box_pane().set_advancing(true);
+	}
 
 	private void draw_text() {
 		/*
@@ -168,7 +174,8 @@ public class ProfileFrame extends ExpandingFrame {
 				+ TEXT_BASE;
 
 		int size = 2;
-		int max_width = (int) (4.5 * (Settings.UNIT_DIM + Settings.BOX_GAP));
+		int max_width = (int) (4.8 * (Settings.UNIT_DIM + Settings.BOX_GAP));
+		int shadow_offset = 4;
 
 		while (true) {
 			VoteVisApp.instance().textFont(
@@ -183,12 +190,12 @@ public class ProfileFrame extends ExpandingFrame {
 
 		VoteVisApp.instance().textFont(Settings.instance().profile_box_font(),
 				size);
-		float height = VoteVisApp.instance().textAscent() + 3; // add 3 extra
+		float height = VoteVisApp.instance().textAscent() + 3 + shadow_offset; // add 3 extra
 																// pixels for
 																// safety (so
 																// nothing's cut
 																// off)
-		float width = VoteVisApp.instance().textWidth(text_string_);
+		float width = VoteVisApp.instance().textWidth(text_string_) + shadow_offset;
 
 		text_size_ = size;
 
@@ -196,11 +203,12 @@ public class ProfileFrame extends ExpandingFrame {
 				(int) height, PApplet.JAVA2D);
 
 		text_graphics_.beginDraw();
-		text_graphics_.fill(255);
-		text_graphics_.noStroke();
 		text_graphics_.textFont(Settings.instance().profile_box_font(), size);
-		text_graphics_.text(text_string_, 0, height - 1); // leave 1 px margin
-															// at the bottom
+		text_graphics_.noStroke();
+		text_graphics_.fill(27);
+		text_graphics_.text(text_string_, 0, height - 1);
+		text_graphics_.fill(255);
+		text_graphics_.text(text_string_, shadow_offset, height - 1 - shadow_offset); // leave 1 px margin at the bottom
 		text_graphics_.endDraw();
 
 		text_height_ = (int) height;

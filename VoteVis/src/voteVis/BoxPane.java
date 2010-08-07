@@ -16,6 +16,7 @@ public class BoxPane {
 		this.p_ = p_;
 		transition_states_ = new ArrayList<TransitionState>();
 		transition_counter_ = 0;
+		advancing_ = true;
 	}
 	
 	public void add_transition_state(TransitionState state) {
@@ -41,6 +42,9 @@ public class BoxPane {
 	}
 
 	public void update() {
+		if (!advancing_)
+			return;
+		
 		pane_transition_.perform_transition();
 		
 		if (pane_transition_.finished()) {

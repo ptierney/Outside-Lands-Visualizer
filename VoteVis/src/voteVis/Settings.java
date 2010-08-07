@@ -34,6 +34,7 @@ public class Settings {
 	
 	private PFont profile_box_font_;
 	public static int PROFILE_BOX_FONT_SIZE = 100;
+	public static int PROFILE_BOX_SMALL_FONT_SIZE = VOTE_BOX_FONT_SIZE;
 	
 	private PFont[] trend_box_fonts_;
 	private int[] trend_box_font_sizes_;

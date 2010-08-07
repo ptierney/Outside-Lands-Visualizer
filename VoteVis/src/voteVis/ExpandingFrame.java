@@ -35,8 +35,10 @@ public abstract class ExpandingFrame extends BoxFrame {
 			}
 		} else if (contracting_) {
 			set_counter(1.0f - get_counter_from_time());
-			if (counter_ == 0.0f)
+			if (counter_ == 0.0f) {
 				contracting_ = false;
+				done_contracting();
+			}
 		}
 	}
 	
@@ -73,6 +75,10 @@ public abstract class ExpandingFrame extends BoxFrame {
 	
 	// Override this to get done_expanding events
 	protected void done_expanding() {
+		
+	}
+	// Override this to get done_expanding events
+	protected void done_contracting() {
 		
 	}
 }
