@@ -53,13 +53,8 @@ public class VoteVisApp extends PApplet {
 		if (key == ' ') {
 			counter_.add_random_ballot();
 			vote_factory_.make_vote_row(counter_.get_last_ballot());
-		} else if (key == 'a') {
+		} else if (key == '1') {
 			vote_factory_.drop_bottom_row();
-		} else if (key == 'o') {
-			manager_.add_box(new VoteBox(this, Utility.get_aligned_position(Settings.UNIT_DIM, 3), 
-				0, Type.ECO, 0));
-		} else if (key == 'e') {
-			vote_factory_.profile_test.expand_fully();
 		}
 	}
 
@@ -77,5 +72,9 @@ public class VoteVisApp extends PApplet {
 
 	public BoxManager manager() {
 		return manager_;
+	}
+	
+	public VoteBoxFactory vote_box_factory() {
+		return vote_factory_;
 	}
 }

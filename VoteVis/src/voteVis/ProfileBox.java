@@ -28,4 +28,9 @@ public class ProfileBox extends DynamicBox {
 	public void contract_fully() {
 		((ProfileFrame) box_frame_).contract_fully();
 	}
+	
+	@Override
+	protected void stopped_falling() {
+		expand_fully();
+	}
 }

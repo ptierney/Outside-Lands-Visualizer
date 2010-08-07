@@ -56,12 +56,14 @@ public class ProfileFrame extends ExpandingFrame {
 	}
 	
 	private void draw_right_cap() {
-		p_.image(right_cap_, -frame_height_ / 2 + + left_graphic_width_ + spacer_width_, -frame_height_ / 2);
+		p_.image(right_cap_, -frame_height_ / 2 + left_graphic_width_ + spacer_width_, -frame_height_ / 2);
 	}
 	
 	private void draw_spacer() {
-		if (counter_ == 0.0)
+		if (counter_ == 0.0) {
+			spacer_width_ = 0; // make sure for sanity reasons
 			return;
+		}
 		
 		generate_spacer();
 		
@@ -69,7 +71,7 @@ public class ProfileFrame extends ExpandingFrame {
 	}
 	
 	private void generate_spacer() {
-		spacer_width_ = (int)((max_unit_width_ - 1) * Settings.UNIT_DIM * counter_);
+		spacer_width_ = (int)((max_unit_width_ - 1) * (Settings.UNIT_DIM + Settings.BOX_GAP) * counter_ + RIGHT_GRAPHIC_WIDTH);
 		PGraphics spacer = p_.createGraphics(spacer_width_, frame_height_, PApplet.JAVA2D);
 		
 		spacer.beginDraw();
@@ -102,5 +104,11 @@ public class ProfileFrame extends ExpandingFrame {
 		right_graphic.endDraw();
 		
 		right_cap_ = right_graphic;
+	}
+	
+	@Override
+	protected void done_expanding() {
+		p_.vote_box_factory().display_top_row();
+		contract_fully();
 	}
 }

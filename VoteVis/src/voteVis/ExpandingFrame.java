@@ -25,8 +25,10 @@ public abstract class ExpandingFrame extends BoxFrame {
 	protected void update() {
 		if (expanding_) {
 			set_counter(counter_ + EXPAND_SPEED);
-			if (counter_ == 1.0f)
+			if (counter_ == 1.0f) {
 				expanding_ = false;
+				done_expanding();
+			}
 		} else if (contracting_) {
 			set_counter(counter_ - EXPAND_SPEED);
 			if (counter_ == 0.0f)
@@ -45,9 +47,9 @@ public abstract class ExpandingFrame extends BoxFrame {
 	}
 	
 	public void set_counter(float new_counter) {
-		if (new_counter > 1.0)
+		if (new_counter > 1.0f)
 			counter_ = 1.0f;
-		else if (new_counter < 0.0)
+		else if (new_counter < 0.0f)
 			counter_ = 0.0f;
 		else
 			counter_ = new_counter;
@@ -55,5 +57,10 @@ public abstract class ExpandingFrame extends BoxFrame {
 	
 	public float counter() {
 		return counter_;
+	}
+	
+	// Override this to get done_expanding events
+	protected void done_expanding() {
+		
 	}
 }

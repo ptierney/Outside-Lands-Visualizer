@@ -28,6 +28,9 @@ public class DynamicBox extends Box {
 	@Override
 	public void update() {
 		super.update();
+		
+		if (!visible_)
+			return;
 
 		if (falling_ == false)
 			box_pane_.update();
@@ -35,6 +38,9 @@ public class DynamicBox extends Box {
 
 	@Override
 	public void draw() {
+		if (!visible_)
+			return;
+		
 		p_.pushMatrix();
 			p_.translate(x_, y_);
 			box_frame_.draw();
