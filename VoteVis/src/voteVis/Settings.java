@@ -31,6 +31,9 @@ public class Settings {
 	private PFont vote_box_font_;
 	public static int VOTE_BOX_FONT_SIZE = 18;
 	
+	private PFont profile_box_font_;
+	public static int PROFILE_BOX_FONT_SIZE = 30;
+	
 	private PFont[] trend_box_fonts_;
 	private int[] trend_box_font_sizes_;
 	
@@ -48,6 +51,7 @@ public class Settings {
 		
 		// TODO: load this font with processing
 		vote_box_font_ = p_.loadFont("GillSansMT-18.vlw");
+		profile_box_font_ = p_.loadFont("GillSansMT-18.vlw");
 		
 		trend_box_font_sizes_ = new int[5];
 		trend_box_font_sizes_[Size.XS.ordinal()] = 14;
@@ -86,6 +90,10 @@ public class Settings {
 	
 	public PFont get_vote_box_font() {
 		return vote_box_font_;
+	}
+	
+	public PFont get_profile_box_font() {
+		return profile_box_font_;
 	}
 	
 	public int background_color() {

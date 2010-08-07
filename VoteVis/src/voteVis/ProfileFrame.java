@@ -3,7 +3,6 @@ package voteVis;
 import processing.core.*;
 
 public class ProfileFrame extends ExpandingFrame {
-	private VoteVisApp p_;
 	private PImage left_cap_;
 	private PImage right_cap_;
 	private PImage spacer_;
@@ -14,14 +13,18 @@ public class ProfileFrame extends ExpandingFrame {
 	private int left_graphic_width_;
 	private int spacer_width_;
 	
+	private static int TEXT_DISPLAY_TIME = 2000; // in millis
+	
+	private boolean displaying_text_;
+	
 	public ProfileFrame(VoteVisApp p_, int frame_height_) {
-		super(6); // these expand the entire length of the window
+		super(p_, 6); // these expand the entire length of the window
 		
-		this.p_ = p_;
 		this.frame_height_ = frame_height_;
 		left_graphic_width_ = frame_height_ - RIGHT_GRAPHIC_WIDTH;
 		last_counter_ = 0.0f;
 		spacer_width_ = 0;
+		displaying_text_ = false;
 		
 		load_media();
 	}
@@ -49,6 +52,11 @@ public class ProfileFrame extends ExpandingFrame {
 		draw_left_cap();
 		draw_spacer();
 		draw_right_cap();
+		
+		if (displaying_text_) {
+			draw_text();
+			update_text_counter();
+		}
 	}
 	
 	private void draw_left_cap() {
@@ -109,6 +117,15 @@ public class ProfileFrame extends ExpandingFrame {
 	@Override
 	protected void done_expanding() {
 		p_.vote_box_factory().display_top_row();
+		
 		contract_fully();
+	}
+	
+	private void draw_text() {
+		
+	}
+	
+	private void update_text_counter() {
+		
 	}
 }
