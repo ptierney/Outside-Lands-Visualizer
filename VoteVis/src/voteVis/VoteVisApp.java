@@ -44,7 +44,7 @@ public class VoteVisApp extends PApplet {
 		banner_ = loadImage("banner.png");
 		
 		test_box_transition_ = new RotateBoxTransition(Axis.VERTICAL);
-
+		
 		v1 = new VoteBox(this, Utility.get_aligned_position(Settings.UNIT_DIM, 1), 
 				0, Type.MUSIC, 0);
 		v1.set_x(width / 2);
@@ -60,7 +60,6 @@ public class VoteVisApp extends PApplet {
 		
 		test_box_transition_.load_boxes(v1, v2);
 		test_box_transition_.begin_transition();
-		
 	}
 
 	@Override
