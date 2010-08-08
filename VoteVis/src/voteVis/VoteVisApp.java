@@ -24,6 +24,7 @@ public class VoteVisApp extends PApplet {
 		//smooth();
 		
 		instance_ = this;
+		banner_ = loadImage("banner.png");
 
 		// references are stored in static instance_ var
 		@SuppressWarnings("unused")
@@ -44,7 +45,9 @@ public class VoteVisApp extends PApplet {
 		@SuppressWarnings("unused")
 		BillboardFactory billboard_factory_ = new BillboardFactory();
 		
-		banner_ = loadImage("banner.png");
+		// SceneManager will start the cycle
+		@SuppressWarnings("unused")
+		SceneManager scene_manager_ = new SceneManager();
 	}
 
 	@Override
@@ -59,6 +62,8 @@ public class VoteVisApp extends PApplet {
 		BillboardFactory bfact = BillboardFactory.instance();
 		bfact.update();
 		bfact.draw();
+		
+		VoteBoxFactory.instance().update();
 		
 		// required by law to be here
 		image(banner_, 0, 0);
