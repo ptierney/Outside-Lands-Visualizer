@@ -5,12 +5,15 @@ import java.util.Iterator;
 
 import processing.core.*;
 
-public class VoteBoxFactory {
+public class VoteBoxFactory implements BoxListener {
 	private static VoteBoxFactory instance_;
 	private VoteVisApp p_;
 	private static int BOX_STAGGER = Settings.UNIT_DIM;
 	private ArrayList<VoteRow> vote_rows_;
 	private ArrayList<Box> current_row_;
+	private static int CREATE_DELAY = 2000; // in millis;
+	private int create_delay_counter_;
+	private boolean delaying_create_;
 	
 	public ProfileBox profile_test;
 
@@ -18,8 +21,21 @@ public class VoteBoxFactory {
 		instance_ = this;
 		this.p_ = p_;
 		vote_rows_ = new ArrayList<VoteRow>();
+		delaying_create_ = false;
 	}
 	
+	// this is called by the SceneManager when we've transitioned into
+	// a VoteBox scene
+	public void switched_to() {
+		if (vote_rows_.size() != 0) {
+			PApplet.println("Error in VoteBoxFactory switched_to");
+			VoteVisApp.instance().exit();
+		}
+		
+		SceneManager.instance().set_move_boxes(false);
+		
+		make_vote_row(BallotCounter.instance().get_next_ballot());
+	}
 
 	// this make all the boxes at the
 	public void make_vote_row(Ballot ballot) {
@@ -70,6 +86,9 @@ public class VoteBoxFactory {
 		//profile_test = (ProfileBox) profile;
 		
 		vote_rows_.add(new VoteRow(current_row_));
+		
+		if (vote_rows_.size() > 4)
+			vote_rows_.remove(0); // drop the last row
 	}
 	
 	public void drop_bottom_row() {
@@ -121,5 +140,13 @@ public class VoteBoxFactory {
 	
 	public static VoteBoxFactory instance() {
 		return instance_;
+	}
+
+	@Override
+	public void setup_finished(Box box) {
+		// so far only called by ProfileBoxes when they have finished
+		// contracting their frame
+		create_delay_counter_ = VoteVisApp.instance().millis();
+		delaying_create_ = true;
 	}
 }

@@ -14,6 +14,8 @@ public class BoxManager {
 	private VoteVisApp p_;
 	private LinkedHashSet<Box> boxes_; // LinkedHashSet is supposed to maintain order
 	private ArrayList<Box> delete_list_;
+	private static float MOVE_SPEED = 0.01f; // 10 pixels a second
+	private int last_frame_;
 	
 	public BoxManager(VoteVisApp p_) {
 		instance_ = this;
@@ -27,6 +29,20 @@ public class BoxManager {
 		Iterator<Box> it = boxes_.iterator();
 		while (it.hasNext()) {
 			it.next().update();
+		}
+		
+		if (SceneManager.instance().move_boxes())
+			move_boxes();
+		
+		last_frame_ = p_.millis();
+	}
+	
+	private void move_boxes() {
+		float move_amount = MOVE_SPEED * (p_.millis() - last_frame_);
+		
+		Iterator<Box> it = boxes_.iterator();
+		while (it.hasNext()) {
+			it.next().move_down(move_amount);
 		}
 	}
 	

@@ -26,6 +26,8 @@ public abstract class Box {
 	public void update() {
 		if (falling_)
 			update_position();
+		
+		check_off_screen();
 	}
 
 	private void update_position() {
@@ -65,6 +67,10 @@ public abstract class Box {
 
 	void set_y(float y_) {
 		this.y_ = y_;
+	}
+	
+	void move_down(float amount) {
+		y_ += amount;
 	}
 
 	boolean falling() {
@@ -126,6 +132,11 @@ public abstract class Box {
 	// override this to catch stop falling events
 	protected void stopped_falling() {
 		
+	}
+	
+	private void check_off_screen() {
+		if (x_ - get_height() > VoteVisApp.instance().height) 
+			BoxManager.instance().delete_me(this); // TODO: check for all references in other managers
 	}
 
 }

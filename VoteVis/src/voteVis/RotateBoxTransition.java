@@ -5,10 +5,11 @@ import processing.core.*;
 public class RotateBoxTransition extends BoxTransition {
 	private Axis axis_;
 	private float rotate_amount_;
-	private static float ROTATE_SPEED = 0.6f; // maybe make this time based?
+	private static int ROTATE_TIME = 300; // in millis;
 	private int pos_x_;
 	private int pos_y_;
 	private boolean flipped_;
+	private int start_timer_;
 
 	public RotateBoxTransition(Axis axis_, TransitionReceiver tr) {
 		super(tr);
@@ -23,6 +24,7 @@ public class RotateBoxTransition extends BoxTransition {
 		rotate_amount_ = 0;
 		flipped_ = false;
 		transitioning_ = true;
+		start_timer_ = VoteVisApp.instance().millis();
 		
 		pos_x_ = (int) b1.x();
 		pos_y_ = (int) b1.y();
@@ -31,19 +33,25 @@ public class RotateBoxTransition extends BoxTransition {
 	public void update() {
 		if (!transitioning_)
 			return;
-		
-		rotate_amount_ += ROTATE_SPEED;
 	}
 
 	public void draw() {
 		if (!transitioning_)
 			return;
 		
+		PApplet p = VoteVisApp.instance();
+		int time_diff = p.millis() - start_timer_;
+		if (time_diff < ROTATE_TIME / 2)
+			rotate_amount_ = PApplet.map(time_diff, 0, ROTATE_TIME / 2, 0, PApplet.PI / 2); 
+		else 
+			rotate_amount_ = PApplet.map(time_diff, ROTATE_TIME / 2, ROTATE_TIME, 
+				PApplet.TWO_PI - PApplet.PI / 2, PApplet.TWO_PI); 
+		
 		//PApplet.println(VoteVisApp.instance().millis());
 		// this code is all jacked up due to a bug in processing
 		// if we were rendering with OPENGL (which is jerkey)
 		// the texture code word work as normal.
-		PApplet p = VoteVisApp.instance();
+		
 		PGraphics g = p.createGraphics((int)start_width_ * 2, (int)start_height_ * 2, PApplet.P3D);
 		g.beginDraw();
 		g.noStroke();
@@ -111,7 +119,7 @@ public class RotateBoxTransition extends BoxTransition {
 		*/
 		
 		if (rotate_amount_ > PApplet.PI / 2 && !flipped_) {
-			rotate_amount_ = PApplet.TWO_PI - PApplet.PI / 2;
+			//rotate_amount_ = PApplet.TWO_PI - PApplet.PI / 2;
 			flipped_ = true;
 		}
 		

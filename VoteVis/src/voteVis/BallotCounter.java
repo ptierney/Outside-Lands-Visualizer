@@ -9,6 +9,7 @@ public class BallotCounter {
 	private ArrayList<Ballot> ballots_;
 	private VoteVisApp p_;
 	private PImage stock_profile_;
+	private ArrayList<Ballot> recent_ballots_;
 	
 	BallotCounter(VoteVisApp p_) {
 		instance_ = this;
@@ -19,6 +20,31 @@ public class BallotCounter {
 	
 	public ArrayList<Ballot> ballots() {
 		return ballots_;
+	}
+	
+	// use fancy algorithms to determine the next ballot
+	public Ballot get_next_ballot() {
+		// get the most recent ballot if possible
+		if (recent_ballots_.size() != 0) {
+			Ballot b = recent_ballots_.get(0);
+			recent_ballots_.remove(0);
+			return b;
+		}
+		
+		// else get the last
+		return get_newest_least_displayed();
+		
+	}
+	
+	private Ballot get_newest_least_displayed() {
+		Ballot best = ballots_.get(0);
+		UserManager.User u = UserManager.instance().get_user(best.user_id());
+		
+		for (int i = 0; i < ballots_.size(); i++) {
+			Ballot b = ballots_.get(i);
+			
+			if (UserManager.instance().get_user(b.user_id()).display_count()
+		}
 	}
 	
 	public Ballot get_ballot(int index) {

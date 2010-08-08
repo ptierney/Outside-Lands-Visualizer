@@ -162,6 +162,7 @@ public class ProfileFrame extends ExpandingFrame {
 	protected void done_contracting() {
 		// set the pane to start advancing
 		profile_box_.box_pane().set_advancing(true);
+		VoteBoxFactory.instance().setup_finished(profile_box_);
 	}
 
 	private void draw_text() {
