@@ -3,6 +3,7 @@ package voteVis;
 import processing.core.*;
 
 public abstract class BoxTransition {
+	protected TransitionReceiver signal_receiver_;
 	protected Box start_box_;
 	protected Box end_box_;
 	protected PImage start_image_;
@@ -18,8 +19,9 @@ public abstract class BoxTransition {
 	protected float end_height_;
 	protected float h_end_height_;
 	
-	public BoxTransition() {
+	public BoxTransition(TransitionReceiver signal_receiver_) {
 		transitioning_ = false;
+		this.signal_receiver_ = signal_receiver_;
 	}
 	
 	public void load_boxes(Box start_box_, Box end_box_) {

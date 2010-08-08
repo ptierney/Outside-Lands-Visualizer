@@ -30,43 +30,44 @@ public class VoteBoxFactory {
 		
 		v1.set_visible(false);
 		BoxManager.instance().add_box(v1);
-		current_row_.add(v1);
 		
 		Box v2 = new VoteBox(p_, Utility.get_aligned_position(Settings.UNIT_DIM, 2), 
 			0, Type.FOOD, ballot.votes()[Type.FOOD.ordinal()]);
 		
 		v2.set_visible(false);
 		BoxManager.instance().add_box(v2);
-		current_row_.add(v2);
 			
 		Box v3 = new VoteBox(p_, Utility.get_aligned_position(Settings.UNIT_DIM, 3), 
 			0, Type.WINE, ballot.votes()[Type.WINE.ordinal()]);
 		
 		v3.set_visible(false);
 		BoxManager.instance().add_box(v3);
-		current_row_.add(v3);
 
 		Box v4 = new VoteBox(p_, Utility.get_aligned_position(Settings.UNIT_DIM, 4), 
 			0, Type.ECO, ballot.votes()[Type.ECO.ordinal()]);
 		
 		v4.set_visible(false);
 		BoxManager.instance().add_box(v4);
-		current_row_.add(v4);
 		
 		Box v5 = new VoteBox(p_, Utility.get_aligned_position(Settings.UNIT_DIM, 5), 
 			0, Type.ART, ballot.votes()[Type.ART.ordinal()]);
 		
 		v5.set_visible(false);
 		BoxManager.instance().add_box(v5);
-		current_row_.add(v5);
+
 		
 		// this should be drawn on top of the other boxes
 		Box profile = new ProfileBox(p_, Utility.get_aligned_position(Settings.UNIT_DIM, 0),
 			0, 0);
-			
 		BoxManager.instance().add_box(profile);
+		
 		current_row_.add(profile);
-		profile_test = (ProfileBox) profile;
+		current_row_.add(v1);
+		current_row_.add(v2);
+		current_row_.add(v3);
+		current_row_.add(v4);
+		current_row_.add(v5);
+		//profile_test = (ProfileBox) profile;
 		
 		vote_rows_.add(new VoteRow(current_row_));
 	}
@@ -77,6 +78,15 @@ public class VoteBoxFactory {
 		
 		vote_rows_.get(0).drop_row();
 		vote_rows_.remove(0);
+	}
+	
+	public VoteRow pop_bottom_row() {
+		if (vote_rows_.size() == 0)
+			return null;
+		
+		VoteRow row = vote_rows_.get(0);
+		vote_rows_.remove(0);
+		return row;
 	}
 	
 	public void display_top_row() {
@@ -102,6 +112,10 @@ public class VoteBoxFactory {
 			BoxManager.instance().set_all_falling();
 			
 			row_.clear();
+		}
+		
+		ArrayList<Box> row() {
+			return row_;
 		}
 	}
 	

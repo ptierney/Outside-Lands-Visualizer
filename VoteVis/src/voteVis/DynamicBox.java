@@ -7,7 +7,7 @@ public abstract class DynamicBox extends Box {
 	protected int box_color_;
 	protected PImage background_image_;
 	protected BoxPane box_pane_;
-	protected BoxFrame box_frame_;
+	protected BoxFrame box_frame_ = null;
 	
 	public DynamicBox(VoteVisApp p_, float x_, float y_) {
 		super(p_, x_, y_);

@@ -13,7 +13,7 @@ public class VoteVisApp extends PApplet {
 	private PImage banner_;
 	
 	// Testing vars
-	private Box box_, v1, v2;
+	private Box box_;
 	private PFont text_font_;
 	private BoxTransition test_box_transition_;
 
@@ -21,6 +21,7 @@ public class VoteVisApp extends PApplet {
 	public void setup() {
 		size(1024, 768, P3D);
 		background(0);
+		//smooth();
 		
 		instance_ = this;
 
@@ -40,26 +41,10 @@ public class VoteVisApp extends PApplet {
 		@SuppressWarnings("unused")
 		UserManager user_manager_ = new UserManager(this);
 		user_manager_.create_test_user();
+		@SuppressWarnings("unused")
+		BillboardFactory billboard_factory_ = new BillboardFactory();
 		
 		banner_ = loadImage("banner.png");
-		
-		test_box_transition_ = new RotateBoxTransition(Axis.VERTICAL);
-		
-		v1 = new VoteBox(this, Utility.get_aligned_position(Settings.UNIT_DIM, 1), 
-				0, Type.MUSIC, 0);
-		v1.set_x(width / 2);
-		v1.set_y(height / 2);
-		v1.set_falling(false);
-		v1.set_visible(false);
-		v2 = new VoteBox(this, Utility.get_aligned_position(Settings.UNIT_DIM, 2), 
-				0, Type.FOOD, 0);
-		v2.set_x(width / 2);
-		v2.set_y(height / 2);
-		v2.set_visible(false);
-		v2.set_falling(false);
-		
-		test_box_transition_.load_boxes(v1, v2);
-		test_box_transition_.begin_transition();
 	}
 
 	@Override
@@ -71,11 +56,9 @@ public class VoteVisApp extends PApplet {
 		manager.draw_boxes();
 		manager.clean_up();
 		
-		test_box_transition_.update();
-		test_box_transition_.draw();
-		
-		image(v1.get_image(), width / 4, height / 4);
-		image(v2.get_image(), 3 * width / 4, 3 * height / 4);
+		BillboardFactory bfact = BillboardFactory.instance();
+		bfact.update();
+		bfact.draw();
 		
 		// required by law to be here
 		image(banner_, 0, 0);
@@ -88,6 +71,9 @@ public class VoteVisApp extends PApplet {
 			VoteBoxFactory.instance().make_vote_row(BallotCounter.instance().get_last_ballot());
 		} else if (key == '1') {
 			VoteBoxFactory.instance().drop_bottom_row();
+		} else if (key == '2') {
+			BillboardFactory.instance().load_vote_to_top_transition(Type.FOOD);
+			BillboardFactory.instance().begin_transition();
 		}
 	}
 	

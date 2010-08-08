@@ -11,12 +11,15 @@ public class ImageLoader {
 
 	private PImage[] profile_images_;
 	private String[] profile_names_;
+	
+	private PImage[][] billboards_;
 
 	ImageLoader(VoteVisApp p_) {
 		instance_ = this;
 		this.p_ = p_;
 		load_images_and_names();
 		load_profiles();
+		load_billboards();
 	}
 
 	public PImage get_candidate_image(Type type, int index) {
@@ -127,6 +130,22 @@ public class ImageLoader {
 	
 	public static ImageLoader instance() {
 		return instance_;
+	}
+	
+	public PImage[][] billboards() {
+		return billboards_;
+	}
+	
+	// TODO: actually load images
+	private void load_billboards() {
+		billboards_ = new PImage[5][];
+		
+		for (int i = 0; i < 5; ++i) {
+			billboards_[i] = new PImage[24];
+			for (int j = 0; j < 24; ++j) {
+				billboards_[i][j] = p_.loadImage("food-1.png");
+			}
+		}
 	}
 
 }

@@ -45,7 +45,7 @@ public class BoxManager {
 		boxes_.add(box);
 	}
 	
-	public void delet_box(Box box) {
+	public void delete_box(Box box) {
 		boxes_.remove(box);
 	}
 	

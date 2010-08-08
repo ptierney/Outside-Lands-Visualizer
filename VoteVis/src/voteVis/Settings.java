@@ -128,4 +128,11 @@ public class Settings {
 	public static Settings instance() {
 		return instance_;
 	}
+	
+	public PImage get_billboard_image(Type type_, int x_index_, int y_index_) {
+		int index = y_index_ * 6 + x_index_;
+		return Utility.instance().scale_to_pane_size(
+			ImageLoader.instance().billboards()[type_.ordinal()][index],
+			Settings.UNIT_DIM);
+	}
 }
