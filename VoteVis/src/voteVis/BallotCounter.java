@@ -14,8 +14,13 @@ public class BallotCounter {
 	BallotCounter(VoteVisApp p_) {
 		instance_ = this;
 		ballots_ = new ArrayList<Ballot>();
+		recent_ballots_ = new ArrayList<Ballot>();
 		this.p_ = p_;
 		stock_profile_ = p_.loadImage(Settings.DEFAULT_PROFILE_IMAGE);
+		
+		for (int i = 0; i < 20; ++i) {
+			add_random_ballot();
+		}
 	}
 	
 	public ArrayList<Ballot> ballots() {
@@ -24,7 +29,7 @@ public class BallotCounter {
 	
 	// use fancy algorithms to determine the next ballot
 	public Ballot get_next_ballot() {
-		// get the most recent ballot if possible
+		// get the earliest of the recent ballot if possible
 		if (recent_ballots_.size() != 0) {
 			Ballot b = recent_ballots_.get(0);
 			recent_ballots_.remove(0);
@@ -36,6 +41,7 @@ public class BallotCounter {
 		
 	}
 	
+	// fuck I wish I hadn't split things up into Users and Ballots that was retarded
 	private Ballot get_newest_least_displayed() {
 		Ballot best = ballots_.get(0);
 		UserManager.User u = UserManager.instance().get_user(best.user_id());
@@ -43,8 +49,13 @@ public class BallotCounter {
 		for (int i = 0; i < ballots_.size(); i++) {
 			Ballot b = ballots_.get(i);
 			
-			if (UserManager.instance().get_user(b.user_id()).display_count()
+			if (UserManager.instance().get_user(b.user_id()).display_count() < u.display_count()) {
+				best = b;
+				u = UserManager.instance().get_user(best.user_id());
+			}
 		}
+		
+		return best;
 	}
 	
 	public Ballot get_ballot(int index) {
@@ -57,6 +68,7 @@ public class BallotCounter {
 	
 	public void add_ballot(Ballot ballot) {
 		ballots_.add(ballot);
+		recent_ballots_.add(ballot);
 	}
 	
 	// generates a random ballot for testing

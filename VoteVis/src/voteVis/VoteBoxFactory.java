@@ -11,9 +11,14 @@ public class VoteBoxFactory implements BoxListener {
 	private static int BOX_STAGGER = Settings.UNIT_DIM;
 	private ArrayList<VoteRow> vote_rows_;
 	private ArrayList<Box> current_row_;
-	private static int CREATE_DELAY = 2000; // in millis;
+	public static int CREATE_DELAY = 2000; // in millis;
 	private int create_delay_counter_;
 	private boolean delaying_create_;
+	private static int START_SCROLLING_HEIGHT = 4; // start scrolling after the 4th row has been added
+	private static int BEGIN_TRANSITION_COUNT = 6;
+	private int row_count_ = 0; // the number of rows created
+	private VoteRow bottom_stop_row_;
+	private Box bottom_stop_box_; // I use this to determine when to stop
 	
 	public ProfileBox profile_test;
 
@@ -31,6 +36,9 @@ public class VoteBoxFactory implements BoxListener {
 			PApplet.println("Error in VoteBoxFactory switched_to");
 			VoteVisApp.instance().exit();
 		}
+		row_count_ = 0;
+		bottom_stop_box_ = null;
+		bottom_stop_row_ = null;
 		
 		SceneManager.instance().set_move_boxes(false);
 		
@@ -89,6 +97,8 @@ public class VoteBoxFactory implements BoxListener {
 		
 		if (vote_rows_.size() > 4)
 			vote_rows_.remove(0); // drop the last row
+		
+		row_count_++;
 	}
 	
 	public void drop_bottom_row() {
@@ -146,7 +156,37 @@ public class VoteBoxFactory implements BoxListener {
 	public void setup_finished(Box box) {
 		// so far only called by ProfileBoxes when they have finished
 		// contracting their frame
+		if (row_count_ == BEGIN_TRANSITION_COUNT) { // start vana white transition
+			SceneManager.instance().move_from_vote_to_billboard();
+			return;
+		}
+		
 		create_delay_counter_ = VoteVisApp.instance().millis();
 		delaying_create_ = true;
+	}
+	
+	public void update() {
+		if (!delaying_create_) 
+			return; // no need to do anything unless we're waiting to create a new row
+		
+		if (VoteVisApp.instance().millis() - create_delay_counter_ > CREATE_DELAY) {
+			make_vote_row(BallotCounter.instance().get_next_ballot());
+			delaying_create_ = false;
+		}
+		
+		if (row_count_ >= START_SCROLLING_HEIGHT) {
+			SceneManager.instance().set_move_boxes(true);
+		}
+		
+		if (row_count_ == BEGIN_TRANSITION_COUNT - 3) {
+			bottom_stop_row_ = vote_rows_.get(vote_rows_.size() - 1);
+			bottom_stop_box_ = bottom_stop_row_.row().get(1); // skip the profile box that could be weird
+		}
+		
+		if (bottom_stop_box_ != null && 
+			(bottom_stop_box_.y() + bottom_stop_box_.get_height() / 2 + Settings.BOX_GAP * 2 // why the * 2 I don't know it just works 
+			>= VoteVisApp.instance().height)) {
+			SceneManager.instance().set_move_boxes(false);
+		}
 	}
 }
