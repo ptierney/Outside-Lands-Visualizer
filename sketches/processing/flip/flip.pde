@@ -10,7 +10,7 @@ float rotate_amount;
 float seam;
 
 void setup() {
-  size(1024, 768, OPENGL);
+  size(1024, 768, P3D);
   noStroke();
   noFill();
   smooth();
@@ -24,7 +24,7 @@ void setup() {
   state_3.endDraw();
   
   rotate_amount = 0;
-  seam = 0.01;
+  seam = 1;
 }
 
 void draw() {

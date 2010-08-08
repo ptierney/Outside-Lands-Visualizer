@@ -35,6 +35,16 @@ public class VoteFrame extends BoxFrame {
 		p_.image(frame_image_, -side_dim_ / 2, -side_dim_ / 2);
 	}
 	
+	@Override
+	public PImage get_image() {
+		return frame_image_;
+	}
+	
+	@Override
+	public PVector get_image_center() {
+		return new PVector(frame_image_.width / 2, frame_image_.height / 2);
+	}
+	
 	public int get_pane_x() {
 		return 0;
 	}

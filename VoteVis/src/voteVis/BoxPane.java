@@ -60,6 +60,10 @@ public class BoxPane {
 		pane_transition_.draw();
 	}
 	
+	public PImage get_image() {
+		return pane_transition_.get_current_image();
+	}
+	
 	public void set_advancing(boolean new_advance) {
 		advancing_ = new_advance;
 	}

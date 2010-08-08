@@ -3,7 +3,7 @@ package voteVis;
 import java.util.ArrayList;
 import processing.core.*;
 
-public class DynamicBox extends Box {
+public abstract class DynamicBox extends Box {
 	protected int box_color_;
 	protected PImage background_image_;
 	protected BoxPane box_pane_;

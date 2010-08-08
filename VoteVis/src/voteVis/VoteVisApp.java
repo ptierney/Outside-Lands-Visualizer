@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import processing.core.*;
 //import processing.opengl.*;
 //import javax.media.opengl.GL;
+import voteVis.RotateBoxTransition.Axis;
 
 @SuppressWarnings("serial")
 public class VoteVisApp extends PApplet {
@@ -12,8 +13,9 @@ public class VoteVisApp extends PApplet {
 	private PImage banner_;
 	
 	// Testing vars
-	private Box box_;
+	private Box box_, v1, v2;
 	private PFont text_font_;
+	private BoxTransition test_box_transition_;
 
 	@Override
 	public void setup() {
@@ -40,6 +42,25 @@ public class VoteVisApp extends PApplet {
 		user_manager_.create_test_user();
 		
 		banner_ = loadImage("banner.png");
+		
+		test_box_transition_ = new RotateBoxTransition(Axis.VERTICAL);
+
+		v1 = new VoteBox(this, Utility.get_aligned_position(Settings.UNIT_DIM, 1), 
+				0, Type.MUSIC, 0);
+		v1.set_x(width / 2);
+		v1.set_y(height / 2);
+		v1.set_falling(false);
+		v1.set_visible(false);
+		v2 = new VoteBox(this, Utility.get_aligned_position(Settings.UNIT_DIM, 2), 
+				0, Type.FOOD, 0);
+		v2.set_x(width / 2);
+		v2.set_y(height / 2);
+		v2.set_visible(false);
+		v2.set_falling(false);
+		
+		test_box_transition_.load_boxes(v1, v2);
+		test_box_transition_.begin_transition();
+		
 	}
 
 	@Override
@@ -50,6 +71,12 @@ public class VoteVisApp extends PApplet {
 		manager.update_boxes();
 		manager.draw_boxes();
 		manager.clean_up();
+		
+		test_box_transition_.update();
+		test_box_transition_.draw();
+		
+		image(v1.get_image(), width / 4, height / 4);
+		image(v2.get_image(), 3 * width / 4, 3 * height / 4);
 		
 		// required by law to be here
 		image(banner_, 0, 0);

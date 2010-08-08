@@ -71,6 +71,23 @@ public class ProfileFrame extends ExpandingFrame {
 		if (displaying_text_)
 			update_text_counter();
 	}
+	
+	@Override
+	public PImage get_image() {
+		PGraphics render = VoteVisApp.instance().createGraphics(left_graphic_width_ + RIGHT_GRAPHIC_WIDTH, frame_height_, PApplet.JAVA2D);
+		
+		render.beginDraw();
+		render.image(left_cap_, 0, 0);
+		render.image(right_cap_, left_graphic_width_, 0);
+		render.endDraw();
+		
+		return render;
+	}
+	
+	@Override
+	public PVector get_image_center() {
+		return new PVector(frame_height_ / 2, frame_height_ / 2);
+	}
 
 	private void draw_left_cap() {
 		p_.image(left_cap_, -frame_height_ / 2, -frame_height_ / 2);

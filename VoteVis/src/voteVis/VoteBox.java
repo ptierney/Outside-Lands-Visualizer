@@ -17,6 +17,20 @@ public class VoteBox extends DynamicBox {
 		box_frame_ = new VoteFrame(p_, type_);
 	}
 	
+	@Override
+	public PImage get_image() {
+		PGraphics flatten = VoteVisApp.instance().createGraphics(box_frame_.get_width(), box_frame_.get_height(), PApplet.P3D);
+		
+		flatten.beginDraw();
+		flatten.image(box_frame_.get_image(), 0, 0);
+		flatten.translate(box_frame_.get_image_center().x, box_frame_.get_image_center().y);
+		PImage pane_image = box_pane_.get_image();
+		flatten.image(pane_image, -pane_image.width / 2, -pane_image.height / 2);
+		flatten.endDraw();
+		
+		return flatten;
+	}
+	
 	private void set_pane_transition_states() {
 		box_pane_.add_transition_state(get_text_state());
 		box_pane_.add_transition_state(get_photo_state());

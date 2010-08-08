@@ -1,6 +1,7 @@
 package voteVis;
 
 import java.util.Iterator;
+import processing.core.*;
 
 public abstract class Box {
 	protected VoteVisApp p_;
@@ -121,6 +122,7 @@ public abstract class Box {
 	public abstract int get_width();
 	public abstract int get_height();
 	
+	public abstract PImage get_image();
 	// override this to catch stop falling events
 	protected void stopped_falling() {
 		
