@@ -21,6 +21,7 @@ public class BoxManager {
 		ProfileFrame.TEXT_DISPLAY_TIME);
 	
 	private int last_frame_;
+	private float last_move_amount_;
 	
 	public BoxManager(VoteVisApp p_) {
 		instance_ = this;
@@ -43,11 +44,11 @@ public class BoxManager {
 	}
 	
 	private void move_boxes() {
-		float move_amount = MOVE_SPEED * (p_.millis() - last_frame_);
+		last_move_amount_ = MOVE_SPEED * (p_.millis() - last_frame_);
 		
 		Iterator<Box> it = boxes_.iterator();
 		while (it.hasNext()) {
-			it.next().move_down(move_amount);
+			it.next().move_down(last_move_amount_);
 		}
 	}
 	
@@ -95,6 +96,10 @@ public class BoxManager {
 	
 	public static BoxManager instance() {
 		return instance_;
+	}
+	
+	public float last_move_amount() {
+		return last_move_amount_;
 	}
 	
 }

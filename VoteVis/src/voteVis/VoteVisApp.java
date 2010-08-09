@@ -24,13 +24,15 @@ public class VoteVisApp extends PApplet {
 		//smooth();
 		
 		instance_ = this;
-		banner_ = loadImage("banner.png");
+
 
 		// references are stored in static instance_ var
 		@SuppressWarnings("unused")
 		Settings settings_ = new Settings(this);
 		@SuppressWarnings("unused")
 		ImageLoader loader_ = new ImageLoader(this);
+		@SuppressWarnings("unused")
+		BannerDisplay banner_display_ = new BannerDisplay();
 		@SuppressWarnings("unused")
 		Utility utility_ = new Utility(this);
 		@SuppressWarnings("unused")
@@ -65,8 +67,7 @@ public class VoteVisApp extends PApplet {
 		
 		VoteBoxFactory.instance().update();
 		
-		// required by law to be here
-		image(banner_, 0, 0);
+		BannerDisplay.instance().draw();
 	}
 	
 	@Override

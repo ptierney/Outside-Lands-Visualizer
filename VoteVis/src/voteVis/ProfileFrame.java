@@ -7,6 +7,14 @@ public class ProfileFrame extends ExpandingFrame {
 	private PImage left_cap_;
 	private PImage right_cap_;
 	private PImage spacer_;
+	private PImage left_text_background_cap_;
+	private PImage right_text_background_cap_;
+	private PImage text_background_square_;
+	private int text_background_spacer_width_;
+	
+	private static int TEXT_BACKGROUND_HEIGHT = 85;
+	private static int TEXT_OFFSET = -8; // offset in the x dimension
+	
 	private float last_counter_; // used to determine if I need to regenerate
 									// the spacer
 	private int frame_height_;
@@ -65,6 +73,7 @@ public class ProfileFrame extends ExpandingFrame {
 		draw_right_cap();
 
 		if (expanding_ || contracting_ || displaying_text_ ) {
+			draw_text_background();
 			draw_text();
 		}
 		
@@ -115,6 +124,8 @@ public class ProfileFrame extends ExpandingFrame {
 	private void generate_spacer() {
 		spacer_width_ = (int) ((max_unit_width_ - 1)
 				* (Settings.UNIT_DIM + Settings.BOX_GAP) * counter_) + RIGHT_GRAPHIC_WIDTH;
+		
+		text_background_spacer_width_ = (int) (text_graphics_.width * counter_);
 		/*
 		PGraphics spacer = p_.createGraphics(spacer_width_, frame_height_,
 				PApplet.JAVA2D);
@@ -155,6 +166,39 @@ public class ProfileFrame extends ExpandingFrame {
 		right_graphic.endDraw();
 
 		right_cap_ = right_graphic;
+		
+		float text_background_scale = (float)TEXT_BACKGROUND_HEIGHT / (float)ImageLoader.instance().profile_text_background_left.height;
+		
+		PGraphics ltext = p_.createGraphics((int)(text_background_scale * ImageLoader.instance().profile_text_background_left.width), 
+			TEXT_BACKGROUND_HEIGHT, PApplet.JAVA2D);
+		
+		ltext.beginDraw();
+		ltext.scale(text_background_scale);
+		ltext.image(ImageLoader.instance().profile_text_background_left, 0, 0);
+		ltext.endDraw();
+		
+		left_text_background_cap_ = ltext;
+		
+		PGraphics rtext = p_.createGraphics((int)(text_background_scale * ImageLoader.instance().profile_text_background_right.width), 
+				TEXT_BACKGROUND_HEIGHT, PApplet.JAVA2D);
+			
+		rtext.beginDraw();
+		rtext.scale(text_background_scale);
+		rtext.image(ImageLoader.instance().profile_text_background_right, 0, 0);
+		rtext.endDraw();
+			
+		right_text_background_cap_ = rtext;
+		
+		
+		PGraphics ctext = p_.createGraphics((int)(text_background_scale * ImageLoader.instance().profile_text_background_square.width), 
+				TEXT_BACKGROUND_HEIGHT, PApplet.JAVA2D);
+			
+		ctext.beginDraw();
+		ctext.scale(text_background_scale);
+		ctext.image(ImageLoader.instance().profile_text_background_square, 0, 0);
+		ctext.endDraw();
+			
+		text_background_square_ = ctext;
 	}
 
 	@Override
@@ -252,5 +296,13 @@ public class ProfileFrame extends ExpandingFrame {
 				text_buffer_.pixels[j] = text_graphics_.pixels[j];
 			}
 		}
+	}
+	
+	private void draw_text_background() {
+		p_.image(left_text_background_cap_, TEXT_OFFSET + frame_height_ / 2, -TEXT_BACKGROUND_HEIGHT / 2);
+		p_.image(text_background_square_, TEXT_OFFSET + frame_height_ / 2 + left_text_background_cap_.width, 
+			-TEXT_BACKGROUND_HEIGHT / 2, text_background_spacer_width_, TEXT_BACKGROUND_HEIGHT);
+		p_.image(right_text_background_cap_, TEXT_OFFSET + frame_height_ / 2 + left_text_background_cap_.width
+			+ text_background_spacer_width_, -TEXT_BACKGROUND_HEIGHT / 2);
 	}
 }

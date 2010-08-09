@@ -11,7 +11,7 @@ public class VoteBoxFactory implements BoxListener {
 	private static int BOX_STAGGER = Settings.UNIT_DIM;
 	private ArrayList<VoteRow> vote_rows_;
 	private ArrayList<Box> current_row_;
-	public static int CREATE_DELAY = 2000; // in millis;
+	public static int CREATE_DELAY = 250; // in millis;
 	private int create_delay_counter_;
 	private boolean delaying_create_;
 	private static int START_SCROLLING_HEIGHT = 4; // start scrolling after the 4th row has been added
@@ -184,7 +184,8 @@ public class VoteBoxFactory implements BoxListener {
 		}
 		
 		if (bottom_stop_box_ != null && 
-			(bottom_stop_box_.y() + bottom_stop_box_.get_height() / 2 + Settings.BOX_GAP * 2 // why the * 2 I don't know it just works 
+			(bottom_stop_box_.y() + bottom_stop_box_.get_height() / 2 + Settings.BOX_GAP * 2 +  
+				BoxManager.instance().last_move_amount() // gives a better approx
 			>= VoteVisApp.instance().height)) {
 			SceneManager.instance().set_move_boxes(false);
 		}

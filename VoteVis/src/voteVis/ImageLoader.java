@@ -15,6 +15,9 @@ public class ImageLoader {
 	private PImage profile_right_image_;
 	private PImage profile_left_image_;
 	private PImage profile_square_;
+	public PImage profile_text_background_left;
+	public PImage profile_text_background_square;
+	public PImage profile_text_background_right;
 	
 	private PImage[] vote_background_images_;
 	
@@ -25,9 +28,9 @@ public class ImageLoader {
 		this.p_ = p_;
 		load_images_and_names();
 		load_profiles();
-		load_billboards();
 		load_background_images();
 		load_profile_images();
+		load_billboards(); // must be after background images
 	}
 
 	public PImage get_candidate_image(Type type, int index) {
@@ -151,7 +154,7 @@ public class ImageLoader {
 		for (int i = 0; i < 5; ++i) {
 			billboards_[i] = new PImage[24];
 			for (int j = 0; j < 24; ++j) {
-				billboards_[i][j] = p_.loadImage("food-1.png");
+				billboards_[i][j] = vote_background_images_[Type.deserialize(i).ordinal()];
 			}
 		}
 	}
@@ -175,6 +178,10 @@ public class ImageLoader {
 		profile_left_image_ = p_.loadImage("profile-left-background.png");
 		profile_right_image_ = p_.loadImage("profile-right-background.png");
 		profile_square_ = p_.loadImage("profile-square-background.png");
+		
+		profile_text_background_left = p_.loadImage("profile-text-background-left.png");
+		profile_text_background_right = p_.loadImage("profile-text-background-right.png");
+		profile_text_background_square = p_.loadImage("profile-text-background-square.png");
 	}
 	
 	public PImage get_profile_right_image() {
