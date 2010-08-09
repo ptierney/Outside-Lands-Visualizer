@@ -152,7 +152,6 @@ public class VoteBoxFactory implements BoxListener {
 		return instance_;
 	}
 
-	@Override
 	public void setup_finished(Box box) {
 		// so far only called by ProfileBoxes when they have finished
 		// contracting their frame

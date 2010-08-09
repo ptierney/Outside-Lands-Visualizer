@@ -97,7 +97,6 @@ public class BillboardFactory implements TransitionReceiver {
 		
 	}
 
-	@Override
 	public void finished_transition(Box end_box) {
 		end_box.set_visible(true);
 		load_next_box();
