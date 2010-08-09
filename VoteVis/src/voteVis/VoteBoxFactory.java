@@ -14,11 +14,12 @@ public class VoteBoxFactory implements BoxListener {
 	public static int CREATE_DELAY = 250; // in millis;
 	private int create_delay_counter_;
 	private boolean delaying_create_;
-	private static int START_SCROLLING_HEIGHT = 4; // start scrolling after the 4th row has been added
+	private static int START_SCROLLING_HEIGHT = 1; // start scrolling after the 4th row has been added
 	public static int BEGIN_TRANSITION_COUNT = 6;
 	private int row_count_ = 0; // the number of rows created
 	private VoteRow bottom_stop_row_ = null;
 	private Box bottom_stop_box_ = null; // I use this to determine when to stop
+	private boolean stopped_first_row_ = false;
 	
 	public ProfileBox profile_test;
 
@@ -27,6 +28,7 @@ public class VoteBoxFactory implements BoxListener {
 		this.p_ = p_;
 		vote_rows_ = new ArrayList<VoteRow>();
 		delaying_create_ = false;
+		stopped_first_row_ = false;
 	}
 	
 	// this is called by the SceneManager when we've transitioned into
@@ -39,6 +41,7 @@ public class VoteBoxFactory implements BoxListener {
 		row_count_ = 0;
 		bottom_stop_box_ = null;
 		bottom_stop_row_ = null;
+		stopped_first_row_ = false;
 		
 		SceneManager.instance().set_move_speed(MoveSpeed.STOP);
 		
@@ -146,6 +149,18 @@ public class VoteBoxFactory implements BoxListener {
 		ArrayList<Box> row() {
 			return row_;
 		}
+		
+		// stopps the row from falling
+		public void stop_row() {
+			Iterator<Box> it = row_.iterator();
+			while (it.hasNext()) {
+				it.next().set_falling(false);
+			}
+		}
+		
+		public float y() {
+			return row_.get(1).y();
+		}
 	}
 	
 	public static VoteBoxFactory instance() {
@@ -169,10 +184,20 @@ public class VoteBoxFactory implements BoxListener {
 			SceneManager.instance().set_move_speed(MoveSpeed.NORMAL);
 		}
 		
-		if (bottom_stop_box_ != null && 
+		// this has been removed as per lindsay's requests
+		if (false && bottom_stop_box_ != null && 
 			(bottom_stop_box_.y() + bottom_stop_box_.get_height() / 2 + Settings.BOX_GAP - 5 // dunno why the five is here but it works
 			> VoteVisApp.instance().height)) {
 			SceneManager.instance().set_move_speed(MoveSpeed.STOP);
+		}
+		
+		if (!stopped_first_row_) {
+			if (vote_rows_.size() > 0) {
+				if (vote_rows_.get(0).y() > VoteVisApp.instance().height / 3.0) {
+					vote_rows_.get(0).stop_row();
+					stopped_first_row_ = true;
+				}
+			}
 		}
 		
 		if (!delaying_create_) 

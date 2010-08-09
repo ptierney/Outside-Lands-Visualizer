@@ -16,6 +16,8 @@ public class VoteVisApp extends PApplet {
 	private Box box_;
 	private PFont text_font_;
 	private BoxTransition test_box_transition_;
+	
+	private boolean waiting_;
 
 	@Override
 	public void setup() {
@@ -25,7 +27,8 @@ public class VoteVisApp extends PApplet {
 		
 		instance_ = this;
 
-
+		waiting_ = false;
+		
 		// references are stored in static instance_ var
 		@SuppressWarnings("unused")
 		Settings settings_ = new Settings(this);
@@ -54,6 +57,9 @@ public class VoteVisApp extends PApplet {
 
 	@Override
 	public void draw() {
+		if (waiting_)
+			return;
+		
 		background(Settings.instance().background_color());
 
 		BoxManager manager = BoxManager.instance();
@@ -73,8 +79,7 @@ public class VoteVisApp extends PApplet {
 	@Override
 	public void keyPressed() {
 		if (key == ' ') {
-			BallotCounter.instance().add_random_ballot();
-			VoteBoxFactory.instance().make_vote_row(BallotCounter.instance().get_last_ballot());
+			waiting_ = false;
 		} else if (key == '1') {
 			VoteBoxFactory.instance().drop_bottom_row();
 		} else if (key == '2') {

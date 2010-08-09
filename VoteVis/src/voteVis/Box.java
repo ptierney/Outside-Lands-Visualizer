@@ -79,6 +79,9 @@ public abstract class Box {
 
 	void set_falling(boolean falling_) {
 		this.falling_ = falling_;
+		
+		if (!falling_)
+			stopped_falling();
 	}
 
 	// 0 = no collision

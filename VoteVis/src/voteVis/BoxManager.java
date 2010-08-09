@@ -14,11 +14,12 @@ public class BoxManager {
 	private VoteVisApp p_;
 	private LinkedHashSet<Box> boxes_; // LinkedHashSet is supposed to maintain order
 	private ArrayList<Box> delete_list_;
+	private static int MOVE_DELAY = 4000; // this shouldn't need to be here
 	// 0.01f =  10 pixels a second
 	// move one row in the time it takes to show a user photo
 	private static float MOVE_SPEED = (float)(Settings.UNIT_DIM + Settings.BOX_GAP) / 
 		(float)(VoteBoxFactory.CREATE_DELAY + ExpandingFrame.EXPAND_TIME * 2 + 
-		ProfileFrame.TEXT_DISPLAY_TIME);
+		ProfileFrame.TEXT_DISPLAY_TIME + MOVE_DELAY);
 	
 	private int last_frame_;
 	private float last_move_amount_;
