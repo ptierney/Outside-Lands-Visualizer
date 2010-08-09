@@ -51,7 +51,7 @@ public class Settings {
 		art_color_ = p_.color(49, 193, 182);
 		profile_color_ = p_.color(37, 133, 247);
 		
-		background_color_ = p_.color(27, 27, 27);
+		background_color_ = p_.color(0, 0, 0);
 		
 		// TODO: load this font with processing
 		vote_box_font_ = p_.loadFont("AkzidenzGroteskBE-Bold-48.vlw");

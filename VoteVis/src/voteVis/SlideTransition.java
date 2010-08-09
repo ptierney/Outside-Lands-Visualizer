@@ -4,10 +4,8 @@ import processing.core.*;
 
 public abstract class SlideTransition extends PaneTransition {
 	int slide_speed_;
-	int counter_; // goes from 0 to unit_dim (for # of pixels transitioned)
 	PImage transition_buffer_;
 	boolean normal_direction_;
-	int trans_unit_dim_;
 
 	public SlideTransition(VoteVisApp p_) {
 		super(p_);

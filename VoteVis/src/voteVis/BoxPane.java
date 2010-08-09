@@ -19,6 +19,14 @@ public class BoxPane {
 		advancing_ = true;
 	}
 	
+	public PaneTransition pane_transition() {
+		return pane_transition_;
+	}
+	
+	public void advance_random() {
+		delay_counter_ = (int) p_.random(advance_delay_);
+	}
+	
 	public void add_transition_state(TransitionState state) {
 		transition_states_.add(state);
 	}

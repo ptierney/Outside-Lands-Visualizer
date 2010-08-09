@@ -12,11 +12,12 @@ public class ProfileFrame extends ExpandingFrame {
 	private PImage text_background_square_;
 	private int text_background_spacer_width_;
 	
-	private static int TEXT_BACKGROUND_HEIGHT = 85;
+	public static int TEXT_BACKGROUND_HEIGHT = 85;
 	private static int TEXT_OFFSET = -8; // offset in the x dimension
 	
 	private float last_counter_; // used to determine if I need to regenerate
 									// the spacer
+	public static int FRAME_HEIGHT = Settings.UNIT_DIM;
 	private int frame_height_;
 
 	public int RIGHT_GRAPHIC_WIDTH;
@@ -34,11 +35,11 @@ public class ProfileFrame extends ExpandingFrame {
 	private String text_string_;
 	private PImage text_buffer_;
 
-	public ProfileFrame(VoteVisApp p_, ProfileBox box_, int frame_height_) {
+	public ProfileFrame(VoteVisApp p_, ProfileBox box_) {
 		super(p_, 6); // these expand the entire length of the window
 
 		profile_box_ = box_;
-		this.frame_height_ = frame_height_;
+		this.frame_height_ = Settings.UNIT_DIM;
 		left_graphic_width_ = frame_height_ - RIGHT_GRAPHIC_WIDTH;
 		last_counter_ = 0.0f;
 		spacer_width_ = 0;
@@ -139,66 +140,15 @@ public class ProfileFrame extends ExpandingFrame {
 	}
 
 	private void load_media() {
-		PImage left_image = ImageLoader.instance().get_profile_left_image();
-		PImage right_image = ImageLoader.instance().get_profile_right_image();
+		left_cap_ = ImageLoader.instance().profile_left_scaled;
+		right_cap_ = ImageLoader.instance().profile_right_scaled;
+		spacer_ = null; // no longer needed
+		left_text_background_cap_ = ImageLoader.instance().profile_left_text_scaled;
+		text_background_square_ = ImageLoader.instance().profile_square_text_scaled;
+		right_text_background_cap_ = ImageLoader.instance().profile_right_text_scaled;
 		
-		float load_scale = (float)frame_height_ / (float) right_image.height;
-		
-		left_graphic_width_ = (int)(left_image.width * load_scale);
-		
-		PGraphics left_graphic = p_.createGraphics(left_graphic_width_,
-				frame_height_, PApplet.JAVA2D); // assume square for now
-
-		left_graphic.beginDraw();
-		left_graphic.scale(load_scale);
-		left_graphic.image(left_image, 0, 0);
-		left_graphic.endDraw();
-
-		left_cap_ = left_graphic;
-		
-		RIGHT_GRAPHIC_WIDTH = (int)(right_image.width * load_scale);
-		PGraphics right_graphic = p_.createGraphics(RIGHT_GRAPHIC_WIDTH,
-				frame_height_, PApplet.JAVA2D);
-
-		right_graphic.beginDraw();
-		right_graphic.scale(load_scale);
-		right_graphic.image(right_image, 0, 0);
-		right_graphic.endDraw();
-
-		right_cap_ = right_graphic;
-		
-		float text_background_scale = (float)TEXT_BACKGROUND_HEIGHT / (float)ImageLoader.instance().profile_text_background_left.height;
-		
-		PGraphics ltext = p_.createGraphics((int)(text_background_scale * ImageLoader.instance().profile_text_background_left.width), 
-			TEXT_BACKGROUND_HEIGHT, PApplet.JAVA2D);
-		
-		ltext.beginDraw();
-		ltext.scale(text_background_scale);
-		ltext.image(ImageLoader.instance().profile_text_background_left, 0, 0);
-		ltext.endDraw();
-		
-		left_text_background_cap_ = ltext;
-		
-		PGraphics rtext = p_.createGraphics((int)(text_background_scale * ImageLoader.instance().profile_text_background_right.width), 
-				TEXT_BACKGROUND_HEIGHT, PApplet.JAVA2D);
-			
-		rtext.beginDraw();
-		rtext.scale(text_background_scale);
-		rtext.image(ImageLoader.instance().profile_text_background_right, 0, 0);
-		rtext.endDraw();
-			
-		right_text_background_cap_ = rtext;
-		
-		
-		PGraphics ctext = p_.createGraphics((int)(text_background_scale * ImageLoader.instance().profile_text_background_square.width), 
-				TEXT_BACKGROUND_HEIGHT, PApplet.JAVA2D);
-			
-		ctext.beginDraw();
-		ctext.scale(text_background_scale);
-		ctext.image(ImageLoader.instance().profile_text_background_square, 0, 0);
-		ctext.endDraw();
-			
-		text_background_square_ = ctext;
+		RIGHT_GRAPHIC_WIDTH = right_cap_.width;
+		left_graphic_width_ = left_cap_.width;
 	}
 
 	@Override

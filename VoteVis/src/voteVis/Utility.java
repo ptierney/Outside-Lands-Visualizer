@@ -23,15 +23,14 @@ public class Utility {
 		
 		if (pimage.width > pimage.height) {
 			new_width = side_dim;
-			new_height = pimage.height / pimage.width * side_dim;
+			new_height = (float)new_width / (float)pimage.width * (float)pimage.height;
 		} else {
 			new_height = side_dim;
-			new_width = pimage.width / pimage.height * side_dim;
+			new_width = (float)new_height / (float)pimage.height * (float)pimage.width;
 		}
 		
 		graphics.beginDraw();
-		graphics.background(0);
-		graphics.image(pimage, 0, 0, new_width, new_height);
+		graphics.image(pimage, side_dim / 2 - new_width / 2, side_dim / 2 - new_height / 2, new_width, new_height);
 		graphics.endDraw();
 		
 		return graphics;

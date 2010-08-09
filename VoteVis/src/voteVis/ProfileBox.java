@@ -6,19 +6,18 @@ public class ProfileBox extends DynamicBox {
 	private int user_id_;
 	private static int PROFILE_BORDER_SIZE = 30;
 	private static int PROFILE_PANE_SIZE = Settings.UNIT_DIM - PROFILE_BORDER_SIZE;
-	private static int FRAME_HEIGHT = Settings.VOTE_BOX_SIDE_DIM; // MUST BE THE SAME HEIGHT TO COVER STUFF UP
 	
 	public ProfileBox(VoteVisApp p_, float x_, float y_, int user_id_) {
 		super(p_, x_, y_);
 		
 		// use this to get the image and name from a utility class
 		this.user_id_ = user_id_;
-		
+		UserManager.User user = UserManager.instance().get_user(user_id_);
 		// create BoxFrame
-		box_frame_ = new ProfileFrame(p_, this, FRAME_HEIGHT);
+		box_frame_ = new ProfileFrame(p_, this);
 		
 		box_pane_.add_transition_state(new PhotoState(p_, 
-			Utility.instance().scale_to_pane_size(ImageLoader.instance().get_dummy_profile_image(),  PROFILE_PANE_SIZE)));
+			Utility.instance().scale_to_pane_size(user.profile_photo(),  PROFILE_PANE_SIZE)));
 		box_pane_.add_transition_state(new TextState(p_, UserManager.instance().get_user(user_id_).name(), 
 			Settings.instance().profile_color(), ImageLoader.instance().get_profile_square(), 
 			PROFILE_PANE_SIZE, Settings.instance().get_vote_box_font(),

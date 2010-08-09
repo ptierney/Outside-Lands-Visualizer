@@ -17,8 +17,8 @@ public class VoteBoxFactory implements BoxListener {
 	private static int START_SCROLLING_HEIGHT = 4; // start scrolling after the 4th row has been added
 	public static int BEGIN_TRANSITION_COUNT = 6;
 	private int row_count_ = 0; // the number of rows created
-	private VoteRow bottom_stop_row_;
-	private Box bottom_stop_box_; // I use this to determine when to stop
+	private VoteRow bottom_stop_row_ = null;
+	private Box bottom_stop_box_ = null; // I use this to determine when to stop
 	
 	public ProfileBox profile_test;
 
@@ -178,9 +178,15 @@ public class VoteBoxFactory implements BoxListener {
 			SceneManager.instance().set_move_boxes(true);
 		}
 		
-		if (row_count_ == BEGIN_TRANSITION_COUNT - 3) {
+		if (row_count_ == BEGIN_TRANSITION_COUNT - 3 && bottom_stop_row_ == null) {
 			bottom_stop_row_ = vote_rows_.get(vote_rows_.size() - 1);
 			bottom_stop_box_ = bottom_stop_row_.row().get(1); // skip the profile box that could be weird
+		}
+		
+		if (bottom_stop_box_ != null) {
+			PApplet.println(bottom_stop_box_.y());
+			PApplet.println(bottom_stop_box_.y() + bottom_stop_box_.get_height() / 2 + Settings.BOX_GAP * 2 +  
+			BoxManager.instance().last_move_amount()); 
 		}
 		
 		if (bottom_stop_box_ != null && 

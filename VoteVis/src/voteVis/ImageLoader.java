@@ -18,6 +18,11 @@ public class ImageLoader {
 	public PImage profile_text_background_left;
 	public PImage profile_text_background_square;
 	public PImage profile_text_background_right;
+	public PImage profile_left_scaled;
+	public PImage profile_right_scaled;
+	public PImage profile_left_text_scaled;
+	public PImage profile_square_text_scaled;
+	public PImage profile_right_text_scaled;
 	
 	private PImage[] vote_background_images_;
 	
@@ -182,6 +187,67 @@ public class ImageLoader {
 		profile_text_background_left = p_.loadImage("profile-text-background-left.png");
 		profile_text_background_right = p_.loadImage("profile-text-background-right.png");
 		profile_text_background_square = p_.loadImage("profile-text-background-square.png");
+		
+		PImage left_image = profile_left_image_;
+		PImage right_image = profile_right_image_;
+		
+		float load_scale = (float)ProfileFrame.FRAME_HEIGHT / (float) right_image.height;
+		
+		int left_graphic_width_ = (int)(left_image.width * load_scale);
+		
+		PGraphics left_graphic = p_.createGraphics(left_graphic_width_,
+				ProfileFrame.FRAME_HEIGHT, PApplet.JAVA2D); // assume square for now
+
+		left_graphic.beginDraw();
+		left_graphic.scale(load_scale);
+		left_graphic.image(left_image, 0, 0);
+		left_graphic.endDraw();
+
+		profile_left_scaled = left_graphic;
+		
+		int right_graphic_width = (int)(right_image.width * load_scale);
+		PGraphics right_graphic = p_.createGraphics(right_graphic_width,
+				ProfileFrame.FRAME_HEIGHT, PApplet.JAVA2D);
+
+		right_graphic.beginDraw();
+		right_graphic.scale(load_scale);
+		right_graphic.image(right_image, 0, 0);
+		right_graphic.endDraw();
+
+		profile_right_scaled = right_graphic;
+		
+		float text_background_scale = (float)ProfileFrame.TEXT_BACKGROUND_HEIGHT / (float)ImageLoader.instance().profile_text_background_left.height;
+		
+		PGraphics ltext = p_.createGraphics((int)(text_background_scale * ImageLoader.instance().profile_text_background_left.width), 
+				ProfileFrame.TEXT_BACKGROUND_HEIGHT, PApplet.JAVA2D);
+		
+		ltext.beginDraw();
+		ltext.scale(text_background_scale);
+		ltext.image(ImageLoader.instance().profile_text_background_left, 0, 0);
+		ltext.endDraw();
+		
+		profile_left_text_scaled = ltext;
+		
+		PGraphics rtext = p_.createGraphics((int)(text_background_scale * ImageLoader.instance().profile_text_background_right.width), 
+				ProfileFrame.TEXT_BACKGROUND_HEIGHT, PApplet.JAVA2D);
+			
+		rtext.beginDraw();
+		rtext.scale(text_background_scale);
+		rtext.image(ImageLoader.instance().profile_text_background_right, 0, 0);
+		rtext.endDraw();
+			
+		profile_right_text_scaled = rtext;
+		
+		
+		PGraphics ctext = p_.createGraphics((int)(text_background_scale * ImageLoader.instance().profile_text_background_square.width), 
+				ProfileFrame.TEXT_BACKGROUND_HEIGHT, PApplet.JAVA2D);
+			
+		ctext.beginDraw();
+		ctext.scale(text_background_scale);
+		ctext.image(ImageLoader.instance().profile_text_background_square, 0, 0);
+		ctext.endDraw();
+			
+		profile_square_text_scaled = ctext;
 	}
 	
 	public PImage get_profile_right_image() {
