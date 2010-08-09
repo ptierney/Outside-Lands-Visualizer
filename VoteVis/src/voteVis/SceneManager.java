@@ -4,12 +4,12 @@ public class SceneManager {
 	private static SceneManager instance_;
 	// the number rows to display before switching over to the billboard scene
 	private static int NUM_VOTE_ROWS = VoteBoxFactory.BEGIN_TRANSITION_COUNT;
-	private boolean move_boxes_;
+	private MoveSpeed move_speed_;
 	private Type current_type_;
 	
 	public SceneManager() {
 		instance_ = this;
-		move_boxes_ = false;
+		move_speed_ = MoveSpeed.STOP;
 		
 		current_type_ = Type.MUSIC;
 		
@@ -20,12 +20,12 @@ public class SceneManager {
 		VoteBoxFactory.instance().switched_to();
 	}
 	
-	public boolean move_boxes() {
-		return move_boxes_;
+	public MoveSpeed move_speed() {
+		return move_speed_;
 	}
 	
-	public void set_move_boxes(boolean move_boxes_) {
-		this.move_boxes_ = move_boxes_;
+	public void set_move_speed(MoveSpeed speed) {
+		this.move_speed_ = speed;
 	}
 	
 	public static SceneManager instance() {

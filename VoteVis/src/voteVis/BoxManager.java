@@ -37,18 +37,28 @@ public class BoxManager {
 			it.next().update();
 		}
 		
-		if (SceneManager.instance().move_boxes())
-			move_boxes();
+		if (SceneManager.instance().move_speed() == MoveSpeed.NORMAL)
+			move_boxes_normal();
+		else if (SceneManager.instance().move_speed() == MoveSpeed.PIXEL)
+			move_boxes_pixel();
 		
 		last_frame_ = p_.millis();
 	}
 	
-	private void move_boxes() {
+	private void move_boxes_normal() {
 		last_move_amount_ = MOVE_SPEED * (p_.millis() - last_frame_);
 		
+		move_boxes(last_move_amount_);
+	}
+	
+	private void move_boxes_pixel() {
+		move_boxes(1.0f);
+	}
+	
+	private void move_boxes(float amount) {
 		Iterator<Box> it = boxes_.iterator();
 		while (it.hasNext()) {
-			it.next().move_down(last_move_amount_);
+			it.next().move_down(amount);
 		}
 	}
 	

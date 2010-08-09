@@ -35,7 +35,7 @@ public class UserManager {
 	}
 	
 	public void create_test_user() {
-		add_user("Patrick Tierney", "profile-small-tall.png");
+		add_user("Patrick Tierney", "profile_2-110.png");
 	}
 	
 	public class User {

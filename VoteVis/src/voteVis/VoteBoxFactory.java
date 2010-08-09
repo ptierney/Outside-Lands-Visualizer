@@ -40,7 +40,7 @@ public class VoteBoxFactory implements BoxListener {
 		bottom_stop_box_ = null;
 		bottom_stop_row_ = null;
 		
-		SceneManager.instance().set_move_boxes(false);
+		SceneManager.instance().set_move_speed(MoveSpeed.STOP);
 		
 		make_vote_row(BallotCounter.instance().get_next_ballot());
 	}
@@ -166,6 +166,16 @@ public class VoteBoxFactory implements BoxListener {
 	}
 	
 	public void update() {
+		if (row_count_ >= START_SCROLLING_HEIGHT) {
+			SceneManager.instance().set_move_speed(MoveSpeed.NORMAL);
+		}
+		
+		if (bottom_stop_box_ != null && 
+			(bottom_stop_box_.y() + bottom_stop_box_.get_height() / 2 + Settings.BOX_GAP - 5 // dunno why the five is here but it works
+			> VoteVisApp.instance().height)) {
+			SceneManager.instance().set_move_speed(MoveSpeed.STOP);
+		}
+		
 		if (!delaying_create_) 
 			return; // no need to do anything unless we're waiting to create a new row
 		
@@ -174,26 +184,9 @@ public class VoteBoxFactory implements BoxListener {
 			delaying_create_ = false;
 		}
 		
-		if (row_count_ >= START_SCROLLING_HEIGHT) {
-			SceneManager.instance().set_move_boxes(true);
-		}
-		
 		if (row_count_ == BEGIN_TRANSITION_COUNT - 3 && bottom_stop_row_ == null) {
 			bottom_stop_row_ = vote_rows_.get(vote_rows_.size() - 1);
 			bottom_stop_box_ = bottom_stop_row_.row().get(1); // skip the profile box that could be weird
-		}
-		
-		if (bottom_stop_box_ != null) {
-			PApplet.println(bottom_stop_box_.y());
-			PApplet.println(bottom_stop_box_.y() + bottom_stop_box_.get_height() / 2 + Settings.BOX_GAP * 2 +  
-			BoxManager.instance().last_move_amount()); 
-		}
-		
-		if (bottom_stop_box_ != null && 
-			(bottom_stop_box_.y() + bottom_stop_box_.get_height() / 2 + Settings.BOX_GAP * 2 +  
-				BoxManager.instance().last_move_amount() // gives a better approx
-			>= VoteVisApp.instance().height)) {
-			SceneManager.instance().set_move_boxes(false);
 		}
 	}
 }
