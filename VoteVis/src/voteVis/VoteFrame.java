@@ -20,15 +20,8 @@ public class VoteFrame extends BoxFrame {
 		generate_frame();
 	}
 	
-	private void generate_frame() {
-		// maybe this should be loaded from an image instead
-		PGraphics graphics = p_.createGraphics(side_dim_, side_dim_, PApplet.JAVA2D);
-		
-		graphics.beginDraw();
-		graphics.background(Settings.instance().get_vote_box_color_for_type(type_));
-		graphics.endDraw();
-		
-		frame_image_ = graphics;
+	private void generate_frame() {		
+		frame_image_ = ImageLoader.instance().get_vote_background(type_);
 	}
 	
 	public void draw() {

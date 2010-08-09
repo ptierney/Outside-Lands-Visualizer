@@ -15,7 +15,7 @@ public class VoteBoxFactory implements BoxListener {
 	private int create_delay_counter_;
 	private boolean delaying_create_;
 	private static int START_SCROLLING_HEIGHT = 4; // start scrolling after the 4th row has been added
-	private static int BEGIN_TRANSITION_COUNT = 6;
+	public static int BEGIN_TRANSITION_COUNT = 6;
 	private int row_count_ = 0; // the number of rows created
 	private VoteRow bottom_stop_row_;
 	private Box bottom_stop_box_; // I use this to determine when to stop

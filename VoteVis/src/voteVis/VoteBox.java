@@ -36,9 +36,9 @@ public class VoteBox extends DynamicBox {
 		box_pane_.add_transition_state(get_photo_state());
 	}
 	
-	private TextState get_text_state() {
+	private TransitionState get_text_state() {
 		return new TextState(p_, ImageLoader.instance().get_candidate_name(type_, index_),
-			Settings.instance().get_vote_box_color_for_type(type_),
+			p_.color(1, 0), Utility.instance().scale_to_vote_pane_size(ImageLoader.instance().get_vote_background(type_)),
 			Settings.VOTE_PANE_DIM, Settings.instance().get_vote_box_font(), 
 			Settings.VOTE_BOX_FONT_SIZE);
 	}

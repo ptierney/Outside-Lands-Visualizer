@@ -12,7 +12,7 @@ public class TextState extends TransitionState {
 	int text_size_;
 
 	// Use color(0, 0) for just text no background
-	TextState(VoteVisApp p_, String state_text_, int bg_color, int state_dim_,
+	TextState(VoteVisApp p_, String state_text_, int bg_color, PImage background_image, int state_dim_,
 		PFont text_font_, int text_size_) {
 		super(p_, state_dim_);
 
@@ -28,8 +28,11 @@ public class TextState extends TransitionState {
 		// rendering with P3D does not look smooth hence JAVA2D
 		state_graphics_ = p_.createGraphics(state_dim_, state_dim_, PApplet.P3D);
 		state_graphics_.beginDraw();
+		//state_graphics_.smooth();
 		state_graphics_.background(bg_color); // Assume additive blending for
 												// now
+		if (background_image != null)
+			state_graphics_.image(background_image, 0, 0);
 		state_graphics_.noStroke();
 		state_graphics_.fill(255);
 		state_graphics_.textFont(text_font_, text_size_);

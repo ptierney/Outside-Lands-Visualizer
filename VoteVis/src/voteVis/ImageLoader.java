@@ -12,6 +12,12 @@ public class ImageLoader {
 	private PImage[] profile_images_;
 	private String[] profile_names_;
 	
+	private PImage profile_right_image_;
+	private PImage profile_left_image_;
+	private PImage profile_square_;
+	
+	private PImage[] vote_background_images_;
+	
 	private PImage[][] billboards_;
 
 	ImageLoader(VoteVisApp p_) {
@@ -20,6 +26,8 @@ public class ImageLoader {
 		load_images_and_names();
 		load_profiles();
 		load_billboards();
+		load_background_images();
+		load_profile_images();
 	}
 
 	public PImage get_candidate_image(Type type, int index) {
@@ -146,6 +154,39 @@ public class ImageLoader {
 				billboards_[i][j] = p_.loadImage("food-1.png");
 			}
 		}
+	}
+	
+	private void load_background_images() {
+		vote_background_images_ = new PImage[5];
+		
+		vote_background_images_[Type.MUSIC.ordinal()] = p_.loadImage("music-background.png");
+		vote_background_images_[Type.FOOD.ordinal()] = p_.loadImage("food-background.png");
+		vote_background_images_[Type.ECO.ordinal()] = p_.loadImage("eco-background.png");
+		vote_background_images_[Type.WINE.ordinal()] = p_.loadImage("wine-background.png");
+		vote_background_images_[Type.ART.ordinal()] = p_.loadImage("art-background.png");
+	}
+	
+	public PImage get_vote_background(Type type) {
+		return Utility.instance().scale_to_pane_size(
+			vote_background_images_[type.ordinal()], Settings.UNIT_DIM);
+	}
+	
+	public void load_profile_images() {
+		profile_left_image_ = p_.loadImage("profile-left-background.png");
+		profile_right_image_ = p_.loadImage("profile-right-background.png");
+		profile_square_ = p_.loadImage("profile-square-background.png");
+	}
+	
+	public PImage get_profile_right_image() {
+		return profile_right_image_;
+	}
+	
+	public PImage get_profile_left_image() {
+		return profile_left_image_;
+	}
+	
+	public PImage get_profile_square() {
+		return profile_square_;
 	}
 
 }

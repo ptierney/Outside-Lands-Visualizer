@@ -11,7 +11,7 @@ public class ProfileFrame extends ExpandingFrame {
 									// the spacer
 	private int frame_height_;
 
-	private static int RIGHT_GRAPHIC_WIDTH = 10;
+	public int RIGHT_GRAPHIC_WIDTH;
 	private int left_graphic_width_;
 	private int spacer_width_;
 
@@ -59,9 +59,9 @@ public class ProfileFrame extends ExpandingFrame {
 	@Override
 	public void draw() {
 		update();
-
-		draw_left_cap();
+		
 		draw_spacer();
+		draw_left_cap();
 		draw_right_cap();
 
 		if (expanding_ || contracting_ || displaying_text_ ) {
@@ -90,7 +90,8 @@ public class ProfileFrame extends ExpandingFrame {
 	}
 
 	private void draw_left_cap() {
-		p_.image(left_cap_, -frame_height_ / 2, -frame_height_ / 2);
+		p_.image(left_cap_, -frame_height_ / 2, -frame_height_ / 2, left_graphic_width_ + spacer_width_,
+			frame_height_);
 	}
 
 	private void draw_right_cap() {
@@ -105,14 +106,16 @@ public class ProfileFrame extends ExpandingFrame {
 		}
 
 		generate_spacer();
-
+		/*
 		p_.image(spacer_, -frame_height_ / 2 + left_graphic_width_,
 				-frame_height_ / 2);
+		*/
 	}
 
 	private void generate_spacer() {
 		spacer_width_ = (int) ((max_unit_width_ - 1)
-				* (Settings.UNIT_DIM + Settings.BOX_GAP) * counter_ + RIGHT_GRAPHIC_WIDTH);
+				* (Settings.UNIT_DIM + Settings.BOX_GAP) * counter_) + RIGHT_GRAPHIC_WIDTH;
+		/*
 		PGraphics spacer = p_.createGraphics(spacer_width_, frame_height_,
 				PApplet.JAVA2D);
 
@@ -121,30 +124,34 @@ public class ProfileFrame extends ExpandingFrame {
 		spacer.endDraw();
 
 		spacer_ = spacer;
+		*/
 	}
 
 	private void load_media() {
+		PImage left_image = ImageLoader.instance().get_profile_left_image();
+		PImage right_image = ImageLoader.instance().get_profile_right_image();
+		
+		float load_scale = (float)frame_height_ / (float) right_image.height;
+		
+		left_graphic_width_ = (int)(left_image.width * load_scale);
+		
 		PGraphics left_graphic = p_.createGraphics(left_graphic_width_,
 				frame_height_, PApplet.JAVA2D); // assume square for now
 
 		left_graphic.beginDraw();
-		left_graphic.background(Settings.instance().profile_color());
+		left_graphic.scale(load_scale);
+		left_graphic.image(left_image, 0, 0);
 		left_graphic.endDraw();
 
 		left_cap_ = left_graphic;
-
+		
+		RIGHT_GRAPHIC_WIDTH = (int)(right_image.width * load_scale);
 		PGraphics right_graphic = p_.createGraphics(RIGHT_GRAPHIC_WIDTH,
 				frame_height_, PApplet.JAVA2D);
 
 		right_graphic.beginDraw();
-		right_graphic.smooth();
-		right_graphic.noStroke();
-		right_graphic.fill(Settings.instance().profile_color());
-		right_graphic.beginShape();
-		right_graphic.vertex(0, 0);
-		right_graphic.vertex(RIGHT_GRAPHIC_WIDTH, frame_height_ / 2);
-		right_graphic.vertex(0, frame_height_);
-		right_graphic.endShape(PApplet.CLOSE);
+		right_graphic.scale(load_scale);
+		right_graphic.image(right_image, 0, 0);
 		right_graphic.endDraw();
 
 		right_cap_ = right_graphic;
@@ -221,6 +228,7 @@ public class ProfileFrame extends ExpandingFrame {
 				(int) height, PApplet.JAVA2D);
 
 		text_graphics_.beginDraw();
+		text_graphics_.smooth();
 		text_graphics_.textFont(Settings.instance().profile_box_font(), size);
 		text_graphics_.noStroke();
 		text_graphics_.fill(27);

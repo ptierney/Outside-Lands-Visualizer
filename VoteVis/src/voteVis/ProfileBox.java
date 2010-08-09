@@ -4,7 +4,7 @@ import processing.core.*;
 
 public class ProfileBox extends DynamicBox {
 	private int user_id_;
-	private static int PROFILE_BORDER_SIZE = 40;
+	private static int PROFILE_BORDER_SIZE = 30;
 	private static int PROFILE_PANE_SIZE = Settings.UNIT_DIM - PROFILE_BORDER_SIZE;
 	
 	public ProfileBox(VoteVisApp p_, float x_, float y_, int user_id_) {
@@ -19,7 +19,8 @@ public class ProfileBox extends DynamicBox {
 		box_pane_.add_transition_state(new PhotoState(p_, 
 			Utility.instance().scale_to_pane_size(ImageLoader.instance().get_dummy_profile_image(),  PROFILE_PANE_SIZE)));
 		box_pane_.add_transition_state(new TextState(p_, UserManager.instance().get_user(user_id_).name(), 
-			Settings.instance().profile_color(), PROFILE_PANE_SIZE, Settings.instance().get_vote_box_font(),
+			Settings.instance().profile_color(), ImageLoader.instance().get_profile_square(), 
+			PROFILE_PANE_SIZE, Settings.instance().get_vote_box_font(),
 			Settings.PROFILE_BOX_SMALL_FONT_SIZE));
 		box_pane_.load_transition();
 		box_pane_.set_advancing(false);
