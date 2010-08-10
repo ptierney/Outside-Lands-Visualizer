@@ -24,7 +24,7 @@ public class ProfileFrame extends ExpandingFrame {
 	private int left_graphic_width_;
 	private int spacer_width_;
 
-	public static int TEXT_DISPLAY_TIME = 2000; // in millis
+	public static int TEXT_DISPLAY_TIME = 1250; // in millis
 
 	private boolean displaying_text_;
 	private int text_display_counter_;

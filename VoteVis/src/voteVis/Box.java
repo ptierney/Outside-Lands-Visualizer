@@ -11,7 +11,10 @@ public abstract class Box {
 	protected float lower_bound_; // the ground plane it should look for intersections
 	protected boolean falling_off_screen_;
 	protected boolean visible_;
-	// TODO: introduce an intro falling speed, and a normal falling speed
+	protected float last_fall_speed_;
+	protected Box colliding_box_ = null; // the box this is supposed to collide with
+	protected Box left_driving_box_ = null; // the box to the left of this 
+	
 	public Box(VoteVisApp p_, float x_, float y_) {
 		this.p_ = p_;
 		this.x_ = x_;
@@ -21,21 +24,39 @@ public abstract class Box {
 		lower_bound_ = p_.height;
 		falling_off_screen_ = false;
 		visible_ = true;
+		last_fall_speed_ = 0.0f;
 	}
-
+	
+	public boolean being_driven() {
+		return left_driving_box_ != null;
+	}
+	
+	public void set_colliding_box(Box b) {
+		colliding_box_ = b;
+	}
+	
+	public void set_left_driving_box(Box b) {
+		left_driving_box_ = b;
+	}
+	
 	public void update() {
-		if (falling_)
+		if (left_driving_box_ != null) {
+			x_ = left_driving_box_.x() + left_driving_box_.get_width() / 2 + Settings.BOX_GAP + get_width() / 2;
+			y_ = left_driving_box_.y();
+		} else if (falling_)
 			update_position();
 		
 		check_off_screen();
 	}
-
+	
 	private void update_position() {
 		int collision_result = check_collisions();
 
 		switch (collision_result) {
 		case 0:
-			y_ += Settings.FALL_SPEED;
+			last_fall_speed_ = Settings.FALL_SPEED * 
+				(VoteVisApp.instance().millis() - VoteVisApp.instance().last_frame());
+			y_ += last_fall_speed_;
 			break;
 
 		case 1:
@@ -98,15 +119,17 @@ public abstract class Box {
 
 			if (b.is_inside(x_, y_ + get_height() / 2 + Settings.BOX_GAP))
 				return 2;
-			else if (b.is_inside(x_, y_ + get_height() / 2 + Settings.FALL_SPEED * 2))
+			else if (b.is_inside(x_, (int)(y_ + get_height() / 2 + last_fall_speed_ * 1.5)))
 				return 1;
 		}
 
+		/*
 		// check a collision against the bottom of the screen
 		if (y_ + get_height() / 2 + Settings.BOX_GAP >= lower_bound_)
 			return 2;
-		else if (y_ + get_height() / 2 + Settings.FALL_SPEED * 2 >= lower_bound_)
+		else if (y_ + get_height() / 2 + last_fall_speed_ * 1.5 >= lower_bound_)
 			return 1;
+		*/
 
 		return 0;
 	}
@@ -134,7 +157,10 @@ public abstract class Box {
 	public abstract PImage get_image();
 	// override this to catch stop falling events
 	protected void stopped_falling() {
-		
+		if (colliding_box_ != null) {
+			x_ = colliding_box_.x();
+			y_ = colliding_box_.y() - colliding_box_.get_height() / 2 + Settings.BOX_GAP + get_height() / 2;
+		}
 	}
 	
 	private void check_off_screen() {

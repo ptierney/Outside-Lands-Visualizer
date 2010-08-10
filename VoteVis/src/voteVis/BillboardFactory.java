@@ -44,8 +44,10 @@ public class BillboardFactory implements TransitionReceiver {
 		ArrayList<Box> start_boxes_ = new ArrayList<Box>();
 		ArrayList<Box> end_boxes_ = new ArrayList<Box>();
 		
+		VoteBoxFactory.VoteRow[] transition_rows = VoteBoxFactory.instance().get_transition_rows();
+		
 		for (int i = 0; i < 4; ++i) {
-			VoteBoxFactory.VoteRow row = VoteBoxFactory.instance().pop_bottom_row();
+			VoteBoxFactory.VoteRow row = transition_rows[i];
 			
 			if (i % 2 == 0) {
 				for (int j = 0; j < 6; ++j) {

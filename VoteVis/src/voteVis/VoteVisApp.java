@@ -16,6 +16,7 @@ public class VoteVisApp extends PApplet {
 	private Box box_;
 	private PFont text_font_;
 	private BoxTransition test_box_transition_;
+	private int last_frame_;
 	
 	private boolean waiting_;
 
@@ -28,6 +29,7 @@ public class VoteVisApp extends PApplet {
 		instance_ = this;
 
 		waiting_ = false;
+
 		
 		// references are stored in static instance_ var
 		@SuppressWarnings("unused")
@@ -53,6 +55,8 @@ public class VoteVisApp extends PApplet {
 		// SceneManager will start the cycle
 		@SuppressWarnings("unused")
 		SceneManager scene_manager_ = new SceneManager();
+		
+		last_frame_ = millis();
 	}
 
 	@Override
@@ -74,6 +78,8 @@ public class VoteVisApp extends PApplet {
 		VoteBoxFactory.instance().update();
 		
 		BannerDisplay.instance().draw();
+		
+		last_frame_ = millis();
 	}
 	
 	@Override
@@ -90,5 +96,9 @@ public class VoteVisApp extends PApplet {
 	
 	public static VoteVisApp instance() {
 		return instance_;
+	}
+	
+	public int last_frame() {
+		return last_frame_;
 	}
 }
