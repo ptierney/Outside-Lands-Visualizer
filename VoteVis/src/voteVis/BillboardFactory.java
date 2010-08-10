@@ -16,6 +16,8 @@ public class BillboardFactory implements TransitionReceiver {
 	private Box current_start_box_;
 	private Box current_end_box_;
 	
+	private Type current_type_;
+	
 	private boolean transitioning_;
 	
 	public BillboardFactory() {
@@ -70,6 +72,8 @@ public class BillboardFactory implements TransitionReceiver {
 			}
 		}
 		
+		current_type_ = type_;
+		
 		load_boxes(start_boxes_, end_boxes_);
 	}
 	
@@ -90,7 +94,7 @@ public class BillboardFactory implements TransitionReceiver {
 	private void load_next_box() {
 		if (start_boxes_.size() == 0) {
 			transitioning_ = false;
-			// issue callback to start next trend
+			SceneManager.instance().finished_billboard(current_type_);
 			return;
 		}
 		
@@ -101,7 +105,6 @@ public class BillboardFactory implements TransitionReceiver {
 		end_boxes_.get(0).set_ignore_collisions(false);
 		start_boxes_.remove(0);
 		end_boxes_.remove(0);
-		
 	}
 
 	public void finished_transition(Box end_box) {

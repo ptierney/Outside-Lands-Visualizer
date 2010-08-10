@@ -37,15 +37,25 @@ public class SceneManager {
 		BillboardFactory.instance().begin_transition();
 	}
 	
-	public void move_from_billboard_to_trend() {
-		
+	private void move_from_billboard_to_trend() {
+		// while the billboards are transitioning, 
+		// VoteBoxFactory is still "active". Elements are being shown
+		VoteBoxFactory.instance().switching_from();
+		TrendFactory.instance().switched_to(current_type_);
 	}
 	
-	public void move_from_trend_to_vote() {
-		
-		
-		
+	private void move_from_trend_to_vote() {
 		increment_type();
+		start_cycle();
+	}
+	
+	// called when the billboards of type have been created
+	public void finished_billboard(Type type) {
+		move_from_billboard_to_trend();
+	}
+	
+	public void finished_trend() {
+		move_from_trend_to_vote();	
 	}
 	
 	private void increment_type() {

@@ -70,8 +70,15 @@ public class VoteBoxFactory implements BoxListener {
 		next_vote_row();
 	}
 	
+	// make sure you're not holding onto any references
 	public void switching_from() {
 		vote_row_buffer_.clear();
+		vote_rows_.clear();
+		current_row_.clear();
+		current_vote_row_ = null;
+		bottom_stop_row_ = null;
+		bottom_stop_box_ = null;
+		transition_check_box_ = null;
 	}
 	
 	public void next_vote_row() {
