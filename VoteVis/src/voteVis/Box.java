@@ -54,9 +54,7 @@ public abstract class Box {
 
 		switch (collision_result) {
 		case 0:
-			last_fall_speed_ = Settings.FALL_SPEED * 
-				(VoteVisApp.instance().millis() - VoteVisApp.instance().last_frame());
-			y_ += last_fall_speed_;
+			y_ += BoxManager.instance().current_fall_speed();
 			break;
 
 		case 1:
@@ -119,7 +117,7 @@ public abstract class Box {
 
 			if (b.is_inside(x_, y_ + get_height() / 2 + Settings.BOX_GAP))
 				return 2;
-			else if (b.is_inside(x_, (int)(y_ + get_height() / 2 + last_fall_speed_ * 1.5)))
+			else if (b.is_inside(x_, (int)(y_ + get_height() / 2 + last_fall_speed_ * 2.0)))
 				return 1;
 		}
 
@@ -158,8 +156,14 @@ public abstract class Box {
 	// override this to catch stop falling events
 	protected void stopped_falling() {
 		if (colliding_box_ != null) {
-			x_ = colliding_box_.x();
-			y_ = colliding_box_.y() - colliding_box_.get_height() / 2 + Settings.BOX_GAP + get_height() / 2;
+			
+			//PApplet.print("Colliding box y: ");
+			//PApplet.println(colliding_box_.y());
+			//x_ = colliding_box_.x();
+			y_ = colliding_box_.y() - colliding_box_.get_height() / 2 - Settings.BOX_GAP - get_height() / 2;
+			//y_ = colliding_box_.y() - Settings.UNIT_DIM - Settings.BOX_GAP;
+			//PApplet.print("This box y: ");
+			//PApplet.println(y_);
 		}
 	}
 	

@@ -18,7 +18,7 @@ public class VoteBoxFactory implements BoxListener {
 	private boolean delaying_create_;
 	private static int START_SCROLLING_HEIGHT = 1; // start scrolling after the n'th row has been added
 	public static int BEGIN_TRANSITION_COUNT = 5; // only show this many boxes before transitioning
-	private static int TRANSITION_START_HEIGHT = 550; // in px
+	private static int TRANSITION_START_HEIGHT = 500; // in px
 	private int row_count_ = 0; // the number of rows created
 	private VoteRow bottom_stop_row_ = null;
 	private Box bottom_stop_box_ = null; // I use this to determine when to stop
@@ -59,8 +59,9 @@ public class VoteBoxFactory implements BoxListener {
 		// all the tiles for a flip transition at once
 		for (int i = 0; i < BEGIN_TRANSITION_COUNT; ++i) {
 			vote_row_buffer_.add(make_vote_row(BallotCounter.instance().get_next_ballot()));
+			//vote_row_buffer_.get(i).profile_drive_all();
 			if (i > 0) {
-				link_vote_rows(vote_row_buffer_.get(i - 1), vote_row_buffer_.get(i));
+				//link_vote_rows(vote_row_buffer_.get(i - 1), vote_row_buffer_.get(i));
 			}
 		}
 		
@@ -77,6 +78,7 @@ public class VoteBoxFactory implements BoxListener {
 		VoteRow n_row = vote_row_buffer_.get(row_count_);
 		vote_rows_.add(n_row);
 		n_row.add_to_box_manager();
+		n_row.set_all_falling();
 		
 		current_row_ = n_row.row();
 		current_vote_row_ = n_row;
@@ -96,7 +98,7 @@ public class VoteBoxFactory implements BoxListener {
 		
 		Box v2 = new VoteBox(p_, Utility.get_aligned_position(Settings.UNIT_DIM, 2), 
 			0, Type.FOOD, ballot.votes()[Type.FOOD.ordinal()]);
-		
+	
 		v2.set_visible(false);
 		//BoxManager.instance().add_box(v2);
 			
@@ -118,7 +120,6 @@ public class VoteBoxFactory implements BoxListener {
 		v5.set_visible(false);
 		//BoxManager.instance().add_box(v5);
 
-		
 		// this should be drawn on top of the other boxes
 		Box profile = new ProfileBox(p_, Utility.get_aligned_position(Settings.UNIT_DIM, 0),
 			0, 0);
@@ -188,6 +189,13 @@ public class VoteBoxFactory implements BoxListener {
 			}
 		}
 		
+		public void set_all_falling() {
+			Iterator<Box> it = row_.iterator();
+			while (it.hasNext()) {
+				it.next().set_falling(true);
+			}
+		}
+		
 		// add in reverse order for drawing reasons
 		public void add_to_box_manager() {
 			for (int i = row_.size() - 1; i >= 0; --i) {
@@ -204,6 +212,13 @@ public class VoteBoxFactory implements BoxListener {
 			while (it.hasNext()) {
 				it.next().set_y(y_);
 			}	
+		}
+		
+		// links up boxes so the profile box links up all the boxes
+		public void profile_drive_all() {
+			for (int i = 1; i < 6; ++i) {
+				row_.get(i).set_left_driving_box(row_.get(i-1));
+			}
 		}
 	}
 	

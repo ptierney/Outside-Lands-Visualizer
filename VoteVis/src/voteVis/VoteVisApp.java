@@ -68,6 +68,9 @@ public class VoteVisApp extends PApplet {
 
 		BoxManager manager = BoxManager.instance();
 		manager.update_boxes();
+		
+		last_frame_ = millis();
+		
 		manager.draw_boxes();
 		manager.clean_up();
 		
@@ -79,7 +82,7 @@ public class VoteVisApp extends PApplet {
 		
 		BannerDisplay.instance().draw();
 		
-		last_frame_ = millis();
+		
 	}
 	
 	@Override

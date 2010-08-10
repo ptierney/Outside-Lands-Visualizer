@@ -3,6 +3,8 @@ package voteVis;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import processing.core.PApplet;
+
 import voteVis.RotateBoxTransition.Axis;
 
 public class BillboardFactory implements TransitionReceiver {
@@ -88,12 +90,15 @@ public class BillboardFactory implements TransitionReceiver {
 	private void load_next_box() {
 		if (start_boxes_.size() == 0) {
 			transitioning_ = false;
-			// issue callback
+			// issue callback to start next trend
 			return;
 		}
 		
 		box_transition_.load_boxes(start_boxes_.get(0), end_boxes_.get(0));
 		BoxManager.instance().delete_box(start_boxes_.get(0));
+		//PApplet.println(start_boxes_.get(0).y());
+		//PApplet.println(end_boxes_.get(0).y());
+		
 		start_boxes_.remove(0);
 		end_boxes_.remove(0);
 		

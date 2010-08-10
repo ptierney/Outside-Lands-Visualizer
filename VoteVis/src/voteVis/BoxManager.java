@@ -14,14 +14,15 @@ public class BoxManager {
 	private VoteVisApp p_;
 	private LinkedHashSet<Box> boxes_; // LinkedHashSet is supposed to maintain order
 	private ArrayList<Box> delete_list_;
-	private static int MOVE_DELAY = -1800; // this shouldn't need to be here
+	private static int MOVE_DELAY = 600; // this shouldn't need to be here
 	// 0.01f =  10 pixels a second
 	// move one row in the time it takes to show a user photo
 	private static float MOVE_SPEED = (float)(Settings.UNIT_DIM + Settings.BOX_GAP) / 
 		(float)(VoteBoxFactory.CREATE_DELAY + ExpandingFrame.EXPAND_TIME * 2 + 
 		ProfileFrame.TEXT_DISPLAY_TIME + MOVE_DELAY);
 	
-
+	private float last_fall_speed_;
+	private float current_fall_speed_;
 	private float last_move_amount_;
 	
 	public BoxManager(VoteVisApp p_) {
@@ -33,6 +34,9 @@ public class BoxManager {
 	}
 	
 	public void update_boxes() {
+		current_fall_speed_ = Settings.FALL_SPEED * 
+			(VoteVisApp.instance().millis() - VoteVisApp.instance().last_frame());
+		
 		Iterator<Box> it = boxes_.iterator();
 		while (it.hasNext()) {
 			it.next().update();
@@ -42,10 +46,12 @@ public class BoxManager {
 			move_boxes_normal();
 		else if (SceneManager.instance().move_speed() == MoveSpeed.PIXEL)
 			move_boxes_pixel();
+		
+		last_fall_speed_ = current_fall_speed_;
 	}
 	
 	private void move_boxes_normal() {
-		last_move_amount_ = MOVE_SPEED * (p_.millis() - p_.last_frame());
+		last_move_amount_ = MOVE_SPEED * (p_.millis() - VoteVisApp.instance().last_frame());
 		
 		move_boxes(last_move_amount_);
 	}
@@ -54,10 +60,22 @@ public class BoxManager {
 		move_boxes(1.0f);
 	}
 	
+	public float current_fall_speed() {
+		return current_fall_speed_;
+	}
+	
+	public float last_fall_speed() {
+		return last_fall_speed_;
+	}
+	
 	private void move_boxes(float amount) {
 		Iterator<Box> it = boxes_.iterator();
 		while (it.hasNext()) {
-			it.next().move_down(amount);
+			Box b = it.next();
+			if (b.being_driven())
+				continue;
+			
+			b.move_down(amount);
 		}
 	}
 	
