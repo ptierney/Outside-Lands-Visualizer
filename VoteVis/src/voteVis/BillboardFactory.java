@@ -98,7 +98,7 @@ public class BillboardFactory implements TransitionReceiver {
 		BoxManager.instance().delete_box(start_boxes_.get(0));
 		//PApplet.println(start_boxes_.get(0).y());
 		//PApplet.println(end_boxes_.get(0).y());
-		
+		end_boxes_.get(0).set_ignore_collisions(false);
 		start_boxes_.remove(0);
 		end_boxes_.remove(0);
 		

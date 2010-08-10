@@ -14,6 +14,7 @@ public abstract class Box {
 	protected float last_fall_speed_;
 	protected Box colliding_box_ = null; // the box this is supposed to collide with
 	protected Box left_driving_box_ = null; // the box to the left of this 
+	protected boolean ignore_collisions_; // don't intersect with this box
 	
 	public Box(VoteVisApp p_, float x_, float y_) {
 		this.p_ = p_;
@@ -25,6 +26,7 @@ public abstract class Box {
 		falling_off_screen_ = false;
 		visible_ = true;
 		last_fall_speed_ = 0.0f;
+		ignore_collisions_ = false;
 	}
 	
 	public boolean being_driven() {
@@ -37,6 +39,14 @@ public abstract class Box {
 	
 	public void set_left_driving_box(Box b) {
 		left_driving_box_ = b;
+	}
+	
+	public void set_ignore_collisions(boolean i) {
+		ignore_collisions_ = i;
+	}
+	
+	public boolean ignore_collisions() {
+		return ignore_collisions_;
 	}
 	
 	public void update() {
@@ -102,6 +112,10 @@ public abstract class Box {
 		if (!falling_)
 			stopped_falling();
 	}
+	
+	public boolean visible() {
+		return visible_;
+	}
 
 	// 0 = no collision
 	// 1 = collision inside 2 * fall_speed
@@ -113,6 +127,9 @@ public abstract class Box {
 			Box b = it.next();
 			
 			if (b == this)
+				continue;
+			
+			if (b.ignore_collisions())
 				continue;
 
 			if (b.is_inside(x_, y_ + get_height() / 2 + Settings.BOX_GAP))

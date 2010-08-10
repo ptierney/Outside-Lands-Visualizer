@@ -18,6 +18,7 @@ public class BillboardBox extends DynamicBox {
 		falling_ = false;
 		box_pane_.set_advancing(false);
 		visible_ = false;
+		ignore_collisions_ = true;
 		
 		box_pane_.add_transition_state(new PhotoState(VoteVisApp.instance(), 
 			Settings.instance().get_billboard_image(type_, x_index_, y_index_)));

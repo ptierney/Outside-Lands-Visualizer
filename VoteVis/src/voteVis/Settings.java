@@ -9,7 +9,7 @@ public class Settings {
 	public static int UNIT_DIM = 150;
 	public static int VOTE_PANE_DIM = 138;
 	public static int BOX_GAP = 14;
-	public static final float FALL_SPEED = 0.7f;
+	public static final float FALL_SPEED = 0.6f;
 	public static int VOTE_BOX_SIDE_DIM = UNIT_DIM;
 	public static String DEFAULT_PROFILE_IMAGE = "profile_1-110.png";
 	

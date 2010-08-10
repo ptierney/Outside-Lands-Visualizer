@@ -18,7 +18,7 @@ public class VoteBoxFactory implements BoxListener {
 	private boolean delaying_create_;
 	private static int START_SCROLLING_HEIGHT = 1; // start scrolling after the n'th row has been added
 	public static int BEGIN_TRANSITION_COUNT = 5; // only show this many boxes before transitioning
-	private static int TRANSITION_START_HEIGHT = 500; // in px
+	private static int TRANSITION_START_HEIGHT = 425; // in px
 	private int row_count_ = 0; // the number of rows created
 	private VoteRow bottom_stop_row_ = null;
 	private Box bottom_stop_box_ = null; // I use this to determine when to stop
@@ -59,7 +59,7 @@ public class VoteBoxFactory implements BoxListener {
 		// all the tiles for a flip transition at once
 		for (int i = 0; i < BEGIN_TRANSITION_COUNT; ++i) {
 			vote_row_buffer_.add(make_vote_row(BallotCounter.instance().get_next_ballot()));
-			//vote_row_buffer_.get(i).profile_drive_all();
+			vote_row_buffer_.get(i).dispable_collisions();
 			if (i > 0) {
 				//link_vote_rows(vote_row_buffer_.get(i - 1), vote_row_buffer_.get(i));
 			}
@@ -79,6 +79,10 @@ public class VoteBoxFactory implements BoxListener {
 		vote_rows_.add(n_row);
 		n_row.add_to_box_manager();
 		n_row.set_all_falling();
+		n_row.enable_collisions();
+		
+		//if (flipping_)
+			n_row.set_y(current_row_.get(1).y() - (Settings.UNIT_DIM - Settings.BOX_GAP) * 3);
 		
 		current_row_ = n_row.row();
 		current_vote_row_ = n_row;
@@ -211,6 +215,20 @@ public class VoteBoxFactory implements BoxListener {
 			Iterator<Box> it = row_.iterator();
 			while (it.hasNext()) {
 				it.next().set_y(y_);
+			}	
+		}
+		
+		public void enable_collisions() {
+			Iterator<Box> it = row_.iterator();
+			while (it.hasNext()) {
+				it.next().set_ignore_collisions(false);
+			}
+		}
+		
+		public void dispable_collisions() {
+			Iterator<Box> it = row_.iterator();
+			while (it.hasNext()) {
+				it.next().set_ignore_collisions(true);
 			}	
 		}
 		
