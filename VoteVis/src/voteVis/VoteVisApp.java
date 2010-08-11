@@ -30,7 +30,6 @@ public class VoteVisApp extends PApplet {
 
 		waiting_ = false;
 
-		
 		// references are stored in static instance_ var
 		@SuppressWarnings("unused")
 		Settings settings_ = new Settings(this);
@@ -51,6 +50,12 @@ public class VoteVisApp extends PApplet {
 		user_manager_.create_test_user();
 		@SuppressWarnings("unused")
 		BillboardFactory billboard_factory_ = new BillboardFactory();
+		@SuppressWarnings("unused")
+		TrendFactory trend_factory_ = new TrendFactory();
+		
+		for (int i = 0; i < 30; ++i) {
+			counter_.add_random_ballot();
+		}
 		
 		// SceneManager will start the cycle
 		@SuppressWarnings("unused")

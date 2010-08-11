@@ -173,14 +173,7 @@ public abstract class Box {
 	// override this to catch stop falling events
 	protected void stopped_falling() {
 		if (colliding_box_ != null) {
-			
-			//PApplet.print("Colliding box y: ");
-			//PApplet.println(colliding_box_.y());
-			//x_ = colliding_box_.x();
 			y_ = colliding_box_.y() - colliding_box_.get_height() / 2 - Settings.BOX_GAP - get_height() / 2;
-			//y_ = colliding_box_.y() - Settings.UNIT_DIM - Settings.BOX_GAP;
-			//PApplet.print("This box y: ");
-			//PApplet.println(y_);
 		}
 	}
 	

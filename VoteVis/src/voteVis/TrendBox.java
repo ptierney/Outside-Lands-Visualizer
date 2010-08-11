@@ -15,32 +15,60 @@ public class TrendBox extends DynamicBox {
 		this.index_ = index_;
 		this.size_ = size_;
 		
-		box_frame_ = new VoteFrame(p_, type_);
-	}
-
-	@Override
-	public void draw() {
-		// TODO Auto-generated method stub
+		box_frame_ = new TrendFrame(type_, size_);
 		
+		set_pane_transition_states();
+		box_pane_.load_transition(); // prep the box for a transition
 	}
-
+	
+	private void set_pane_transition_states() {
+		box_pane_.add_transition_state(get_icon_state());
+		box_pane_.add_transition_state(get_text_state());
+		box_pane_.add_transition_state(get_photo_state());
+	}
+	
+	private TransitionState get_text_state() {
+		return new TextState(p_, ImageLoader.instance().get_candidate_name(type_, index_),
+			p_.color(1, 0), 
+			Utility.instance().scale_to_pane_size(ImageLoader.instance().get_vote_background(type_),
+			Size.get_dim_from_size(size_) - TrendFrame.BORDER_WIDTH),
+			Size.get_dim_from_size(size_) - TrendFrame.BORDER_WIDTH,
+			Settings.instance().get_trend_box_font(size_),
+			Settings.instance().get_trend_box_font_size(size_));
+	}
+	
+	private PhotoState get_photo_state() {
+		return new PhotoState(p_, Utility.instance().scale_to_pane_size(
+			ImageLoader.instance().get_candidate_image(type_, index_),
+			Size.get_dim_from_size(size_) - TrendFrame.BORDER_WIDTH));
+	}
+	
+	// returns a photo with the icon 1, 2, 3, etc
+	private PhotoState get_icon_state() {
+		// TODO: replace this
+		return get_photo_state();
+	}
+	
 	@Override
-	public int get_width() {
-		// TODO Auto-generated method stub
-		return 0;
+	public void update() {
+		super.update();
+		
+		if (falling_) {
+			if (y_ > VoteVisApp.instance().height - Size.get_dim_from_size(size_) / 2 - Settings.BOX_GAP * 3)
+				falling_ = false;
+		}
 	}
-
-	@Override
-	public int get_height() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+	
+	// no one should be flipping the TrendBox
 	@Override
 	public PImage get_image() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	
+	@Override
+	public void stopped_falling() {
+		super.stopped_falling();
+		
+		TrendFactory.instance().box_collided(this);
+	}
 }

@@ -5,7 +5,7 @@ import processing.core.*;
 public class VoteFrame extends BoxFrame {
 	private VoteVisApp p_;
 	private int side_dim_;
-	private static int BORDER_WIDTH = (Settings.VOTE_BOX_SIDE_DIM - Settings.VOTE_PANE_DIM) / 2 + 2;
+	public static int BORDER_WIDTH = (Settings.VOTE_BOX_SIDE_DIM - Settings.VOTE_PANE_DIM) / 2 + 2;
 	private Type type_;
 	private PImage frame_image_;
 	

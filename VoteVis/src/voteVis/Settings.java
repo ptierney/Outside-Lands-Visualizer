@@ -57,19 +57,15 @@ public class Settings {
 		vote_box_font_ = p_.loadFont("AkzidenzGroteskBE-Bold-48.vlw");
 		profile_box_font_ = p_.loadFont("AkzidenzGroteskBE-Bold-100.vlw");
 		
-		trend_box_font_sizes_ = new int[5];
-		trend_box_font_sizes_[Size.XS.ordinal()] = 14;
+		trend_box_font_sizes_ = new int[3];
 		trend_box_font_sizes_[Size.S.ordinal()] = 18;
 		trend_box_font_sizes_[Size.M.ordinal()] = 20;
 		trend_box_font_sizes_[Size.L.ordinal()] = 24;
-		trend_box_font_sizes_[Size.XL.ordinal()] = 30;
 		
-		trend_box_fonts_ = new PFont[5];
-		trend_box_fonts_[Size.XS.ordinal()] = p_.loadFont("AkzidenzGroteskBE-Bold-48.vlw");
+		trend_box_fonts_ = new PFont[3];
 		trend_box_fonts_[Size.S.ordinal()] = p_.loadFont("AkzidenzGroteskBE-Bold-48.vlw");
 		trend_box_fonts_[Size.M.ordinal()] = p_.loadFont("AkzidenzGroteskBE-Bold-48.vlw");
 		trend_box_fonts_[Size.L.ordinal()] = p_.loadFont("AkzidenzGroteskBE-Bold-48.vlw");
-		trend_box_fonts_[Size.XL.ordinal()] = p_.loadFont("AkzidenzGroteskBE-Bold-48.vlw");
 	}
 	
 	public static int HALF_UNIT_DIM () {

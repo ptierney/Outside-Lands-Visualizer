@@ -87,6 +87,9 @@ public class BallotCounter {
 		add_ballot(new Ballot(user_id, votes, stock_profile_));
 	}
 	
+	// [0] = #1
+	// [1] = #2
+	// [2] = ...
 	public int[] get_top_five(Type type) {
 		// This holds the index (which musician, etc), and the number of votes for him/her.
 		HashMap<Integer, Integer> counter = new HashMap<Integer, Integer>();
