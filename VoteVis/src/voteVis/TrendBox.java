@@ -71,4 +71,35 @@ public class TrendBox extends DynamicBox {
 		
 		TrendFactory.instance().box_collided(this);
 	}
+	
+	@Override
+	public Collision check_collisions() {
+		if (size_ == Size.S)
+			return super.check_collisions();
+		else if (size_ == Size.M) {
+			Collision l = check_collisions_with_center(x_ - Settings.UNIT_DIM / 2, y_);
+			Collision r = check_collisions_with_center(x_ - Settings.UNIT_DIM / 2, y_);
+			
+			if (l == Collision.YES || r == Collision.YES)
+				return Collision.YES;
+			else if (l == Collision.ABOUT || r == Collision.ABOUT)
+				return Collision.ABOUT;
+			
+			return Collision.NONE;
+		} else {
+			Collision l = check_collisions_with_center(x_ - Settings.UNIT_DIM, y_);
+			Collision c = check_collisions_with_center(x_, y_);
+			Collision r = check_collisions_with_center(x_ - Settings.UNIT_DIM, y_);
+			
+			if (l == Collision.YES || r == Collision.YES || c == Collision.YES)
+				return Collision.YES;
+			else if (l == Collision.ABOUT || r == Collision.ABOUT || c == Collision.ABOUT)
+				return Collision.ABOUT;
+			
+			return Collision.NONE;
+		}
+	}
+	
+
+	
 }

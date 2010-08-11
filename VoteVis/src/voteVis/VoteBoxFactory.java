@@ -65,7 +65,7 @@ public class VoteBoxFactory implements BoxListener {
 			}
 		}
 		
-		transition_check_box_ = vote_row_buffer_.get(BEGIN_TRANSITION_COUNT - 4).row().get(1);
+		transition_check_box_ = vote_row_buffer_.get(BEGIN_TRANSITION_COUNT - 4).row().get(0);
 		
 		next_vote_row();
 	}
@@ -89,7 +89,7 @@ public class VoteBoxFactory implements BoxListener {
 		n_row.enable_collisions();
 		
 		//if (flipping_)
-			n_row.set_y(current_row_.get(1).y() - (Settings.UNIT_DIM - Settings.BOX_GAP) * 3);
+			n_row.set_y(current_row_.get(0).y() - (Settings.UNIT_DIM - Settings.BOX_GAP) * 3);
 		
 		current_row_ = n_row.row();
 		current_vote_row_ = n_row;
@@ -136,6 +136,8 @@ public class VoteBoxFactory implements BoxListener {
 			0, 0);
 		//BoxManager.instance().add_box(profile);
 		
+		profile.set_height_driving_box(v1);
+		//v1.drive_height_on_collision(profile);
 		current_row_.add(profile);
 		current_row_.add(v1);
 		current_row_.add(v2);
@@ -215,7 +217,7 @@ public class VoteBoxFactory implements BoxListener {
 		}
 		
 		public float y() {
-			return row_.get(1).y();
+			return row_.get(0).y();
 		}
 		
 		public void set_y(float y_) {

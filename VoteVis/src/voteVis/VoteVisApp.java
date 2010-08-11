@@ -85,6 +85,8 @@ public class VoteVisApp extends PApplet {
 		
 		VoteBoxFactory.instance().update();
 		
+		TrendFactory.instance().update();
+		
 		BannerDisplay.instance().draw();
 		
 		

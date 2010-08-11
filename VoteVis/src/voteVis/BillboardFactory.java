@@ -19,6 +19,9 @@ public class BillboardFactory implements TransitionReceiver {
 	private Type current_type_;
 	
 	private boolean transitioning_;
+	private boolean delaying_;
+	private Box transition_check_box_;
+	private static int TRANSITION_HEIGHT = (int)(768 * 2.0 / 3.0);
 	
 	public BillboardFactory() {
 		instance_ = this;
@@ -27,8 +30,18 @@ public class BillboardFactory implements TransitionReceiver {
 	}
 	
 	public void update() {
+		if (delaying_) {
+			if(transition_check_box_.y() > TRANSITION_HEIGHT) {
+				SceneManager.instance().finished_billboard(current_type_);
+				delaying_ = false;
+			}
+			return;
+		}
+		
 		if (!transitioning_)
 			return;
+		
+
 		
 		box_transition_.update();
 	}
@@ -87,6 +100,7 @@ public class BillboardFactory implements TransitionReceiver {
 	
 	// starts the transition
 	public void begin_transition() {
+		delaying_ = false;
 		transitioning_ = true;
 		load_next_box();
 	}
@@ -94,7 +108,7 @@ public class BillboardFactory implements TransitionReceiver {
 	private void load_next_box() {
 		if (start_boxes_.size() == 0) {
 			transitioning_ = false;
-			SceneManager.instance().finished_billboard(current_type_);
+			delaying_ = true;
 			return;
 		}
 		
@@ -109,11 +123,17 @@ public class BillboardFactory implements TransitionReceiver {
 
 	public void finished_transition(Box end_box) {
 		end_box.set_visible(true);
+		// not needed except on the last 
+		transition_check_box_ = end_box;
 		//end_box.set_ignore_collisions(false);
 		load_next_box();
 	}
 	
 	public static BillboardFactory instance() {
 		return instance_;
+	}
+	
+	public void box_collided(Box box) {
+		
 	}
 }

@@ -56,4 +56,9 @@ public class ProfileBox extends DynamicBox {
 	public int user_id() {
 		return user_id_;
 	}
+	
+	@Override
+	public int get_height() {
+		return Settings.UNIT_DIM;
+	}
 }

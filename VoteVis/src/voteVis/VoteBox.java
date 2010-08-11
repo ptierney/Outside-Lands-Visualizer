@@ -49,4 +49,9 @@ public class VoteBox extends DynamicBox {
 		return new PhotoState(p_, Utility.instance().scale_to_vote_pane_size(
 			ImageLoader.instance().get_candidate_image(type_, index_)));
 	}
+	
+	@Override
+	public int get_height() {
+		return Settings.UNIT_DIM;
+	}
 }

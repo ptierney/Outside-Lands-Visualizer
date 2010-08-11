@@ -8,6 +8,13 @@ public class TrendFactory {
 	private boolean[] created_types_;
 	private int created_boxes_;
 	private int[] top_five_;
+	private static int CREATE_DELAY = 250; 
+	private static int TRANSITION_HEIGHT = 550;
+	private boolean delaying_;
+	private int delaying_counter_;
+	private Box top_check_box_ = null;
+	private int boxes_created_ = 0;
+	private boolean active_ = false;
 	
 	public TrendFactory() {
 		instance_ = this;
@@ -24,20 +31,73 @@ public class TrendFactory {
 		
 		top_five_ = BallotCounter.instance().get_top_five(current_type_);
 		
-		create_box();
+		delaying_ = false;
+		active_ = true;
+		
+		//create_box();
+		create_boxes_set_position();
+		make_next_box();
 	}
 	
 	public void switching_from() {
+		top_check_box_ = null;
+		active_ = false;
+	}
+	
+	public void create_boxes_set_position() {			
+	}
+	
+	private void make_next_box() {
+		switch (boxes_created_) {
+		case 0:
+			add_box_at_position(0, Utility.get_aligned_position(Settings.UNIT_DIM, 4));
+			break;
+		case 1:
+			add_box_at_position(1, (int) (Settings.BOX_GAP * 1.5 + Settings.UNIT_DIM));
+			break;
+		case 4:
+			top_check_box_ = add_box_at_position(2, (int) (Settings.BOX_GAP * 2.5 + Settings.UNIT_DIM * 2));
+			break;
+		case 2:
+			add_box_at_position(3, Utility.get_aligned_position(Settings.UNIT_DIM, 2));
+			break;
+		case 3:
+			add_box_at_position(4, Utility.get_aligned_position(Settings.UNIT_DIM, 2));
+		}
 		
+		++boxes_created_;	
+		delaying_ = false;
+	}
+	
+	public Box add_box_at_position(int rank, int position) {
+		Box b = new TrendBox(current_type_, top_five_[rank],
+			Size.get_size_from_rank(rank), 
+			position, 0);
+		
+		BoxManager.instance().add_box(b);
+		
+		return b;
 	}
 	
 	public void box_collided(TrendBox box) {
-		if (created_boxes_ == 5) {
-			SceneManager.instance().finished_trend();
+		delaying_counter_ = VoteVisApp.instance().millis();
+		delaying_ = true;
+	}
+	
+	public void update() {
+		if (!active_)
 			return;
+		
+		if (top_check_box_ != null &&
+			top_check_box_.y() > TRANSITION_HEIGHT) {
+			SceneManager.instance().finished_trend();
+			top_check_box_ = null;
 		}
 		
-		create_box();
+		if (delaying_ && top_check_box_ == null && 
+			(VoteVisApp.instance().millis() - delaying_counter_ > CREATE_DELAY)) {
+			make_next_box();
+		}
 	}
 	
 	private int get_random_rank() {
