@@ -9,9 +9,9 @@ public class VoteBoxFactory implements BoxListener {
 	private static VoteBoxFactory instance_;
 	private VoteVisApp p_;
 	private static int BOX_STAGGER = Settings.UNIT_DIM;
-	private ArrayList<VoteRow> vote_row_buffer_; // the rows that haven't been displayed yet
-	private ArrayList<VoteRow> vote_rows_;
-	private ArrayList<Box> current_row_;
+	private ArrayList<VoteRow> vote_row_buffer_ = null; // the rows that haven't been displayed yet
+	private ArrayList<VoteRow> vote_rows_ = null;
+	private ArrayList<Box> current_row_ = null;
 	private VoteRow current_vote_row_;
 	public static int CREATE_DELAY = 250; // in millis;
 	private int create_delay_counter_;
@@ -31,11 +31,22 @@ public class VoteBoxFactory implements BoxListener {
 	public VoteBoxFactory(VoteVisApp p_) {
 		instance_ = this;
 		this.p_ = p_;
+		init();
+	}
+	
+	private void init() {
 		vote_rows_ = new ArrayList<VoteRow>();
 		vote_row_buffer_ = new ArrayList<VoteRow>();
-		delaying_create_ = false;
-		stopped_first_row_ = false;
 		flipping_ = false;
+		stopped_first_row_ = false;
+		bottom_stop_box_ = null;
+		bottom_stop_row_ = null;
+		row_count_ = 0;
+		delaying_create_ = false;
+		current_row_ = null;
+		transition_check_box_ = null;
+		if (vote_row_buffer_ != null)
+			vote_row_buffer_.clear();
 	}
 	
 	// this is called by the SceneManager when we've transitioned into
@@ -45,13 +56,7 @@ public class VoteBoxFactory implements BoxListener {
 			PApplet.println("Error in VoteBoxFactory switched_to");
 			VoteVisApp.instance().exit();
 		}
-		row_count_ = 0;
-		bottom_stop_box_ = null;
-		bottom_stop_row_ = null;
-		stopped_first_row_ = false;
-		flipping_ = false;
-		
-		vote_row_buffer_.clear();
+		init();
 		
 		SceneManager.instance().set_move_speed(MoveSpeed.NORMAL);
 		
@@ -76,6 +81,7 @@ public class VoteBoxFactory implements BoxListener {
 		vote_rows_.clear();
 		current_row_.clear();
 		current_vote_row_ = null;
+		//bottom_stop_row_.row().clear();
 		bottom_stop_row_ = null;
 		bottom_stop_box_ = null;
 		transition_check_box_ = null;

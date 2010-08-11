@@ -28,7 +28,7 @@ public class VoteVisApp extends PApplet {
 		
 		instance_ = this;
 
-		waiting_ = false;
+		waiting_ = true;
 
 		// references are stored in static instance_ var
 		@SuppressWarnings("unused")
@@ -39,6 +39,21 @@ public class VoteVisApp extends PApplet {
 		BannerDisplay banner_display_ = new BannerDisplay();
 		@SuppressWarnings("unused")
 		Utility utility_ = new Utility(this);
+		
+		create_worker_classes();
+		
+		for (int i = 0; i < 30; ++i) {
+			BallotCounter.instance().add_random_ballot();
+		}
+		
+		// SceneManager will start the cycle
+		@SuppressWarnings("unused")
+		SceneManager scene_manager_ = new SceneManager();
+		
+		last_frame_ = millis();
+	}
+	
+	public void create_worker_classes() {
 		@SuppressWarnings("unused")
 		BoxManager manager_ = new BoxManager(this);
 		@SuppressWarnings("unused")
@@ -52,16 +67,6 @@ public class VoteVisApp extends PApplet {
 		BillboardFactory billboard_factory_ = new BillboardFactory();
 		@SuppressWarnings("unused")
 		TrendFactory trend_factory_ = new TrendFactory();
-		
-		for (int i = 0; i < 30; ++i) {
-			counter_.add_random_ballot();
-		}
-		
-		// SceneManager will start the cycle
-		@SuppressWarnings("unused")
-		SceneManager scene_manager_ = new SceneManager();
-		
-		last_frame_ = millis();
 	}
 
 	@Override

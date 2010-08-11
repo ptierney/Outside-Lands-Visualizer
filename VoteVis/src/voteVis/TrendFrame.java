@@ -1,6 +1,6 @@
 package voteVis;
 
-import processing.core.PImage;
+import processing.core.*;
 
 public class TrendFrame extends BoxFrame {
 	private Size size_;

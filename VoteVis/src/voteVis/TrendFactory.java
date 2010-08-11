@@ -33,18 +33,15 @@ public class TrendFactory {
 		
 		delaying_ = false;
 		active_ = true;
+		top_check_box_ = null;
+		boxes_created_ =0;
 		
-		//create_box();
-		create_boxes_set_position();
 		make_next_box();
 	}
 	
 	public void switching_from() {
 		top_check_box_ = null;
 		active_ = false;
-	}
-	
-	public void create_boxes_set_position() {			
 	}
 	
 	private void make_next_box() {

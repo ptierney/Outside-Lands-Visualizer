@@ -6,6 +6,7 @@ public class SceneManager {
 	private static int NUM_VOTE_ROWS = VoteBoxFactory.BEGIN_TRANSITION_COUNT;
 	private MoveSpeed move_speed_;
 	private Type current_type_;
+	private boolean display_all_labels_ = true;
 	
 	public SceneManager() {
 		instance_ = this;
@@ -17,6 +18,7 @@ public class SceneManager {
 	}
 	
 	public void start_cycle() {
+		display_all_labels_ = true;
 		VoteBoxFactory.instance().switched_to();
 	}
 	
@@ -33,6 +35,7 @@ public class SceneManager {
 	}
 	
 	public void move_from_vote_to_billboard() {
+		display_all_labels_ = false;
 		BillboardFactory.instance().load_vote_to_top_transition(current_type_);
 		BillboardFactory.instance().begin_transition();
 	}
@@ -45,7 +48,13 @@ public class SceneManager {
 	}
 	
 	private void move_from_trend_to_vote() {
+		TrendFactory.instance().switching_from();
 		increment_type();
+		
+		VoteVisApp.instance().create_worker_classes();
+		
+		display_all_labels_ = true;
+		
 		start_cycle();
 	}
 	
@@ -65,5 +74,12 @@ public class SceneManager {
 			n = 0;
 		current_type_ = Type.deserialize(n);
 	}
-
+	
+	public Type current_type() {
+		return current_type_;
+	}
+	
+	public boolean display_all_labels() {
+		return display_all_labels_;
+	}
 }

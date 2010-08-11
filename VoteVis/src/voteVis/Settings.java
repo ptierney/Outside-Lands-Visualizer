@@ -59,13 +59,13 @@ public class Settings {
 		
 		trend_box_font_sizes_ = new int[3];
 		trend_box_font_sizes_[Size.S.ordinal()] = 18;
-		trend_box_font_sizes_[Size.M.ordinal()] = 20;
-		trend_box_font_sizes_[Size.L.ordinal()] = 24;
+		trend_box_font_sizes_[Size.M.ordinal()] = 50;
+		trend_box_font_sizes_[Size.L.ordinal()] = 72;
 		
 		trend_box_fonts_ = new PFont[3];
 		trend_box_fonts_[Size.S.ordinal()] = p_.loadFont("AkzidenzGroteskBE-Bold-48.vlw");
-		trend_box_fonts_[Size.M.ordinal()] = p_.loadFont("AkzidenzGroteskBE-Bold-48.vlw");
-		trend_box_fonts_[Size.L.ordinal()] = p_.loadFont("AkzidenzGroteskBE-Bold-48.vlw");
+		trend_box_fonts_[Size.M.ordinal()] = p_.loadFont("AkzidenzGroteskBE-Bold-100.vlw");
+		trend_box_fonts_[Size.L.ordinal()] = p_.loadFont("AkzidenzGroteskBE-Bold-100.vlw");
 	}
 	
 	public static int HALF_UNIT_DIM () {

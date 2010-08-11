@@ -20,13 +20,17 @@ public class BillboardFactory implements TransitionReceiver {
 	
 	private boolean transitioning_;
 	private boolean delaying_;
-	private Box transition_check_box_;
+	private Box transition_check_box_ = null;
 	private static int TRANSITION_HEIGHT = (int)(768 * 2.0 / 3.0);
 	
 	public BillboardFactory() {
 		instance_ = this;
-		transitioning_ = false;
+		init();
 		load_transition(new RotateBoxTransition(Axis.VERTICAL, this));
+	}
+	
+	private void init() {
+		transitioning_ = false;
 	}
 	
 	public void update() {
@@ -40,8 +44,6 @@ public class BillboardFactory implements TransitionReceiver {
 		
 		if (!transitioning_)
 			return;
-		
-
 		
 		box_transition_.update();
 	}
@@ -102,6 +104,7 @@ public class BillboardFactory implements TransitionReceiver {
 	public void begin_transition() {
 		delaying_ = false;
 		transitioning_ = true;
+		transition_check_box_ = null;
 		load_next_box();
 	}
 	
@@ -114,8 +117,6 @@ public class BillboardFactory implements TransitionReceiver {
 		
 		box_transition_.load_boxes(start_boxes_.get(0), end_boxes_.get(0));
 		BoxManager.instance().delete_box(start_boxes_.get(0));
-		//PApplet.println(start_boxes_.get(0).y());
-		//PApplet.println(end_boxes_.get(0).y());
 		end_boxes_.get(0).set_ignore_collisions(false);
 		start_boxes_.remove(0);
 		end_boxes_.remove(0);

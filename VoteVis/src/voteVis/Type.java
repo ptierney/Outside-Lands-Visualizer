@@ -7,9 +7,9 @@ package voteVis;
 
 public enum Type {
 	MUSIC,
-	ECO,
-	WINE,
 	FOOD,
+	WINE,
+	ECO,
 	ART;
 	
 	public static Type deserialize(int num) {
@@ -17,11 +17,11 @@ public enum Type {
 		case 0:
 			return MUSIC;
 		case 1:
-			return ECO;
+			return FOOD;
 		case 2:
 			return WINE;
 		case 3:
-			return FOOD;
+			return ECO;
 		case 4:
 		default:
 			return ART;

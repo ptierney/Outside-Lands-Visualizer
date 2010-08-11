@@ -109,15 +109,15 @@ public class ImageLoader {
 
 		candidate_names_[Type.ART.ordinal()] = new String[5];
 		candidate_images_[Type.ART.ordinal()] = new PImage[5];
-		candidate_names_[Type.ART.ordinal()][0] = "Art 1";
+		candidate_names_[Type.ART.ordinal()][0] = "Jeff Koons";
 		candidate_images_[Type.ART.ordinal()][0] = p_.loadImage("art-1.png");
-		candidate_names_[Type.ART.ordinal()][1] = "Art 2";
+		candidate_names_[Type.ART.ordinal()][1] = "Jeff Koons";
 		candidate_images_[Type.ART.ordinal()][1] = p_.loadImage("art-2.png");
-		candidate_names_[Type.ART.ordinal()][2] = "Art 3";
+		candidate_names_[Type.ART.ordinal()][2] = "Jeff Koons";
 		candidate_images_[Type.ART.ordinal()][2] = p_.loadImage("art-3.png");
-		candidate_names_[Type.ART.ordinal()][3] = "Art 4";
+		candidate_names_[Type.ART.ordinal()][3] = "Jeff Koons";
 		candidate_images_[Type.ART.ordinal()][3] = p_.loadImage("art-4.png");
-		candidate_names_[Type.ART.ordinal()][4] = "Art 5";
+		candidate_names_[Type.ART.ordinal()][4] = "Jeff Koons";
 		candidate_images_[Type.ART.ordinal()][4] = p_.loadImage("art-5.png");
 	}
 

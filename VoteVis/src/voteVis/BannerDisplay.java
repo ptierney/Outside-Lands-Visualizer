@@ -6,6 +6,7 @@ public class BannerDisplay {
 	private static BannerDisplay instance_;
 	private PImage banner_;
 	private PImage[] labels_;
+	private PImage[] labels_off_;
 	private int[] x_positions_;
 	private int y_position_;
 	private int label_width_;
@@ -25,6 +26,13 @@ public class BannerDisplay {
 		labels_[Type.WINE.ordinal()] = p.loadImage("wine-label.png");
 		labels_[Type.ECO.ordinal()] = p.loadImage("eco-label.png");
 		labels_[Type.ART.ordinal()] = p.loadImage("art-label.png");
+		
+		labels_off_ = new PImage[5];
+		labels_off_[Type.MUSIC.ordinal()] = p.loadImage("music-label-off.png");
+		labels_off_[Type.FOOD.ordinal()] = p.loadImage("food-label-off.png");
+		labels_off_[Type.WINE.ordinal()] = p.loadImage("wine-label-off.png");
+		labels_off_[Type.ECO.ordinal()] = p.loadImage("eco-label-off.png");
+		labels_off_[Type.ART.ordinal()] = p.loadImage("art-label-off.png");
 		
 		// all these should be the same (checked it out in photoshop)
 		label_width_ = labels_[0].width;
@@ -53,8 +61,16 @@ public class BannerDisplay {
 		p.image(banner_, 0, 0);
 		
 		for (int i = 0; i < 5; ++i) {
-			p.image(labels_[i], x_positions_[i] -label_width_ / 2,  y_position_ -label_height_ / 2);
+			p.image(get_label_image(Type.deserialize(i)), x_positions_[i] -label_width_ / 2,  y_position_ -label_height_ / 2);
 		}
+	}
+	
+	private PImage get_label_image(Type type) {
+		if (SceneManager.instance().display_all_labels() || 
+			SceneManager.instance().current_type() == type)
+			return labels_[type.ordinal()];
+		else
+			return labels_off_[type.ordinal()];
 	}
 	
 	public boolean get_label_active(Type type_) {
