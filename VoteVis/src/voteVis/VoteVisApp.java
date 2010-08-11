@@ -6,6 +6,9 @@ import processing.core.*;
 //import processing.opengl.*;
 //import javax.media.opengl.GL;
 import voteVis.RotateBoxTransition.Axis;
+import control.*;
+import file.*;
+import twitpull.*;
 
 @SuppressWarnings("serial")
 public class VoteVisApp extends PApplet {
@@ -19,6 +22,8 @@ public class VoteVisApp extends PApplet {
 	private int last_frame_;
 	
 	private boolean waiting_;
+	
+	private TweetFeed feed_;
 
 	@Override
 	public void setup() {
@@ -45,6 +50,8 @@ public class VoteVisApp extends PApplet {
 		for (int i = 0; i < 30; ++i) {
 			BallotCounter.instance().add_random_ballot();
 		}
+		
+		setup_tweet_feed();
 		
 		// SceneManager will start the cycle
 		@SuppressWarnings("unused")
@@ -106,6 +113,16 @@ public class VoteVisApp extends PApplet {
 		} else if (key == '2') {
 			BillboardFactory.instance().load_vote_to_top_transition(Type.FOOD);
 			BillboardFactory.instance().begin_transition();
+		} else if (key == '3') {
+			PApplet.println("Requesting tweets: " + millis());
+			ParsedTweet[] f = feed_.getMusicTweets(7);
+			PApplet.println(f.length);
+			for (int i = 0; i < f.length; ++i) {
+				PApplet.println(f[i].getText());
+				PApplet.println(f[i].getUserimage().getAbsolutePath());
+				PApplet.println(f[i].getFrom_user());
+			}
+			PApplet.println("Done requesting tweets: " + millis());
 		}
 	}
 	
@@ -115,5 +132,18 @@ public class VoteVisApp extends PApplet {
 	
 	public int last_frame() {
 		return last_frame_;
+	}
+	
+	private void setup_tweet_feed() {
+		feed_ = new TweetFeed();
+		String server = "http://qa-twitterfeed.mryouth.com/TwitQueue/ApprovedTwitFeedJson";
+		int pollinterval = 5;
+		int mincache = 20;
+		int maxcache = 500;
+		feed_.startPolling(server, pollinterval, mincache, maxcache);
+	}
+	
+	public TweetFeed feed() {
+		return feed_;
 	}
 }
