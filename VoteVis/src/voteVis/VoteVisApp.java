@@ -28,7 +28,7 @@ public class VoteVisApp extends PApplet {
 		
 		instance_ = this;
 
-		waiting_ = true;
+		waiting_ = false;
 
 		// references are stored in static instance_ var
 		@SuppressWarnings("unused")
