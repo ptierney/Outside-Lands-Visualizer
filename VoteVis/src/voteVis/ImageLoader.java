@@ -153,54 +153,79 @@ public class ImageLoader {
 			billboards_[i] = new PImage[24];
 		}
 		
-		for (int i = 0; i < 24; ++i) {
-			String name;
-			if (i < 9)
-				name = "panel/panel_wine-0" + (i+1) + ".png";
-			else
-				name = "panel/panel_wine-" + (i+1) + ".png";
+		n = 0;
+		for (int i = 3; i >= 0; --i) {
+			for (int j = 0; j < 6; ++j) {
+				int index = i * 6 + j;
+				String name;
+				if (index < 9)
+					name = "panel/panel_art-0" + (index + 1) + ".png";
+				else
+					name = "panel/panel_art-" + (index + 1) + ".png";
 			
-			billboards_[Type.WINE.ordinal()][i] = p_.loadImage(name);
+				billboards_[Type.ART.ordinal()][n] = p_.loadImage(name);
+				++n;
+			}
 		}
 		
-		for (int i = 0; i < 24; ++i) {
-			String name;
-			if (i < 9)
-				name = "panel/panel_food-0" + (i+1) + ".png";
-			else
-				name = "panel/panel_food-" + (i+1) + ".png";
+		n = 0;
+		for (int i = 3; i >= 0; --i) {
+			for (int j = 0; j < 6; ++j) {
+				int index = i * 6 + j;
+				String name;
+				if (index < 9)
+					name = "panel/panel_eco-0" + (index + 1) + ".png";
+				else
+					name = "panel/panel_eco-" + (index + 1) + ".png";
 			
-			billboards_[Type.FOOD.ordinal()][i] = p_.loadImage(name);
+				billboards_[Type.ECO.ordinal()][n] = p_.loadImage(name);
+				++n;
+			}
 		}
 		
-		for (int i = 0; i < 24; ++i) {
-			String name;
-			if (i < 9)
-				name = "panel/panel_food-0" + (i+1) + ".png";
-			else
-				name = "panel/panel_food-" + (i+1) + ".png";
+		n = 0;
+		for (int i = 3; i >= 0; --i) {
+			for (int j = 0; j < 6; ++j) {
+				int index = i * 6 + j;
+				String name;
+				if (index < 9)
+					name = "panel/panel_food-0" + (index + 1) + ".png";
+				else
+					name = "panel/panel_food-" + (index + 1) + ".png";
 			
-			billboards_[Type.ECO.ordinal()][i] = p_.loadImage(name);
+				billboards_[Type.FOOD.ordinal()][n] = p_.loadImage(name);
+				++n;
+			}
 		}
 		
-		for (int i = 0; i < 24; ++i) {
-			String name;
-			if (i < 9)
-				name = "panel/panel_food-0" + (i+1) + ".png";
-			else
-				name = "panel/panel_food-" + (i+1) + ".png";
+		n = 0;
+		for (int i = 3; i >= 0; --i) {
+			for (int j = 0; j < 6; ++j) {
+				int index = i * 6 + j;
+				String name;
+				if (index < 9)
+					name = "panel/panel_music-0" + (index + 1) + ".png";
+				else
+					name = "panel/panel_music-" + (index + 1) + ".png";
 			
-			billboards_[Type.ART.ordinal()][i] = p_.loadImage(name);
+				billboards_[Type.MUSIC.ordinal()][n] = p_.loadImage(name);
+				++n;
+			}
 		}
 		
-		for (int i = 0; i < 24; ++i) {
-			String name;
-			if (i < 9)
-				name = "panel/panel_food-0" + (i+1) + ".png";
-			else
-				name = "panel/panel_food-" + (i+1) + ".png";
+		n = 0;
+		for (int i = 3; i >= 0; --i) {
+			for (int j = 0; j < 6; ++j) {
+				int index = i * 6 + j;
+				String name;
+				if (index < 9)
+					name = "panel/panel_wine-0" + (index + 1) + ".png";
+				else
+					name = "panel/panel_wine-" + (index + 1) + ".png";
 			
-			billboards_[Type.MUSIC.ordinal()][i] = p_.loadImage(name);
+				billboards_[Type.WINE.ordinal()][n] = p_.loadImage(name);
+				++n;
+			}
 		}
 	}
 	
