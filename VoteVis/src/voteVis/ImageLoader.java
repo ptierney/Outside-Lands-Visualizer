@@ -62,58 +62,50 @@ public class ImageLoader {
 	private void load_images_and_names() {
 		candidate_images_ = new PImage[5][];
 		candidate_names_ = new String[5][];
-
-		candidate_names_[Type.ECO.ordinal()] = new String[5];
-		candidate_images_[Type.ECO.ordinal()] = new PImage[5];
-		candidate_names_[Type.ECO.ordinal()][0] = "California Academy of Sciences";
-		candidate_images_[Type.ECO.ordinal()][0] = p_.loadImage("cas-110.png");
-		candidate_names_[Type.ECO.ordinal()][1] = "Friends of the Urban Forest";
-		candidate_images_[Type.ECO.ordinal()][1] = p_.loadImage("fuf-110.png");
-		candidate_names_[Type.ECO.ordinal()][2] = "Music in Schools Today";
-		candidate_images_[Type.ECO.ordinal()][2] = p_.loadImage("music-110.png");
-		candidate_names_[Type.ECO.ordinal()][3] = "Oxfam America";
-		candidate_images_[Type.ECO.ordinal()][3] = p_.loadImage("oxfam-110.png");
-		candidate_names_[Type.ECO.ordinal()][4] = "Surfrider Foundation";
-		candidate_images_[Type.ECO.ordinal()][4] = p_.loadImage("surfrider-110.png");
-
-		candidate_names_[Type.MUSIC.ordinal()] = new String[5];
-		candidate_images_[Type.MUSIC.ordinal()] = new PImage[5];
-		candidate_names_[Type.MUSIC.ordinal()][0] = "Electric Six";
-		candidate_images_[Type.MUSIC.ordinal()][0] = p_.loadImage("e6-110.png");
-		candidate_names_[Type.MUSIC.ordinal()][1] = "Empire of the Sun";
-		candidate_images_[Type.MUSIC.ordinal()][1] = p_.loadImage("eots-110.png");
-		candidate_names_[Type.MUSIC.ordinal()][2] = "Kings of Leon";
-		candidate_images_[Type.MUSIC.ordinal()][2] = p_.loadImage("kings_of_leon-110.png");
-		candidate_names_[Type.MUSIC.ordinal()][3] = "Pheonix";
-		candidate_images_[Type.MUSIC.ordinal()][3] = p_.loadImage("phoenix-110.png");
-		candidate_names_[Type.MUSIC.ordinal()][4] = "Sierra Leone Refugees";
-		candidate_images_[Type.MUSIC.ordinal()][4] = p_.loadImage("sierra-110.png");
-
-		candidate_names_[Type.WINE.ordinal()] = new String[5];
-		candidate_images_[Type.WINE.ordinal()] = new PImage[5];
-		candidate_names_[Type.WINE.ordinal()][0] = "Bonny Doon Vineyard";
-		candidate_images_[Type.WINE.ordinal()][0] = p_.loadImage("bonny_doon-110.png");
-		candidate_names_[Type.WINE.ordinal()][1] = "Iron Horse Vineyards";
-		candidate_images_[Type.WINE.ordinal()][1] = p_.loadImage("iron_horse-110.png");
-		candidate_names_[Type.WINE.ordinal()][2] = "Parducci Wine Cellars";
-		candidate_images_[Type.WINE.ordinal()][2] = p_.loadImage("parducci-110.png");
-		candidate_names_[Type.WINE.ordinal()][3] = "Robert Sinskey Vineyards";
-		candidate_images_[Type.WINE.ordinal()][3] = p_.loadImage("rsinskey-110.png");
-		candidate_names_[Type.WINE.ordinal()][4] = "Tallulah";
-		candidate_images_[Type.WINE.ordinal()][4] = p_.loadImage("tallulah-110.png");
 		
-		candidate_names_[Type.FOOD.ordinal()] = new String[5];
-		candidate_images_[Type.FOOD.ordinal()] = new PImage[5];
-		candidate_names_[Type.FOOD.ordinal()][0] = "Food 1";
-		candidate_images_[Type.FOOD.ordinal()][0] = p_.loadImage("food-1.png");
-		candidate_names_[Type.FOOD.ordinal()][1] = "Food 2";
-		candidate_images_[Type.FOOD.ordinal()][1] = p_.loadImage("food-2.png");
-		candidate_names_[Type.FOOD.ordinal()][2] = "Food 3";
-		candidate_images_[Type.FOOD.ordinal()][2] = p_.loadImage("food-3.png");
-		candidate_names_[Type.FOOD.ordinal()][3] = "Food 4";
-		candidate_images_[Type.FOOD.ordinal()][3] = p_.loadImage("food-4.png");
-		candidate_names_[Type.FOOD.ordinal()][4] = "Food 5";
-		candidate_images_[Type.FOOD.ordinal()][4] = p_.loadImage("food-5.png");
+		String[] eco_strings = p_.loadStrings("eco/eco.txt");
+		
+		candidate_names_[Type.ECO.ordinal()] = new String[eco_strings.length];
+		candidate_images_[Type.ECO.ordinal()] = new PImage[eco_strings.length];
+		Settings.NUM_ECO = eco_strings.length;
+		
+		for (int i = 0; i < eco_strings.length; ++i) {
+			candidate_names_[Type.ECO.ordinal()][i] = eco_strings[i];
+			candidate_images_[Type.ECO.ordinal()][i] = p_.loadImage("eco/eco-" + (i+1) + ".png");
+		}
+		
+		String[] food_strings = p_.loadStrings("food/food.txt");
+		
+		candidate_names_[Type.FOOD.ordinal()] = new String[food_strings.length];
+		candidate_images_[Type.FOOD.ordinal()] = new PImage[food_strings.length];
+		Settings.NUM_FOOD = food_strings.length;
+		
+		for (int i = 0; i < food_strings.length; ++i) {
+			candidate_names_[Type.FOOD.ordinal()][i] = food_strings[i];
+			candidate_images_[Type.FOOD.ordinal()][i] = p_.loadImage("food/food-" + (i+1) + ".png");
+		}
+		
+		String[] wine_strings = p_.loadStrings("wine/wine.txt");
+		
+		candidate_names_[Type.WINE.ordinal()] = new String[wine_strings.length];
+		candidate_images_[Type.WINE.ordinal()] = new PImage[wine_strings.length];
+		Settings.NUM_WINE = wine_strings.length;
+		
+		for (int i = 0; i < wine_strings.length; ++i) {
+			candidate_names_[Type.WINE.ordinal()][i] = wine_strings[i];
+			candidate_images_[Type.WINE.ordinal()][i] = p_.loadImage("wine/wine-" + (i+1) + ".png");
+		}
+		
+		String[] music_strings = p_.loadStrings("music/music.txt");
+		
+		candidate_names_[Type.MUSIC.ordinal()] = new String[music_strings.length];
+		candidate_images_[Type.MUSIC.ordinal()] = new PImage[music_strings.length];
+		Settings.NUM_MUSIC = music_strings.length;
+		
+		for (int i = 0; i < music_strings.length; ++i) {
+			candidate_names_[Type.MUSIC.ordinal()][i] = music_strings[i];
+			candidate_images_[Type.MUSIC.ordinal()][i] = p_.loadImage("music/music-" + (i+1) + ".png");
+		}
 
 		candidate_names_[Type.ART.ordinal()] = new String[5];
 		candidate_images_[Type.ART.ordinal()] = new PImage[5];
@@ -127,6 +119,7 @@ public class ImageLoader {
 		candidate_images_[Type.ART.ordinal()][3] = p_.loadImage("art-4.png");
 		candidate_names_[Type.ART.ordinal()][4] = "Art 5";
 		candidate_images_[Type.ART.ordinal()][4] = p_.loadImage("art-5.png");
+	
 	}
 
 	private void load_profiles() {
