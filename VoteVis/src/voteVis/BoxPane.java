@@ -8,8 +8,9 @@ public class BoxPane {
 	private ArrayList<TransitionState> transition_states_;
 	private PaneTransition pane_transition_;
 	private int transition_counter_;
-	private int advance_delay_ = 260; // in frames
+	private static int ADVANCE_DELAY = 2000; // in millis
 	private int delay_counter_;
+	private boolean delaying_;
 	private boolean advancing_;
 
 	BoxPane(VoteVisApp p_) {
@@ -17,6 +18,7 @@ public class BoxPane {
 		transition_states_ = new ArrayList<TransitionState>();
 		transition_counter_ = 0;
 		advancing_ = true;
+		delaying_ = false;
 	}
 	
 	public PaneTransition pane_transition() {
@@ -24,7 +26,7 @@ public class BoxPane {
 	}
 	
 	public void advance_random() {
-		delay_counter_ = (int) p_.random(advance_delay_);
+		//delay_counter_ = (int) p_.random(advance_delay_);
 	}
 	
 	public void add_transition_state(TransitionState state) {
@@ -55,11 +57,15 @@ public class BoxPane {
 		
 		pane_transition_.perform_transition();
 		
-		if (pane_transition_.finished()) {
-			++delay_counter_;
-			if (delay_counter_ > advance_delay_) {
+		if (!delaying_ && pane_transition_.finished()) {
+			delaying_ = true;
+			delay_counter_ = p_.millis();
+		}
+		
+		if (delaying_) {
+			if (p_.millis() - delay_counter_ > ADVANCE_DELAY) {
 				load_transition();
-				delay_counter_ = 0;
+				delaying_ = false;
 			}
 		}
 	}
