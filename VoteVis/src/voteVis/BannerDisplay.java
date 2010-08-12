@@ -71,7 +71,7 @@ public class BannerDisplay {
 		p.image(banner_, 0, 0);
 		
 		if (SceneManager.instance().twitter_mode()) {
-			p.image(twitter_callout_, profile_label_x_pos_, banner_height_);
+			p.image(twitter_callout_, 36, banner_height_ + label_height_ + 2);
 		}
 		
 		for (int i = 0; i < 5; ++i) {
@@ -98,5 +98,9 @@ public class BannerDisplay {
 	
 	public static BannerDisplay instance() {
 		return instance_;
+	}
+	
+	public int banner_height() {
+		return banner_height_;
 	}
 }

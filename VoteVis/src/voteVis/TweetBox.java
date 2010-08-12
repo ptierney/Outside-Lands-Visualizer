@@ -22,7 +22,7 @@ public class TweetBox extends Box {
 	private float fade_counter_ = 0.0f;
 	private float max_scale_ = 1.0f;
 	private boolean scaling_up_ = false;
-	private int fade_in_speed_ = 1000; // in millis
+	private int fade_in_speed_ = 250; // in millis
 	private int fade_in_counter_;
 	
 	public TweetBox(VoteVisApp p, float x, float y, ParsedTweet parsed_tweet_) {
@@ -33,6 +33,10 @@ public class TweetBox extends Box {
 		user_photo_ = p.loadImage(parsed_tweet_.getUserimage().getAbsolutePath());
 		
 		fade_in_counter_ = p.millis();
+		
+		scaling_up_ = true;
+		
+		max_scale_ = p.random(0.75f, 1.8f);
 		
 		render_width_ = 314;
 		render_height_ = 149;
@@ -48,6 +52,10 @@ public class TweetBox extends Box {
 			render_width_ - (PROFILE_IMAGE_GAP * 2 + PROFILE_IMAGE_DIM), 
 			render_height_ - PROFILE_IMAGE_GAP * 2);
 		render_.endDraw();
+	}
+	
+	public void init() {
+		fade_in_counter_ = p_.millis();
 	}
 
 	@Override
@@ -68,19 +76,23 @@ public class TweetBox extends Box {
 
 	@Override
 	public int get_height() {
-		// TODO Auto-generated method stub
-		return render_height_;
-	}
-
-	@Override
-	public PImage get_image() {
-		// TODO Auto-generated method stub
-		return render_;
+		return (int)(render_height_ * max_scale_);
 	}
 
 	@Override
 	public int get_width() {
-		// TODO Auto-generated method stub
-		return render_width_;
+		return (int)(render_width_ * max_scale_);
+	}
+	
+	@Override
+	public PImage get_image() {
+		return render_;
+	}
+	
+	public boolean collides_with_box(TweetBox box) {
+		if (box == this)
+			return false;
+		
+		return get_rectangle().intersects(box.get_rectangle());
 	}
 }

@@ -2,6 +2,7 @@ package voteVis;
 
 import java.util.Iterator;
 import processing.core.*;
+import java.awt.*;
 
 public abstract class Box {
 	protected VoteVisApp p_;
@@ -208,5 +209,12 @@ public abstract class Box {
 		if (x_ - get_height() > VoteVisApp.instance().height) 
 			BoxManager.instance().delete_me(this); // TODO: check for all references in other managers
 	}
-
+	
+	public Rectangle get_rectangle() {
+		int w = get_width();
+		int h = get_height();
+		
+		return new Rectangle(new Point((int)(x_ - w / 2), (int)(y_ - h /2)), 
+			new Dimension(w, h));
+	}
 }
