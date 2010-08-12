@@ -36,6 +36,9 @@ public class Settings {
 	public static int PROFILE_BOX_FONT_SIZE = 100;
 	public static int PROFILE_BOX_SMALL_FONT_SIZE = VOTE_BOX_FONT_SIZE;
 	
+	public static final int TWEET_BOX_FONT_SIZE = 14;
+	public static PFont TWEET_BOX_FONT;
+	
 	private PFont[] trend_box_fonts_;
 	private int[] trend_box_font_sizes_;
 	
@@ -56,6 +59,7 @@ public class Settings {
 		// TODO: load this font with processing
 		vote_box_font_ = p_.loadFont("AkzidenzGroteskBE-Bold-48.vlw");
 		profile_box_font_ = p_.loadFont("AkzidenzGroteskBE-Bold-100.vlw");
+		TWEET_BOX_FONT = p_.loadFont("AkzidenzGroteskBE-Bold-48.vlw");
 		
 		trend_box_font_sizes_ = new int[3];
 		trend_box_font_sizes_[Size.S.ordinal()] = 18;

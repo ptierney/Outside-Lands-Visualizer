@@ -58,7 +58,7 @@ public class VoteVisApp extends PApplet {
 		
 		last_frame_ = millis();
 		
-		scene_manager_.finished_trend();
+		//scene_manager_.finished_trend();
 	}
 	
 	public void create_worker_classes() {
@@ -102,9 +102,9 @@ public class VoteVisApp extends PApplet {
 		
 		TrendFactory.instance().update();
 		
+		TweetBoxFactory.instance().update();
+		
 		BannerDisplay.instance().draw();
-		
-		
 	}
 	
 	@Override

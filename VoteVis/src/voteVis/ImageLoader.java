@@ -28,6 +28,9 @@ public class ImageLoader {
 	
 	private PImage[][] billboards_;
 
+	public static PImage TWEET_BACKGROUND_USER;
+	public static PImage TWEET_BACKGROUND_CANDIDATE;
+	
 	ImageLoader(VoteVisApp p_) {
 		instance_ = this;
 		this.p_ = p_;
@@ -36,6 +39,7 @@ public class ImageLoader {
 		load_background_images();
 		load_profile_images();
 		load_billboards(); // must be after background images
+		load_twitter();
 	}
 
 	public PImage get_candidate_image(Type type, int index) {
@@ -325,6 +329,11 @@ public class ImageLoader {
 	
 	public PImage get_profile_square() {
 		return profile_square_;
+	}
+	
+	private void load_twitter() {
+		TWEET_BACKGROUND_USER = p_.loadImage("twitter-regular-box.png");
+		TWEET_BACKGROUND_CANDIDATE = p_.loadImage("twitter-candidate-box.png");
 	}
 
 }

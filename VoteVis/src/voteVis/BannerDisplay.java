@@ -7,18 +7,23 @@ public class BannerDisplay {
 	private PImage banner_;
 	private PImage[] labels_;
 	private PImage[] labels_off_;
+	private PImage twitter_callout_;
+	private PImage profile_label_;
 	private int[] x_positions_;
 	private int y_position_;
+	private int profile_label_x_pos_;
 	private int label_width_;
 	private int label_height_;
 	private static int GAP = 0;
 	private boolean[] active_labels_;
+	private int banner_height_;
 	
 	public BannerDisplay() {
 		instance_ = this;
 		
 		PApplet p = VoteVisApp.instance();
 		banner_ = p.loadImage("banner.png");
+		banner_height_ = banner_.height;
 		
 		labels_ = new PImage[5];
 		labels_[Type.MUSIC.ordinal()] = p.loadImage("music-label.png");
@@ -34,6 +39,9 @@ public class BannerDisplay {
 		labels_off_[Type.ECO.ordinal()] = p.loadImage("eco-label-off.png");
 		labels_off_[Type.ART.ordinal()] = p.loadImage("art-label-off.png");
 		
+		profile_label_ = p.loadImage("profile-label.png");
+		twitter_callout_ = p.loadImage("twitter-callout.png");
+		
 		// all these should be the same (checked it out in photoshop)
 		label_width_ = labels_[0].width;
 		label_height_ = labels_[0].height;
@@ -46,6 +54,8 @@ public class BannerDisplay {
 		x_positions_[Type.WINE.ordinal()] = Utility.get_aligned_position(Settings.UNIT_DIM, 3);
 		x_positions_[Type.ECO.ordinal()] = Utility.get_aligned_position(Settings.UNIT_DIM, 4);
 		x_positions_[Type.ART.ordinal()] = Utility.get_aligned_position(Settings.UNIT_DIM, 5);
+		
+		profile_label_x_pos_ = Utility.get_aligned_position(Settings.UNIT_DIM, 0);
 		
 		active_labels_ = new boolean[5];
 		// set all active
@@ -60,7 +70,12 @@ public class BannerDisplay {
 		// required by law to be here
 		p.image(banner_, 0, 0);
 		
+		if (SceneManager.instance().twitter_mode()) {
+			p.image(twitter_callout_, profile_label_x_pos_, banner_height_);
+		}
+		
 		for (int i = 0; i < 5; ++i) {
+			p.image(profile_label_, profile_label_x_pos_ - profile_label_.width / 2, banner_height_);
 			p.image(get_label_image(Type.deserialize(i)), x_positions_[i] -label_width_ / 2,  y_position_ -label_height_ / 2);
 		}
 	}

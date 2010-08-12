@@ -15,6 +15,16 @@ public class TweetBox extends Box {
 	private int render_width_;
 	private int render_height_;
 
+	private static final int PROFILE_IMAGE_GAP = 6;
+	private static final int PROFILE_TEXT_TOP_GAP = 12;
+	private static final int PROFILE_IMAGE_DIM = 105;
+	
+	private float fade_counter_ = 0.0f;
+	private float max_scale_ = 1.0f;
+	private boolean scaling_up_ = false;
+	private int fade_in_speed_ = 1000; // in millis
+	private int fade_in_counter_;
+	
 	public TweetBox(VoteVisApp p, float x, float y, ParsedTweet parsed_tweet_) {
 		super(p, x, y);
 		
@@ -22,28 +32,38 @@ public class TweetBox extends Box {
 		tweet_ = parsed_tweet_.getText();
 		user_photo_ = p.loadImage(parsed_tweet_.getUserimage().getAbsolutePath());
 		
-		render_width_ = 300;
-		render_height_ = 200;
+		fade_in_counter_ = p.millis();
+		
+		render_width_ = 314;
+		render_height_ = 149;
 		
 		render_ = p.createGraphics(render_width_, render_height_, PApplet.JAVA2D);
 		render_.beginDraw();
-		render_.background(100);
-		render_.strokeWeight(2.0f);
-		render_.stroke(255);
-		render_.noFill();
-		render_.rect(0, 0, 300, 100);
-		render_.fill(255);
-		render_.image(user_photo_, 30, 30);
-		render_.textFont(Settings.instance().get_vote_box_font());
-		render_.text(user_name_, 100, 30);
-		render_.text(tweet_, 100, 50, 150, 150);
+		render_.image(ImageLoader.TWEET_BACKGROUND_USER, 0, 0);
+		render_.image(Utility.instance().scale_to_pane_size(user_photo_,
+			PROFILE_IMAGE_DIM), PROFILE_IMAGE_GAP, PROFILE_IMAGE_GAP);
+		render_.textFont(Settings.TWEET_BOX_FONT, Settings.TWEET_BOX_FONT_SIZE);
+		render_.fill(0);
+		render_.text(tweet_, PROFILE_IMAGE_GAP * 2 + PROFILE_IMAGE_DIM, PROFILE_TEXT_TOP_GAP, 
+			render_width_ - (PROFILE_IMAGE_GAP * 2 + PROFILE_IMAGE_DIM), 
+			render_height_ - PROFILE_IMAGE_GAP * 2);
 		render_.endDraw();
 	}
 
 	@Override
 	public void draw() {
-		// TODO Auto-generated method stub
-		VoteVisApp.instance().image(render_, -render_width_ / 2, -render_height_ / 2);
+		p_.pushMatrix();
+			p_.translate(x_, y_);
+			if (scaling_up_) {
+				int time_diff = p_.millis() - fade_in_counter_;
+				if (time_diff > fade_in_speed_)
+					scaling_up_ = false;
+				p_.scale(PApplet.map(time_diff, 
+					0, fade_in_speed_, 0, max_scale_));
+			} else
+				p_.scale(max_scale_);
+			VoteVisApp.instance().image(render_, -render_width_ / 2, -render_height_ / 2);
+		p_.popMatrix();
 	}
 
 	@Override
