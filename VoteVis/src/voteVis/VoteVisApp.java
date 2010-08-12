@@ -7,7 +7,6 @@ import processing.core.*;
 //import javax.media.opengl.GL;
 import voteVis.RotateBoxTransition.Axis;
 import control.*;
-import file.*;
 import twitpull.*;
 
 @SuppressWarnings("serial")
@@ -58,6 +57,8 @@ public class VoteVisApp extends PApplet {
 		SceneManager scene_manager_ = new SceneManager();
 		
 		last_frame_ = millis();
+		
+		scene_manager_.finished_trend();
 	}
 	
 	public void create_worker_classes() {
@@ -74,6 +75,8 @@ public class VoteVisApp extends PApplet {
 		BillboardFactory billboard_factory_ = new BillboardFactory();
 		@SuppressWarnings("unused")
 		TrendFactory trend_factory_ = new TrendFactory();
+		@SuppressWarnings("unused")
+		TweetBoxFactory tweet_box_factory_ = new TweetBoxFactory();
 	}
 
 	@Override

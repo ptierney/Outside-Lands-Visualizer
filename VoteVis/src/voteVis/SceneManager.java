@@ -47,8 +47,14 @@ public class SceneManager {
 		TrendFactory.instance().switched_to(current_type_);
 	}
 	
-	private void move_from_trend_to_vote() {
+	private void move_from_trend_to_tweet() {
 		TrendFactory.instance().switching_from();
+		TweetBoxFactory.instance().switched_to(current_type_);
+	}
+	
+	private void move_from_tweet_to_vote() {
+		TweetBoxFactory.instance().switching_from();
+		
 		increment_type();
 		
 		VoteVisApp.instance().create_worker_classes();
@@ -64,7 +70,11 @@ public class SceneManager {
 	}
 	
 	public void finished_trend() {
-		move_from_trend_to_vote();	
+		move_from_trend_to_tweet();
+	}
+	
+	public void finished_tweet() {
+		move_from_tweet_to_vote();
 	}
 	
 	private void increment_type() {
