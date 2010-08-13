@@ -70,6 +70,10 @@ public class TweetBoxFactory {
 		make_next_box();
 	}
 	
+	public void make_intro_squares() {
+		
+	}
+	
 	public void switching_from() {
 		parsed_tweets_ = null;
 	}
