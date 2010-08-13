@@ -11,7 +11,7 @@ public abstract class ExpandingFrame extends BoxFrame {
 	protected int max_unit_width_; // how many multiples of UNIT_DIM
 	protected float counter_; // ranges from 0.0 (full retraction) to 1.0 (full extension)
 	
-	public static int EXPAND_TIME = 450; // time in millis
+	public static int EXPAND_TIME = 600; // time in millis
 	private int action_start_time_;
 	
 	protected boolean expanding_;

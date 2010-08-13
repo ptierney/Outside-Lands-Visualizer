@@ -12,10 +12,12 @@ public class VoteBox extends DynamicBox {
 		this.type_ = type_;
 		this.index_ = index_;
 		
+		transitioning_ = false;
+		
 		set_pane_transition_states();
 		box_pane_.load_transition(); // prep the box for a transition
 		//box_pane_.advance_random();
-		box_pane_.pane_transition().advance_random();
+		//box_pane_.pane_transition().advance_random();
 		box_frame_ = new VoteFrame(p_, type_);
 	}
 	
@@ -34,8 +36,14 @@ public class VoteBox extends DynamicBox {
 	}
 	
 	private void set_pane_transition_states() {
+		box_pane_.add_transition_state(get_icon_state());
 		box_pane_.add_transition_state(get_text_state());
 		box_pane_.add_transition_state(get_photo_state());
+	}
+	
+	private TransitionState get_icon_state() {
+		return new PhotoState(p_, Utility.instance().scale_to_vote_pane_size(
+			ImageLoader.instance().get_icon(type_)));
 	}
 	
 	private TransitionState get_text_state() {

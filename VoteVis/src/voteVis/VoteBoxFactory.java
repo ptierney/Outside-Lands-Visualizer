@@ -13,7 +13,7 @@ public class VoteBoxFactory implements BoxListener {
 	private ArrayList<VoteRow> vote_rows_ = null;
 	private ArrayList<Box> current_row_ = null;
 	private VoteRow current_vote_row_;
-	public static int CREATE_DELAY = 250; // in millis;
+	public static int CREATE_DELAY = 2500; // in millis;
 	private int create_delay_counter_;
 	private boolean delaying_create_;
 	private static int START_SCROLLING_HEIGHT = 1; // start scrolling after the n'th row has been added
@@ -85,6 +85,14 @@ public class VoteBoxFactory implements BoxListener {
 		bottom_stop_row_ = null;
 		bottom_stop_box_ = null;
 		transition_check_box_ = null;
+	}
+	
+	public void set_current_row_transitioning() {
+		Iterator<Box> it = current_row_.iterator();
+		
+		while (it.hasNext()) {
+			((DynamicBox)it.next()).set_transitioning(true);
+		}
 	}
 	
 	public void next_vote_row() {
@@ -262,6 +270,7 @@ public class VoteBoxFactory implements BoxListener {
 	public void setup_finished(Box box) {
 		// so far only called by ProfileBoxes when they have finished
 		// contracting their frame
+		set_current_row_transitioning();
 		create_delay_counter_ = VoteVisApp.instance().millis();
 		delaying_create_ = true;
 	}

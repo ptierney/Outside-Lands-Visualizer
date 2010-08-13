@@ -15,6 +15,8 @@ public class TextState extends TransitionState {
 	TextState(VoteVisApp p_, String state_text_, int bg_color, PImage background_image, int state_dim_,
 		PFont text_font_, int text_size_) {
 		super(p_, state_dim_);
+		
+		state_type_ = StateType.TEXT;
 
 		max_text_width_ = state_dim_ - 20;
 

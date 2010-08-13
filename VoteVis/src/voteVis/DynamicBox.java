@@ -8,6 +8,7 @@ public abstract class DynamicBox extends Box {
 	protected PImage background_image_;
 	protected BoxPane box_pane_;
 	protected BoxFrame box_frame_ = null;
+	protected boolean transitioning_ = true;
 	
 	protected static final int SLIDE_SPEED = 3;
 	
@@ -35,8 +36,12 @@ public abstract class DynamicBox extends Box {
 		if (!visible_)
 			return;
 
-		if (falling_ == false)
+		if (falling_ == false && transitioning_)
 			box_pane_.update();
+	}
+	
+	public void set_transitioning(boolean t) {
+		transitioning_ = t;
 	}
 
 	@Override

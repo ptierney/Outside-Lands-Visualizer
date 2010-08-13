@@ -23,6 +23,8 @@ public class TweetBoxFactory {
 	private ArrayList<TweetBox> tweet_boxes_;
 	private Box top_intro_box_;
 	private boolean intro_mode_;
+	private static final int MAX_ATTEMPT_TIME = 750; // in millis
+	private int attempt_counter_;
 	
 	private enum IntroType {
 		TOP,
@@ -93,6 +95,8 @@ public class TweetBoxFactory {
 			parsed_tweets_ = get_parsed_tweets();
 			PApplet.print(".");
 		}
+		
+		PApplet.print("done getting");
 
 		//make_next_box();
 		delaying_ = false;

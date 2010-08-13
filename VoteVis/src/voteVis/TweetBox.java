@@ -62,7 +62,7 @@ public class TweetBox extends Box {
 	}
 	
 	private void create_user_box(VoteVisApp p) {
-		max_scale_ = p.random(0.75f, 1.8f);
+		max_scale_ = p.random(1.25f, 2.5f);
 		
 		render_width_ = 314;
 		render_height_ = 149;

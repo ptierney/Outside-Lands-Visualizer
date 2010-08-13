@@ -14,6 +14,8 @@ public class PhotoState extends TransitionState {
 		}
 
 		state_image_ = photo;
+		
+		state_type_ = StateType.PHOTO;
 	}
 
 	PImage get_image() {

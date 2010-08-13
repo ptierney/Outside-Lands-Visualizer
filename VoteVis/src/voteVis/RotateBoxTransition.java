@@ -5,7 +5,7 @@ import processing.core.*;
 public class RotateBoxTransition extends BoxTransition {
 	private Axis axis_;
 	private float rotate_amount_;
-	private static int ROTATE_TIME = 400; // in millis;
+	private static int ROTATE_TIME = 150; // in millis;
 	private float pos_x_;
 	private float pos_y_;
 	private boolean flipped_;

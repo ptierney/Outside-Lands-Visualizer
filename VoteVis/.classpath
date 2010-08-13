@@ -14,7 +14,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/opengl.jar"/>
-	<classpathentry kind="lib" path="lib/mryouth/TwitCache.jar"/>
 	<classpathentry kind="lib" path="lib/mryouth/gson-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/mryouth/TwitCache.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

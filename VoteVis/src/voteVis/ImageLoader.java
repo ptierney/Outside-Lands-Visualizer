@@ -35,6 +35,8 @@ public class ImageLoader {
 	private PImage[] twitter_intro_main_;
 	private PImage[] twitter_intro_tweets_;
 	
+	private PImage[] icons_;
+	
 	public PImage twitter_logo_bubble;
 
 	public static PImage TWEET_BACKGROUND_USER;
@@ -44,6 +46,7 @@ public class ImageLoader {
 		instance_ = this;
 		this.p_ = p_;
 		load_images_and_names();
+		load_icons();
 		load_profiles();
 		load_background_images();
 		load_profile_images();
@@ -70,6 +73,20 @@ public class ImageLoader {
 	// TODO: implement this really
 	public PImage get_dummy_profile_image() {
 		return profile_images_[0];
+	}
+	
+	private void load_icons() {
+		icons_ = new PImage[5];
+		
+		icons_[Type.ECO.ordinal()] = p_.loadImage("eco-icon.png");
+		icons_[Type.MUSIC.ordinal()] = p_.loadImage("music-icon.png");
+		icons_[Type.ART.ordinal()] = p_.loadImage("art-icon.png");
+		icons_[Type.WINE.ordinal()] = p_.loadImage("wine-icon.png");
+		icons_[Type.FOOD.ordinal()] = p_.loadImage("food-icon.png");
+	}
+	
+	public PImage get_icon(Type type) {
+		return icons_[type.ordinal()];
 	}
 
 	private void load_images_and_names() {

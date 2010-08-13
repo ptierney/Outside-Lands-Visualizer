@@ -48,10 +48,10 @@ public class BoxPane {
 
 		TransitionState end = transition_states_.get(transition_counter_);
 
-		if ((int) (p_.random(2)) == 0)
+		if (end.state_type() == StateType.TEXT)
 			pane_transition_ = new HorizontalSlideTransition(p_);
-		else
-			pane_transition_ = new VerticalSlideTransition(p_);
+		else if (end.state_type() == StateType.PHOTO)
+			pane_transition_ = new VerticalSlideTransition(p_);	
 
 		pane_transition_.set_slide_speed(slide_speed_);
 		pane_transition_.load_transition(start, end);
