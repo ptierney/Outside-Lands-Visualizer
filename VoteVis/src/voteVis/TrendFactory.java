@@ -16,6 +16,7 @@ public class TrendFactory {
 	private int boxes_created_ = 0;
 	private boolean active_ = false;
 	
+	
 	public TrendFactory() {
 		instance_ = this;
 		
