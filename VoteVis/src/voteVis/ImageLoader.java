@@ -24,6 +24,9 @@ public class ImageLoader {
 	public PImage profile_square_text_scaled;
 	public PImage profile_right_text_scaled;
 	
+	private PImage[] tweet_backgrounds_user_;
+	private PImage[] tweet_backgrounds_candidate_;
+	
 	private PImage[] vote_background_images_;
 	
 	private PImage[][] billboards_;
@@ -148,7 +151,6 @@ public class ImageLoader {
 		return billboards_;
 	}
 	
-	// TODO: actually load images
 	private void load_billboards() {
 		billboards_ = new PImage[5][];
 		int n = 0;
@@ -332,8 +334,28 @@ public class ImageLoader {
 	}
 	
 	private void load_twitter() {
-		TWEET_BACKGROUND_USER = p_.loadImage("twitter-regular-box.png");
-		TWEET_BACKGROUND_CANDIDATE = p_.loadImage("twitter-candidate-box.png");
+		tweet_backgrounds_candidate_ = new PImage[5];
+		tweet_backgrounds_user_ = new PImage[5];
+		
+		tweet_backgrounds_candidate_[Type.MUSIC.ordinal()] = p_.loadImage("twitter-candidate-box-music.png");
+		tweet_backgrounds_candidate_[Type.ECO.ordinal()] = p_.loadImage("twitter-candidate-box-eco.png");
+		tweet_backgrounds_candidate_[Type.ART.ordinal()] = p_.loadImage("twitter-candidate-box-art.png");
+		tweet_backgrounds_candidate_[Type.FOOD.ordinal()] = p_.loadImage("twitter-candidate-box-food.png");
+		tweet_backgrounds_candidate_[Type.WINE.ordinal()] = p_.loadImage("twitter-candidate-box-wine.png");
+		
+		tweet_backgrounds_user_[Type.MUSIC.ordinal()] = p_.loadImage("twitter-user-box-music.png");
+		tweet_backgrounds_user_[Type.ECO.ordinal()] = p_.loadImage("twitter-user-box-eco.png");
+		tweet_backgrounds_user_[Type.ART.ordinal()] = p_.loadImage("twitter-user-box-art.png");
+		tweet_backgrounds_user_[Type.FOOD.ordinal()] = p_.loadImage("twitter-user-box-food.png");
+		tweet_backgrounds_user_[Type.WINE.ordinal()] = p_.loadImage("twitter-user-box-wine.png");
+	}
+	
+	public PImage get_tweet_background_user(Type type) {
+		return tweet_backgrounds_user_[type.ordinal()];
+	}
+	
+	public PImage get_tweet_background_candidate(Type type) {
+		return tweet_backgrounds_candidate_[type.ordinal()];
 	}
 
 }

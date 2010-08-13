@@ -12,6 +12,7 @@ public class BoxPane {
 	private int delay_counter_;
 	private boolean delaying_;
 	private boolean advancing_;
+	private int slide_speed_ = 1;
 
 	BoxPane(VoteVisApp p_) {
 		this.p_ = p_;
@@ -23,6 +24,10 @@ public class BoxPane {
 	
 	public PaneTransition pane_transition() {
 		return pane_transition_;
+	}
+	
+	public void set_slide_speed(int s) {
+		slide_speed_ = s;
 	}
 	
 	public void advance_random() {
@@ -48,6 +53,7 @@ public class BoxPane {
 		else
 			pane_transition_ = new VerticalSlideTransition(p_);
 
+		pane_transition_.set_slide_speed(slide_speed_);
 		pane_transition_.load_transition(start, end);
 	}
 

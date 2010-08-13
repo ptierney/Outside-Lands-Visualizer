@@ -18,6 +18,7 @@ public class TrendBox extends DynamicBox {
 		box_frame_ = new TrendFrame(type_, size_);
 		
 		set_pane_transition_states();
+		box_pane_.set_slide_speed(get_speed_from_size(size_));
 		box_pane_.load_transition(); // prep the box for a transition
 	}
 	
@@ -97,6 +98,18 @@ public class TrendBox extends DynamicBox {
 				return Collision.ABOUT;
 			
 			return Collision.NONE;
+		}
+	}
+	
+	private static int get_speed_from_size(Size s) {
+		switch (s) {
+		case L:
+			return 8;
+		case M:
+			return 4;
+		case S:
+		default:
+			return 1;
 		}
 	}
 	

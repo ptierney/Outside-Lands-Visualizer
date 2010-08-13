@@ -47,7 +47,6 @@ public class TweetBoxFactory {
 	private void init() {
 		boxes_made_ = 0;
 		delaying_ = false;
-		tweet_boxes_ = new ArrayList<TweetBox>();
 	}
 	
 	public void update() {
@@ -96,13 +95,10 @@ public class TweetBoxFactory {
 				SceneManager.instance().finished_tweet();
 				return;
 			}
-			
-			
 		} while (off_screen(b) || collides_with_existing(b));
 		
 		b.set_falling(false);
 		b.init();
-		tweet_boxes_.add(b);
 		BoxManager.instance().add_box(b);
 		
 		++boxes_made_;
@@ -132,7 +128,7 @@ public class TweetBoxFactory {
 	}
 	
 	public boolean collides_with_existing(TweetBox new_box) {
-		Iterator<TweetBox> it = tweet_boxes_.iterator();
+		Iterator<Box> it = BoxManager.instance().boxes().iterator();
 		
 		while (it.hasNext()) {
 			if (it.next().collides_with_box(new_box))

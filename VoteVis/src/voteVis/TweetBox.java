@@ -25,37 +25,84 @@ public class TweetBox extends Box {
 	private int fade_in_speed_ = 250; // in millis
 	private int fade_in_counter_;
 	
+	private TweetType tweet_type_;
+	
+	private Type type_;
+	
+	public enum TweetType {
+		USER,
+		FOLLOW
+	}
+	
 	public TweetBox(VoteVisApp p, float x, float y, ParsedTweet parsed_tweet_) {
 		super(p, x, y);
 		
 		user_name_ = parsed_tweet_.getFrom_user();
 		tweet_ = parsed_tweet_.getText();
 		user_photo_ = p.loadImage(parsed_tweet_.getUserimage().getAbsolutePath());
+		type_ = SceneManager.instance().current_type();
 		
 		fade_in_counter_ = p.millis();
 		
 		scaling_up_ = true;
 		
+		if (parsed_tweet_.getCaptureType() == "follow")
+			create_follow_box(p);
+		else
+			create_user_box(p);
+	}
+	
+	private void create_follow_box(VoteVisApp p) {
+		max_scale_ = p.random(1.0f, 2.0f);
+		
+		render_width_ = 314;
+		render_height_ = 149;
+		
+		tweet_type_ = TweetType.FOLLOW;
+	}
+	
+	private void create_user_box(VoteVisApp p) {
 		max_scale_ = p.random(0.75f, 1.8f);
 		
 		render_width_ = 314;
 		render_height_ = 149;
 		
-		render_ = p.createGraphics(render_width_, render_height_, PApplet.JAVA2D);
-		render_.beginDraw();
-		render_.image(ImageLoader.TWEET_BACKGROUND_USER, 0, 0);
-		render_.image(Utility.instance().scale_to_pane_size(user_photo_,
-			PROFILE_IMAGE_DIM), PROFILE_IMAGE_GAP, PROFILE_IMAGE_GAP);
-		render_.textFont(Settings.TWEET_BOX_FONT, Settings.TWEET_BOX_FONT_SIZE);
-		render_.fill(0);
-		render_.text(tweet_, PROFILE_IMAGE_GAP * 2 + PROFILE_IMAGE_DIM, PROFILE_TEXT_TOP_GAP, 
-			render_width_ - (PROFILE_IMAGE_GAP * 2 + PROFILE_IMAGE_DIM), 
-			render_height_ - PROFILE_IMAGE_GAP * 2);
-		render_.endDraw();
+		tweet_type_ = TweetType.USER;
+	}
+	
+	public void render_box() {
+		VoteVisApp p = VoteVisApp.instance();
+		
+		if (tweet_type_ == TweetType.FOLLOW) {
+			render_ = p.createGraphics(render_width_, render_height_, PApplet.JAVA2D);
+			render_.beginDraw();
+			render_.image(ImageLoader.instance().get_tweet_background_candidate(type_), 0, 0);
+			render_.image(Utility.instance().scale_to_pane_size(user_photo_,
+				PROFILE_IMAGE_DIM), PROFILE_IMAGE_GAP, PROFILE_IMAGE_GAP);
+			render_.textFont(Settings.TWEET_BOX_FONT, Settings.TWEET_BOX_FONT_SIZE);
+			render_.fill(255);
+			render_.text(tweet_, PROFILE_IMAGE_GAP * 2 + PROFILE_IMAGE_DIM, PROFILE_TEXT_TOP_GAP, 
+				render_width_ - (PROFILE_IMAGE_GAP * 2 + PROFILE_IMAGE_DIM),
+				render_height_ - PROFILE_IMAGE_GAP * 2);
+			render_.endDraw();
+		} else {
+			render_ = p.createGraphics(render_width_, render_height_, PApplet.JAVA2D);
+			render_.beginDraw();
+			render_.image(ImageLoader.instance().get_tweet_background_user(type_), 0, 0);
+			render_.image(Utility.instance().scale_to_pane_size(user_photo_,
+				PROFILE_IMAGE_DIM), PROFILE_IMAGE_GAP, PROFILE_IMAGE_GAP);
+			render_.textFont(Settings.TWEET_BOX_FONT, Settings.TWEET_BOX_FONT_SIZE);
+			render_.fill(0);
+			render_.text(tweet_, PROFILE_IMAGE_GAP * 2 + PROFILE_IMAGE_DIM, PROFILE_TEXT_TOP_GAP, 
+				render_width_ - (PROFILE_IMAGE_GAP * 2 + PROFILE_IMAGE_DIM), 
+				render_height_ - PROFILE_IMAGE_GAP * 2);
+			render_.endDraw();
+		}
 	}
 	
 	public void init() {
 		fade_in_counter_ = p_.millis();
+		render_box();
 	}
 
 	@Override
@@ -87,12 +134,5 @@ public class TweetBox extends Box {
 	@Override
 	public PImage get_image() {
 		return render_;
-	}
-	
-	public boolean collides_with_box(TweetBox box) {
-		if (box == this)
-			return false;
-		
-		return get_rectangle().intersects(box.get_rectangle());
 	}
 }

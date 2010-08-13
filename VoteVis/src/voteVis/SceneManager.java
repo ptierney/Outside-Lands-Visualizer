@@ -8,6 +8,8 @@ public class SceneManager {
 	private Type current_type_;
 	private boolean display_all_labels_ = true;
 	private boolean twitter_mode_ = false;
+	private boolean moving_all_off_screen_ = false;
+	private Box top_box_;
 	
 	public SceneManager() {
 		instance_ = this;
@@ -57,15 +59,7 @@ public class SceneManager {
 	private void move_from_tweet_to_vote() {
 		TweetBoxFactory.instance().switching_from();
 		
-		twitter_mode_ = false;
-		
-		increment_type();
-		
-		VoteVisApp.instance().create_worker_classes();
-		
-		display_all_labels_ = true;
-		
-		start_cycle();
+		move_all_off_screen();
 	}
 	
 	// called when the billboards of type have been created
@@ -99,5 +93,31 @@ public class SceneManager {
 	
 	public boolean twitter_mode() {
 		return twitter_mode_;
+	}
+	
+	public void update() {
+		if (moving_all_off_screen_) {
+			if (top_box_.y() - top_box_.get_height() / 2 > VoteVisApp.instance().height)
+				all_moved_off_screen();
+		}
+	}
+	
+	private void move_all_off_screen() {
+		top_box_ = (Box) BoxManager.instance().boxes().toArray()[ BoxManager.instance().boxes().size() - 1];
+		moving_all_off_screen_ = true;
+	}
+	
+	private void all_moved_off_screen() {
+		moving_all_off_screen_ = false;
+		
+		twitter_mode_ = false;
+		
+		increment_type();
+		
+		VoteVisApp.instance().create_worker_classes();
+		
+		display_all_labels_ = true;
+		
+		start_cycle();
 	}
 }

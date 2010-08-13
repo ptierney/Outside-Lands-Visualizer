@@ -104,6 +104,8 @@ public class VoteVisApp extends PApplet {
 		
 		TweetBoxFactory.instance().update();
 		
+		SceneManager.instance().update();
+		
 		BannerDisplay.instance().draw();
 	}
 	

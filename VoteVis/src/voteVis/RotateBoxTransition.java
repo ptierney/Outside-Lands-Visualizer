@@ -5,9 +5,9 @@ import processing.core.*;
 public class RotateBoxTransition extends BoxTransition {
 	private Axis axis_;
 	private float rotate_amount_;
-	private static int ROTATE_TIME = 300; // in millis;
-	private int pos_x_;
-	private int pos_y_;
+	private static int ROTATE_TIME = 400; // in millis;
+	private float pos_x_;
+	private float pos_y_;
 	private boolean flipped_;
 	private int start_timer_;
 
@@ -26,12 +26,13 @@ public class RotateBoxTransition extends BoxTransition {
 		transitioning_ = true;
 		start_timer_ = VoteVisApp.instance().millis();
 		
-		pos_x_ = (int) b1.x();
-		pos_y_ = (int) b1.y();
+		pos_x_ = b1.x();
+		pos_y_ = b1.y();
 		
 		// the end boxes may be been created at an earlier time
 		end_box_.set_x(start_box_.x());
 		end_box_.set_y(start_box_.y());
+		end_box_.set_falling(true);
 	}
 
 	public void update() {

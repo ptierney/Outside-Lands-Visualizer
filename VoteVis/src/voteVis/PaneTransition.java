@@ -9,6 +9,7 @@ public abstract class PaneTransition {
 	protected VoteVisApp p_;
 	protected int counter_; // goes from 0 to unit_dim (for # of pixels transitioned)
 	protected int trans_unit_dim_;
+	protected int slide_speed_;
 	
 	public PaneTransition(VoteVisApp p_) {
 		this.p_ = p_;
@@ -32,5 +33,9 @@ public abstract class PaneTransition {
 
 	public boolean finished() {
 		return finished_;
+	}
+	
+	public void set_slide_speed(int new_speed) {
+		slide_speed_ = new_speed;
 	}
 }

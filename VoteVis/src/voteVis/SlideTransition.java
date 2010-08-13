@@ -3,7 +3,6 @@ package voteVis;
 import processing.core.*;
 
 public abstract class SlideTransition extends PaneTransition {
-	int slide_speed_;
 	PImage transition_buffer_;
 	boolean normal_direction_;
 
@@ -25,6 +24,7 @@ public abstract class SlideTransition extends PaneTransition {
 	@Override
 	public void perform_transition() {
 		if (counter_ > trans_unit_dim_) {
+			force_end();
 			finished_ = true;
 			return;
 		}
@@ -32,7 +32,11 @@ public abstract class SlideTransition extends PaneTransition {
 		clear_buffer();
 		copy_start_into_buffer(counter_);
 		copy_end_into_buffer(counter_);
-		++counter_;
+		counter_ += slide_speed_;
+	}
+	
+	private void force_end() {
+		transition_buffer_ = end_image_;
 	}
 
 	void clear_buffer() {
@@ -48,6 +52,8 @@ public abstract class SlideTransition extends PaneTransition {
 	public void draw() {
 		p_.image(transition_buffer_, -trans_unit_dim_ / 2, -trans_unit_dim_ / 2);
 	}
+	
+
 
 	abstract void copy_start_into_buffer(int c);
 	abstract void copy_end_into_buffer(int c);

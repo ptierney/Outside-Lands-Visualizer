@@ -217,4 +217,11 @@ public abstract class Box {
 		return new Rectangle(new Point((int)(x_ - w / 2), (int)(y_ - h /2)), 
 			new Dimension(w, h));
 	}
+	
+	public boolean collides_with_box(Box box) {
+		if (box == this)
+			return false;
+		
+		return get_rectangle().intersects(box.get_rectangle());
+	}
 }
