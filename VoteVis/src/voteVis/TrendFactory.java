@@ -9,7 +9,7 @@ public class TrendFactory {
 	private int created_boxes_;
 	private int[] top_five_;
 	private static int CREATE_DELAY = 250; 
-	private static int TRANSITION_HEIGHT = 550;
+	private static int TRANSITION_HEIGHT = 620;
 	private boolean delaying_;
 	private int delaying_counter_;
 	private Box top_check_box_ = null;

@@ -109,7 +109,7 @@ public class TrendBox extends DynamicBox {
 			return 4;
 		case S:
 		default:
-			return 1;
+			return 2;
 		}
 	}
 	

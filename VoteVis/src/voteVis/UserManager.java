@@ -41,12 +41,30 @@ public class UserManager {
 	public class User {
 		private int id_;
 		private String name_;
+		private String first_name_;
+		private String last_name_;
+		private String last_initial_;
 		private int display_count_;
 		private PImage profile_photo_;
 		
 		public User(int id_, String name_, PImage profile_photo_) {
 			this.id_ = id_;
 			this.name_ = name_;
+			String[] name_split = name_.split(" ");
+			
+			last_name_ = "";
+			last_initial_ = "";
+			
+			if (name_split.length == 0) {
+				first_name_ = "Anonymous";
+			} else if (name_split.length == 1) {
+				first_name_ = name_split[0];
+			} else {
+				first_name_ = name_split[0];
+				last_name_ = name_split[1];
+				last_initial_ = last_name_.substring(0, 1);
+			}
+
 			this.profile_photo_ = profile_photo_;
 			display_count_ = 0;
 		}
@@ -56,7 +74,7 @@ public class UserManager {
 		}
 		
 		public String name() {
-			return name_;
+			return first_name_ + " " + last_initial_;
 		}
 		
 		public PImage profile_photo() {

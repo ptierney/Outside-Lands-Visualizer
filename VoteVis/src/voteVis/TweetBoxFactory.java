@@ -1,6 +1,7 @@
 package voteVis;
 
 import processing.core.PApplet;
+import processing.core.*;
 import java.awt.Rectangle;
 import java.awt.Point;
 import java.awt.Dimension;
@@ -20,6 +21,17 @@ public class TweetBoxFactory {
 	private ParsedTweet[] parsed_tweets_ = null;
 	private static int BOX_SIDE_INSET = 175;
 	private ArrayList<TweetBox> tweet_boxes_;
+	private Box top_intro_box_;
+	private boolean intro_mode_;
+	
+	private enum IntroType {
+		TOP,
+		NAME,
+		TWEETS,
+		LOGO
+	}
+	
+	private PVector[] intro_box_pos_;
 	
 	private Rectangle left_rect;
 	private Rectangle right_rect;
@@ -41,6 +53,12 @@ public class TweetBoxFactory {
 		bottom_rect = new Rectangle(new Point(0, h),
 			new Dimension(w, rect_width));
 		
+		intro_box_pos_ = new PVector[4];
+		intro_box_pos_[IntroType.NAME.ordinal()] = new PVector(521, 126);
+		intro_box_pos_[IntroType.TOP.ordinal()] = new PVector(189, 290);
+		intro_box_pos_[IntroType.TWEETS.ordinal()] = new PVector(688, 455);
+		intro_box_pos_[IntroType.LOGO.ordinal()] = new PVector(23, 456);
+		
 		init();
 	}
 	
@@ -54,12 +72,21 @@ public class TweetBoxFactory {
 			if (VoteVisApp.instance().millis() - delay_counter_ > CREATE_DELAY)
 				make_next_box();
 		}
+		
+		if (intro_mode_) {
+			if (top_intro_box_.y() > 500) {
+				make_next_box();
+				intro_mode_ = false;
+				delaying_ = true;
+			}
+		}
 	}
 	
 	public void switched_to(Type current_type) {
 		init();
 		
 		current_type_ = current_type;
+		
 		PApplet.print("Getting parsed tweets");
 		while (parsed_tweets_ == null || parsed_tweets_.length == 0
 			|| parsed_tweets_.length != NUM_CREATE) {
@@ -67,15 +94,35 @@ public class TweetBoxFactory {
 			PApplet.print(".");
 		}
 
-		make_next_box();
+		//make_next_box();
+		delaying_ = false;
+		intro_mode_ = true;
+		make_intro_squares();
 	}
 	
 	public void make_intro_squares() {
+		VoteVisApp p = VoteVisApp.instance();
 		
+		// place the 4 boxes
+		
+		BoxManager.instance().add_box(new TwitterPictureBox(p, intro_box_pos_[IntroType.LOGO.ordinal()].x,
+			intro_box_pos_[IntroType.LOGO.ordinal()].y, ImageLoader.instance().twitter_logo_bubble));
+
+		BoxManager.instance().add_box(new TwitterPictureBox(p, intro_box_pos_[IntroType.TOP.ordinal()].x,
+				intro_box_pos_[IntroType.TOP.ordinal()].y, ImageLoader.instance().get_twitter_intro_top(current_type_)));
+		
+		top_intro_box_ = new TwitterPictureBox(p, intro_box_pos_[IntroType.NAME.ordinal()].x,
+			intro_box_pos_[IntroType.NAME.ordinal()].y, ImageLoader.instance().get_twitter_intro_main(current_type_));
+		
+		BoxManager.instance().add_box(top_intro_box_);
+		
+		BoxManager.instance().add_box(new TwitterPictureBox(p, intro_box_pos_[IntroType.TWEETS.ordinal()].x,
+				intro_box_pos_[IntroType.TWEETS.ordinal()].y, ImageLoader.instance().get_twitter_intro_tweets(current_type_)));
 	}
 	
 	public void switching_from() {
 		parsed_tweets_ = null;
+		top_intro_box_ = null;
 	}
 	
 	public void make_next_box() {
@@ -114,7 +161,7 @@ public class TweetBoxFactory {
 	ParsedTweet[] get_parsed_tweets() {
 		switch (current_type_) {
 		case FOOD:
-			return VoteVisApp.instance().feed().getMusicTweets(NUM_CREATE);
+			return VoteVisApp.instance().feed().getFoodTweets(NUM_CREATE);
 		case ART:
 			return VoteVisApp.instance().feed().getArtTweets(NUM_CREATE);
 		case ECO:

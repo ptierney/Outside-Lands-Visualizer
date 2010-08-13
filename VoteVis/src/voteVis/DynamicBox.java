@@ -9,10 +9,13 @@ public abstract class DynamicBox extends Box {
 	protected BoxPane box_pane_;
 	protected BoxFrame box_frame_ = null;
 	
+	protected static final int SLIDE_SPEED = 3;
+	
 	public DynamicBox(VoteVisApp p_, float x_, float y_) {
 		super(p_, x_, y_);
 		
 		box_pane_ = new BoxPane(p_);
+		box_pane_.set_slide_speed(SLIDE_SPEED);
 	}
 	
 	@Override

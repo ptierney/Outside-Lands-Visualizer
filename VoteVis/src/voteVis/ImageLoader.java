@@ -35,7 +35,7 @@ public class ImageLoader {
 	private PImage[] twitter_intro_main_;
 	private PImage[] twitter_intro_tweets_;
 	
-	public static PImage twitter_logo_bubble;
+	public PImage twitter_logo_bubble;
 
 	public static PImage TWEET_BACKGROUND_USER;
 	public static PImage TWEET_BACKGROUND_CANDIDATE;
@@ -388,7 +388,7 @@ public class ImageLoader {
 	}
 	
 	public PImage get_twitter_intro_tweets(Type t) {
-		return twitter_intro_main_[t.ordinal()];
+		return twitter_intro_tweets_[t.ordinal()];
 	}
 	
 	public PImage get_tweet_background_user(Type type) {
