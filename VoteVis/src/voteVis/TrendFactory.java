@@ -8,7 +8,7 @@ public class TrendFactory {
 	private boolean[] created_types_;
 	private int created_boxes_;
 	private int[] top_five_;
-	private static int CREATE_DELAY = 250; 
+	private static int CREATE_DELAY = 2250; 
 	private static int TRANSITION_HEIGHT = 680;
 	private boolean delaying_;
 	private int delaying_counter_;
@@ -71,7 +71,7 @@ public class TrendFactory {
 	public Box add_box_at_position(int rank, int position) {
 		Box b = new TrendBox(current_type_, top_five_[rank],
 			Size.get_size_from_rank(rank), 
-			position, -500);
+			position, 0);
 		
 		BoxManager.instance().add_box(b);
 		
