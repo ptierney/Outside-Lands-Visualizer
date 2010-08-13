@@ -13,12 +13,12 @@ public class VoteBoxFactory implements BoxListener {
 	private ArrayList<VoteRow> vote_rows_ = null;
 	private ArrayList<Box> current_row_ = null;
 	private VoteRow current_vote_row_;
-	public static int CREATE_DELAY = 2500; // in millis;
+	public static int CREATE_DELAY = 1700; // in millis;
 	private int create_delay_counter_;
 	private boolean delaying_create_;
 	private static int START_SCROLLING_HEIGHT = 1; // start scrolling after the n'th row has been added
 	public static int BEGIN_TRANSITION_COUNT = 5; // only show this many boxes before transitioning
-	private static int TRANSITION_START_HEIGHT = 425; // in px
+	private static int TRANSITION_START_HEIGHT = 593; // in px
 	private int row_count_ = 0; // the number of rows created
 	private VoteRow bottom_stop_row_ = null;
 	private Box bottom_stop_box_ = null; // I use this to determine when to stop

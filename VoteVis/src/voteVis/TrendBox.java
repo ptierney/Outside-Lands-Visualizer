@@ -1,6 +1,9 @@
 package voteVis;
 
+import java.util.Iterator;
+
 import processing.core.PImage;
+import voteVis.Box.Collision;
 
 public class TrendBox extends DynamicBox {
 	private Type type_; // musician, food, etc
@@ -75,9 +78,31 @@ public class TrendBox extends DynamicBox {
 	
 	@Override
 	public Collision check_collisions() {
-		if (size_ == Size.S)
+		Iterator<Box> it = BoxManager.instance().boxes().iterator();
+		
+		while (it.hasNext()) {
+			Box b = it.next();
+			
+			if (b == this)
+				continue;
+			
+			if (b.ignore_collisions())
+				continue;
+
+			if (b.get_rectangle().intersects(get_rectangle())) {
+				colliding_box_ = b;
+				return Collision.YES;
+			}
+		}
+		
+		return Collision.NONE;
+		
+		
+		/*
+		
+		if (size_ == Size.S || size_ == Size.XS)
 			return super.check_collisions();
-		else if (size_ == Size.M) {
+		else if (false && size_ == Size.M ) {
 			Collision l = check_collisions_with_center(x_ - Settings.UNIT_DIM / 2, y_);
 			Collision r = check_collisions_with_center(x_ - Settings.UNIT_DIM / 2, y_);
 			
@@ -99,6 +124,7 @@ public class TrendBox extends DynamicBox {
 			
 			return Collision.NONE;
 		}
+		*/
 	}
 	
 	private static int get_speed_from_size(Size s) {

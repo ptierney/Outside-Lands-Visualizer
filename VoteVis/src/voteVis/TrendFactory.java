@@ -46,19 +46,20 @@ public class TrendFactory {
 	
 	private void make_next_box() {
 		switch (boxes_created_) {
-		case 0:
+		case 3:
 			add_box_at_position(0, Utility.get_aligned_position(Settings.UNIT_DIM, 4));
 			break;
 		case 1:
-			add_box_at_position(1, (int) (Settings.BOX_GAP * 1.5 + Settings.UNIT_DIM));
+			add_box_at_position(1, (int) (Settings.BOX_GAP * 1.5 + Settings.UNIT_DIM * 2));
 			break;
 		case 4:
-			top_check_box_ = add_box_at_position(2, (int) (Settings.BOX_GAP * 2.5 + Settings.UNIT_DIM * 2));
+			top_check_box_ = add_box_at_position(2, (int) (Size.get_dim_from_size(Size.M) / 2 + Settings.BOX_GAP));
 			break;
 		case 2:
-			add_box_at_position(3, Utility.get_aligned_position(Settings.UNIT_DIM, 2));
+			add_box_at_position(3, Size.get_dim_from_size(Size.M) / 2 + Settings.BOX_GAP * 2 +
+				Size.get_dim_from_size(Size.S));
 			break;
-		case 3:
+		case 0:
 			add_box_at_position(4, Utility.get_aligned_position(Settings.UNIT_DIM, 2));
 		}
 		

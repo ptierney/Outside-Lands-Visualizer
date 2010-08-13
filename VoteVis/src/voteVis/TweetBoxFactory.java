@@ -26,6 +26,10 @@ public class TweetBoxFactory {
 	private static final int MAX_ATTEMPT_TIME = 750; // in millis
 	private int attempt_counter_;
 	
+	private boolean delaying_and_scrolling_;
+	private static final int SCROLL_DELAY_TIME = 2000;
+	private int scroll_delay_counter_;
+	
 	private enum IntroType {
 		TOP,
 		NAME,
@@ -80,6 +84,13 @@ public class TweetBoxFactory {
 				make_next_box();
 				intro_mode_ = false;
 				delaying_ = true;
+			}
+		}
+		
+		if (delaying_and_scrolling_) {
+			if (VoteVisApp.instance().millis() - scroll_delay_counter_ > SCROLL_DELAY_TIME) {
+				delaying_and_scrolling_ = false;
+				make_next_box();
 			}
 		}
 	}
@@ -145,9 +156,10 @@ public class TweetBoxFactory {
 				parsed_tweets_[boxes_made_]);
 			
 			// bail out if in a bad position
-			if (attempts > 1000) {
+			if (attempts > 10) {
 				delaying_ = false;
-				SceneManager.instance().finished_tweet();
+				delaying_and_scrolling_ = true;
+				//SceneManager.instance().finished_tweet();
 				return;
 			}
 		} while (off_screen(b) || collides_with_existing(b));

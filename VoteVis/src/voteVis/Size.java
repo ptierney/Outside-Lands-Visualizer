@@ -1,17 +1,23 @@
 package voteVis;
 
 public enum Size {
+	XS,
 	S,
 	M,
-	L;
+	L,
+	XL;
 	
 	public static int get_dim_from_size(Size size) {
 		switch (size) {
-		case L:
+		case XL:
 			return Settings.UNIT_DIM * 3 + Settings.BOX_GAP * 2;
+		case L:
+			return Settings.UNIT_DIM * 2 + Settings.BOX_GAP / 2;
 		case M:
-			return Settings.UNIT_DIM * 2 + Settings.BOX_GAP;
+			return (int) (Settings.UNIT_DIM * 1.75 + Settings.BOX_GAP);
 		case S:
+			return (int) (Settings.UNIT_DIM * 1.25 + Settings.BOX_GAP);
+		case XS:
 		default:
 			return Settings.UNIT_DIM;
 		}
@@ -23,16 +29,16 @@ public enum Size {
 	public static Size get_size_from_rank(int rank) {
 		switch (rank) {
 		case 0:
-			return L;
+			return XL;
 		case 1:
-			return M;
+			return L;
 		case 2:
 			return M;
 		case 3:
 			return S;
 		case 4:
 		default:
-			return S;
+			return XS;
 		}
 	}
 }

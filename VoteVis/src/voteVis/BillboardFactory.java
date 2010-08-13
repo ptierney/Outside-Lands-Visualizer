@@ -21,7 +21,7 @@ public class BillboardFactory implements TransitionReceiver {
 	private boolean transitioning_;
 	private boolean delaying_;
 	private Box transition_check_box_ = null;
-	private static int TRANSITION_HEIGHT = (int)(768 * 2.0 / 3.0);
+	private static int TRANSITION_HEIGHT = (int)(768 * 1.0 / 3.0);
 	
 	public BillboardFactory() {
 		instance_ = this;
