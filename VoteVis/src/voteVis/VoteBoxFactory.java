@@ -18,7 +18,7 @@ public class VoteBoxFactory implements BoxListener {
 	private boolean delaying_create_;
 	private static int START_SCROLLING_HEIGHT = 1; // start scrolling after the n'th row has been added
 	public static int BEGIN_TRANSITION_COUNT = 5; // only show this many boxes before transitioning
-	private static int TRANSITION_START_HEIGHT = 593; // in px
+	private static int TRANSITION_START_HEIGHT = 768 - Settings.UNIT_DIM / 2; // in px
 	private int row_count_ = 0; // the number of rows created
 	private VoteRow bottom_stop_row_ = null;
 	private Box bottom_stop_box_ = null; // I use this to determine when to stop

@@ -14,7 +14,7 @@ public enum Size {
 		case L:
 			return Settings.UNIT_DIM * 2 + Settings.BOX_GAP;
 		case M:
-			return (int) (Settings.UNIT_DIM * 1.7 + Settings.BOX_GAP);
+			return (int) (Settings.UNIT_DIM * 1.7 + Settings.BOX_GAP); // not 1.75 / 1.25 for rounding size errors
 		case S:
 			return (int) (Settings.UNIT_DIM * 1.2 + Settings.BOX_GAP);
 		case XS:

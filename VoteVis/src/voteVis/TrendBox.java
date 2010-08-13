@@ -129,11 +129,15 @@ public class TrendBox extends DynamicBox {
 	
 	private static int get_speed_from_size(Size s) {
 		switch (s) {
-		case L:
+		case XL:
 			return 8;
+		case L:
+			return 7;
 		case M:
 			return 4;
 		case S:
+			return 3;
+		case XS:
 		default:
 			return 2;
 		}
