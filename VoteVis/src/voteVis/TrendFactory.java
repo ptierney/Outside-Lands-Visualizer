@@ -46,21 +46,22 @@ public class TrendFactory {
 	
 	private void make_next_box() {
 		switch (boxes_created_) {
-		case 3:
-			add_box_at_position(0, Utility.get_aligned_position(Settings.UNIT_DIM, 4));
+		case 2:
+			add_box_at_position(0, Utility.get_aligned_position(Settings.UNIT_DIM, 4) + 5);
 			break;
-		case 1:
-			add_box_at_position(1, (int) (Settings.BOX_GAP * 1.5 + Settings.UNIT_DIM * 2));
+		case 3:
+			add_box_at_position(3, (int) (Settings.BOX_GAP * 2 + Size.get_dim_from_size(Size.M) + 
+				Size.get_dim_from_size(Size.S) / 2));
 			break;
 		case 4:
 			top_check_box_ = add_box_at_position(2, (int) (Size.get_dim_from_size(Size.M) / 2 + Settings.BOX_GAP));
 			break;
-		case 2:
-			add_box_at_position(3, Size.get_dim_from_size(Size.M) / 2 + Settings.BOX_GAP * 2 +
-				Size.get_dim_from_size(Size.S));
+		case 1:
+			add_box_at_position(1, Size.get_dim_from_size(Size.L) / 2 + Settings.BOX_GAP * 2 +
+					Settings.UNIT_DIM);
 			break;
 		case 0:
-			add_box_at_position(4, Utility.get_aligned_position(Settings.UNIT_DIM, 2));
+			add_box_at_position(4, Utility.get_aligned_position(Settings.UNIT_DIM, 0));
 		}
 		
 		++boxes_created_;	
@@ -70,7 +71,7 @@ public class TrendFactory {
 	public Box add_box_at_position(int rank, int position) {
 		Box b = new TrendBox(current_type_, top_five_[rank],
 			Size.get_size_from_rank(rank), 
-			position, 0);
+			position, -500);
 		
 		BoxManager.instance().add_box(b);
 		

@@ -12,11 +12,11 @@ public enum Size {
 		case XL:
 			return Settings.UNIT_DIM * 3 + Settings.BOX_GAP * 2;
 		case L:
-			return Settings.UNIT_DIM * 2 + Settings.BOX_GAP / 2;
+			return Settings.UNIT_DIM * 2 + Settings.BOX_GAP;
 		case M:
-			return (int) (Settings.UNIT_DIM * 1.75 + Settings.BOX_GAP);
+			return (int) (Settings.UNIT_DIM * 1.7 + Settings.BOX_GAP);
 		case S:
-			return (int) (Settings.UNIT_DIM * 1.25 + Settings.BOX_GAP);
+			return (int) (Settings.UNIT_DIM * 1.2 + Settings.BOX_GAP);
 		case XS:
 		default:
 			return Settings.UNIT_DIM;
