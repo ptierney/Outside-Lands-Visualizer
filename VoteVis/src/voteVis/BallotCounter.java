@@ -2,28 +2,23 @@ package voteVis;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import processing.core.*;
 
 public class BallotCounter {
 	private static BallotCounter instance_;
-	private ArrayList<Ballot> ballots_;
+	private LinkedHashMap<Integer, Ballot> ballots_;
 	private VoteVisApp p_;
-	private PImage stock_profile_;
 	private ArrayList<Ballot> recent_ballots_;
 	
 	BallotCounter(VoteVisApp p_) {
 		instance_ = this;
-		ballots_ = new ArrayList<Ballot>();
+		ballots_ = new LinkedHashMap<Integer, Ballot>();
 		recent_ballots_ = new ArrayList<Ballot>();
 		this.p_ = p_;
-		stock_profile_ = p_.loadImage(Settings.DEFAULT_PROFILE_IMAGE);
-		
-		for (int i = 0; i < 20; ++i) {
-			add_random_ballot();
-		}
 	}
 	
-	public ArrayList<Ballot> ballots() {
+	public LinkedHashMap<Integer, Ballot> ballots() {
 		return ballots_;
 	}
 	
@@ -35,7 +30,7 @@ public class BallotCounter {
 			recent_ballots_.remove(0);
 			return b;
 		}
-		
+		PApplet.println("getting newest least...");
 		// else get the last
 		return get_newest_least_displayed();
 		
@@ -67,8 +62,13 @@ public class BallotCounter {
 	}
 	
 	public void add_ballot(Ballot ballot) {
-		ballots_.add(ballot);
-		recent_ballots_.add(ballot);
+		if (ballots_.containsKey(Integer.valueOf(ballot.user_id())))
+			return;
+		
+		UserManager.instance().add_user(ballot.user_id(), ballot.user_name(), ballot.user_photo());
+		
+		ballots_.put(Integer.valueOf(ballot.user_id()), ballot);
+		recent_ballots_.add(0, ballot);
 	}
 	
 	// generates a random ballot for testing
@@ -84,7 +84,7 @@ public class BallotCounter {
 		
 		int user_id = ballots_.size() + 1;
 		
-		add_ballot(new Ballot(user_id, votes, stock_profile_));
+		add_ballot(new Ballot(user_id, "Foo Bar", Gender.MALE, votes, VoteVisApp.instance().loadImage("default-male.png")));
 	}
 	
 	// [0] = #1
@@ -93,13 +93,18 @@ public class BallotCounter {
 	public int[] get_top_five(Type type) {
 		// This holds the index (which musician, etc), and the number of votes for him/her.
 		HashMap<Integer, Integer> counter = new HashMap<Integer, Integer>();
-		for (int i = 0; i < ballots_.size(); ++i) {
-			Integer key = ballots_.get(i).votes()[type.ordinal()];
-			Integer last_number = counter.get(key);
+		
+		for (Integer key : ballots_.keySet()) {
+			Ballot b = ballots_.get(key);
+			int[] int_arr = b.votes();
+			Integer vote_key = int_arr[type.ordinal()];
+			
+			Integer last_number = counter.get(vote_key);
+			
 			if (last_number == null)
-				counter.put(key, new Integer(0));
+				counter.put(vote_key, new Integer(0));
 			else
-				counter.put(key, new Integer(last_number + 1));
+				counter.put(vote_key, new Integer(last_number + 1));
 		}
 		
 		int[] ret_int = new int[5];

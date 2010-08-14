@@ -147,7 +147,7 @@ public class VoteBoxFactory implements BoxListener {
 
 		// this should be drawn on top of the other boxes
 		Box profile = new ProfileBox(p_, Utility.get_aligned_position(Settings.UNIT_DIM, 0),
-			0, 0);
+			0, ballot.user_id());
 		//BoxManager.instance().add_box(profile);
 		
 		profile.set_height_driving_box(v1);

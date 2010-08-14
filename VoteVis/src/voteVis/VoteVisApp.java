@@ -23,6 +23,8 @@ public class VoteVisApp extends PApplet {
 	private boolean waiting_;
 	
 	private TweetFeed feed_;
+	
+	PImage foo;
 
 	@Override
 	public void setup() {
@@ -43,12 +45,16 @@ public class VoteVisApp extends PApplet {
 		BannerDisplay banner_display_ = new BannerDisplay();
 		@SuppressWarnings("unused")
 		Utility utility_ = new Utility(this);
+		@SuppressWarnings("unused")
+		BallotRetriever ballot_retriever_ = new BallotRetriever();
 		
 		create_worker_classes();
 		
+		/*
 		for (int i = 0; i < 30; ++i) {
 			BallotCounter.instance().add_random_ballot();
 		}
+		*/
 		
 		setup_tweet_feed();
 		
@@ -57,8 +63,6 @@ public class VoteVisApp extends PApplet {
 		SceneManager scene_manager_ = new SceneManager();
 		
 		last_frame_ = millis();
-		
-		//scene_manager_.finished_trend();
 	}
 	
 	public void create_worker_classes() {
@@ -70,7 +74,6 @@ public class VoteVisApp extends PApplet {
 		VoteBoxFactory vote_factory_ = new VoteBoxFactory(this);
 		@SuppressWarnings("unused")
 		UserManager user_manager_ = new UserManager(this);
-		user_manager_.create_test_user();
 		@SuppressWarnings("unused")
 		BillboardFactory billboard_factory_ = new BillboardFactory();
 		@SuppressWarnings("unused")

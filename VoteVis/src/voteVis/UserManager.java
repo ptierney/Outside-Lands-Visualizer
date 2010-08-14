@@ -7,19 +7,16 @@ public class UserManager {
 	private static UserManager instance_;
 	private VoteVisApp p_;
 	private HashMap<Integer, User> user_map_;
-	private int next_user_id_;
 	
 	public UserManager(VoteVisApp p_) {
 		instance_ = this;
 		this.p_ = p_;
 		
 		user_map_ = new HashMap<Integer, User>();
-		next_user_id_ = 0;
 	}
 	
-	public void add_user(String name, String image_name) {
-		user_map_.put(next_user_id_, new User(next_user_id_, name, p_.loadImage(image_name)));
-		next_user_id_++;
+	public void add_user(Integer ballot_id, String name, PImage photo) {
+		user_map_.put(ballot_id, new User(ballot_id, name, photo));
 	}
 	
 	public PImage get_profile_photo(int user_id) {
@@ -32,10 +29,6 @@ public class UserManager {
 	
 	public static UserManager instance() {
 		return instance_;
-	}
-	
-	public void create_test_user() {
-		add_user("Patrick Tierney", "profile_2-110.png");
 	}
 	
 	public class User {

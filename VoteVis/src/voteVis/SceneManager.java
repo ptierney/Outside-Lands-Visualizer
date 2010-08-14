@@ -22,6 +22,8 @@ public class SceneManager {
 	}
 	
 	public void start_cycle() {
+		BallotRetriever.instance().get_ballots_from_server();
+		
 		display_all_labels_ = true;
 		VoteBoxFactory.instance().switched_to();
 	}
@@ -53,6 +55,13 @@ public class SceneManager {
 	
 	private void move_from_trend_to_tweet() {
 		TrendFactory.instance().switching_from();
+		
+		// this is broken
+		if (current_type_ == Type.ART) {
+			move_from_tweet_to_vote();
+			return;
+		}
+		
 		TweetBoxFactory.instance().switched_to(current_type_);
 		twitter_mode_ = true;
 		
