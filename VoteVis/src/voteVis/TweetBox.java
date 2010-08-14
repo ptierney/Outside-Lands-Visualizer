@@ -16,7 +16,7 @@ public class TweetBox extends Box {
 	private int render_height_;
 
 	private static final float USER_SCALE = 1.5f;
-	private static final float FOLLOW_SCALE = 0.85f;
+	private static final float FOLLOW_SCALE = 1.0f;
 	
 	private static final int PROFILE_IMAGE_GAP = 6;
 	private static final int PROFILE_TEXT_TOP_GAP = 6;

@@ -64,10 +64,9 @@ public class BallotCounter {
 	public void add_ballot(Ballot ballot) {
 		if (ballots_.containsKey(Long.valueOf(ballot.user_id())))
 			return;
+		
 		ballot.load_image();
 		UserManager.instance().add_user(ballot.user_id(), ballot.user_name(), ballot.user_photo());
-		
-		
 		
 		ballots_.put(Long.valueOf(ballot.user_id()), ballot);
 		recent_ballots_.add(0, ballot);

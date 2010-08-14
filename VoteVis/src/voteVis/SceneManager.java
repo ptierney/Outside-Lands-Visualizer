@@ -16,7 +16,11 @@ public class SceneManager {
 		instance_ = this;
 		move_speed_ = MoveSpeed.STOP;
 		
-		current_type_ = Type.MUSIC;
+		//current_type_ = Type.MUSIC;
+		current_type_ = Type.FOOD;
+		//current_type_ = Type.WINE;
+		//current_type_ = Type.ECO;
+		//current_type_ = Type.ART;
 		
 		start_cycle();
 	}
