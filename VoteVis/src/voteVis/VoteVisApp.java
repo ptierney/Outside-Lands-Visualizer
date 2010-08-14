@@ -160,11 +160,11 @@ public class VoteVisApp extends PApplet {
 		return feed_;
 	}
 	
-	/*
+	
 	 public static void main(String args[]) {
 		 PApplet.main(new String[] { "--present", "voteVis.VoteVisApp" });
 	 }
-	 */
+	 
 	 
 	 /*
 	 public void init() {
