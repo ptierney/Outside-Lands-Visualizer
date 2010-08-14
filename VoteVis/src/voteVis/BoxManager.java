@@ -25,6 +25,8 @@ public class BoxManager {
 	private float current_fall_speed_;
 	private float last_move_amount_;
 	
+	private float move_accellerator_;
+	
 	public BoxManager(VoteVisApp p_) {
 		instance_ = this;
 		this.p_ = p_;
@@ -32,7 +34,7 @@ public class BoxManager {
 		boxes_ = new LinkedHashSet<Box>();
 		delete_list_ = new ArrayList<Box>();
 		
-		
+		move_accellerator_ = 0.0f;
 	}
 	
 	public void update_boxes() {
@@ -53,7 +55,7 @@ public class BoxManager {
 	}
 	
 	private void move_boxes_normal() {
-		last_move_amount_ = MOVE_SPEED * (p_.millis() - VoteVisApp.instance().last_frame());
+		last_move_amount_ = MOVE_SPEED * (p_.millis() - VoteVisApp.instance().last_frame()) + move_accellerator_;
 		
 		move_boxes(last_move_amount_);
 	}
@@ -129,6 +131,10 @@ public class BoxManager {
 	
 	public float last_move_amount() {
 		return last_move_amount_;
+	}
+	
+	public void set_move_accellerator(float a) {
+		move_accellerator_ = a;
 	}
 	
 }

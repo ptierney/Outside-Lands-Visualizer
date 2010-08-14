@@ -166,6 +166,10 @@ public class VoteVisApp extends PApplet {
 	 }
 	 
 	 
+	 public void update_last_frame() {
+		 last_frame_ = millis();
+	 }
+	 
 	 /*
 	 public void init() {
 		 frame.setUndecorated(true);

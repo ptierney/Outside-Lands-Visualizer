@@ -16,8 +16,8 @@ public class SceneManager {
 		instance_ = this;
 		move_speed_ = MoveSpeed.STOP;
 		
-		//current_type_ = Type.MUSIC;
-		current_type_ = Type.FOOD;
+		current_type_ = Type.MUSIC;
+		//current_type_ = Type.FOOD;
 		//current_type_ = Type.WINE;
 		//current_type_ = Type.ECO;
 		//current_type_ = Type.ART;
@@ -28,6 +28,7 @@ public class SceneManager {
 	public void start_cycle() {
 		BallotRetriever.instance().get_ballots_from_server();
 		
+		VoteVisApp.instance().update_last_frame();
 		display_all_labels_ = true;
 		VoteBoxFactory.instance().switched_to();
 	}
@@ -55,6 +56,8 @@ public class SceneManager {
 		// VoteBoxFactory is still "active". Elements are being shown
 		VoteBoxFactory.instance().switching_from();
 		TrendFactory.instance().switched_to(current_type_);
+		
+		BoxManager.instance().set_move_accellerator(0.15f);
 	}
 	
 	private void move_from_trend_to_tweet() {
@@ -67,6 +70,8 @@ public class SceneManager {
 			return;
 		}
 		*/
+		
+		BoxManager.instance().set_move_accellerator(0.3f);
 		
 		TweetBoxFactory.instance().switched_to(current_type_);
 		twitter_mode_ = true;

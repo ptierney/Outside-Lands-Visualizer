@@ -8,7 +8,7 @@ public class TwitterPictureBox extends Box {
 	private PImage image_;
 	float width_;
 	float height_;
-	private int pop_in_time_ = 750;
+	private int pop_in_time_ = 450;
 	private int pop_counter_;
 	private boolean popping_;
 	

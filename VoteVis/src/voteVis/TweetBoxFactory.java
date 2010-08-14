@@ -11,7 +11,7 @@ import java.util.*;
 public class TweetBoxFactory {
 	private static TweetBoxFactory instance_; 
 	private Type current_type_;
-	private static final int NUM_CREATE = 11; // the number of tweet boxes to create;
+	private static final int NUM_CREATE = 1;// the number of tweet boxes to create;
 	private static int CREATE_DELAY;
 	private static int CREATE_DELAY_MIN = 1000;
 	private static int CREATE_DELAY_MAX = 1500;
@@ -31,7 +31,7 @@ public class TweetBoxFactory {
 	private int followed_tweets_made_;
 	
 	private boolean delaying_and_scrolling_;
-	private static final int SCROLL_DELAY_TIME = 6000;
+	private static final int SCROLL_DELAY_TIME = 2000;
 	private int scroll_delay_counter_;
 	
 	private enum IntroType {
