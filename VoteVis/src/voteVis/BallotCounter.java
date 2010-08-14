@@ -30,7 +30,7 @@ public class BallotCounter {
 			recent_ballots_.remove(0);
 			return b;
 		}
-		PApplet.println("getting newest least...");
+		//PApplet.println("getting newest least...");
 		// else get the last
 		return get_newest_least_displayed();
 		
@@ -67,6 +67,8 @@ public class BallotCounter {
 		
 		UserManager.instance().add_user(ballot.user_id(), ballot.user_name(), ballot.user_photo());
 		
+		ballot.load_image();
+		
 		ballots_.put(Integer.valueOf(ballot.user_id()), ballot);
 		recent_ballots_.add(0, ballot);
 	}
@@ -84,7 +86,7 @@ public class BallotCounter {
 		
 		int user_id = ballots_.size() + 1;
 		
-		add_ballot(new Ballot(user_id, "Foo Bar", Gender.MALE, votes, VoteVisApp.instance().loadImage("default-male.png")));
+		add_ballot(new Ballot(user_id, "Foo Bar", Gender.MALE, votes, "default-male.png"));
 	}
 	
 	// [0] = #1
@@ -102,7 +104,7 @@ public class BallotCounter {
 			Integer last_number = counter.get(vote_key);
 			
 			if (last_number == null)
-				counter.put(vote_key, new Integer(0));
+				counter.put(vote_key, new Integer(1));
 			else
 				counter.put(vote_key, new Integer(last_number + 1));
 		}

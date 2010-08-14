@@ -51,17 +51,17 @@ public class BallotRetriever {
 			votes[Type.ECO.ordinal()] = Integer.parseInt(string_split[6]) - 1;
 			votes[Type.ART.ordinal()] = Integer.parseInt(string_split[7]) - 1;
 				
-			PImage image;
+			String image;
 			
 			//PApplet.println(string_split.length);
 			
 			if (string_split.length > 8)
-				image = VoteVisApp.instance().loadImage(IMAGE_MASTER_BASE + Integer.parseInt(string_split[8]) + ".jpg");
+				image = IMAGE_MASTER_BASE + Integer.parseInt(string_split[8]) + ".jpg";
 			else {
 				if (gender == Gender.MALE)
-					image = VoteVisApp.instance().loadImage("defalt-male.png");
+					image = "defalt-male.png";
 				else
-					image = VoteVisApp.instance().loadImage("default-female.png");
+					image = "default-female.png";
 			}
 			
 			ballots.add(new Ballot(id, user_name, gender, votes, image));

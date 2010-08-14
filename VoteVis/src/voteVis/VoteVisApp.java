@@ -14,6 +14,8 @@ public class VoteVisApp extends PApplet {
 	private static VoteVisApp instance_;
 	private PImage banner_;
 	
+	private static final int VERTICAL_SHIFT = 10; // equal to the # of px of OS X menu
+	
 	// Testing vars
 	private Box box_;
 	private PFont text_font_;
@@ -109,7 +111,10 @@ public class VoteVisApp extends PApplet {
 		
 		SceneManager.instance().update();
 		
-		BannerDisplay.instance().draw();
+		pushMatrix();
+			translate(0, VERTICAL_SHIFT);
+			BannerDisplay.instance().draw();
+		popMatrix();
 	}
 	
 	@Override
