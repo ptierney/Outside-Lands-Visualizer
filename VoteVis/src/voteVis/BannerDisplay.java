@@ -8,6 +8,7 @@ public class BannerDisplay {
 	private PImage[] labels_;
 	private PImage[] labels_off_;
 	private PImage twitter_callout_;
+	private PImage[] twitter_callouts_;
 	private PImage profile_label_;
 	private int[] x_positions_;
 	private int y_position_;
@@ -40,7 +41,13 @@ public class BannerDisplay {
 		labels_off_[Type.ART.ordinal()] = p.loadImage("art-label-off.png");
 		
 		profile_label_ = p.loadImage("profile-label.png");
-		twitter_callout_ = p.loadImage("twitter-callout.png");
+		
+		twitter_callouts_ = new PImage[5];
+		twitter_callouts_[Type.MUSIC.ordinal()] = p.loadImage("twitter-callout-music.png");
+		twitter_callouts_[Type.FOOD.ordinal()] = p.loadImage("twitter-callout-food.png");
+		twitter_callouts_[Type.WINE.ordinal()] = p.loadImage("twitter-callout-wine.png");
+		twitter_callouts_[Type.ECO.ordinal()] = p.loadImage("twitter-callout-eco.png");
+		twitter_callouts_[Type.ART.ordinal()] = p.loadImage("twitter-callout-out.png");
 		
 		// all these should be the same (checked it out in photoshop)
 		label_width_ = labels_[0].width;
@@ -69,9 +76,10 @@ public class BannerDisplay {
 		
 		// required by law to be here
 		p.image(banner_, 0, 0);
-		
-		if (SceneManager.instance().twitter_mode()) {
-			p.image(twitter_callout_, 36, banner_height_ + label_height_ + 2);
+		SceneManager s = SceneManager.instance();
+		if (s.twitter_mode()) {
+			p.image(twitter_callouts_[s.current_type().ordinal()], 
+				36, banner_height_ + label_height_ + 2);
 		}
 		
 		for (int i = 0; i < 5; ++i) {
@@ -81,8 +89,9 @@ public class BannerDisplay {
 	}
 	
 	private PImage get_label_image(Type type) {
-		if (SceneManager.instance().display_all_labels() || 
-			SceneManager.instance().current_type() == type)
+		SceneManager m = SceneManager.instance();
+		if ((m.display_all_labels() || m.current_type() == type) && 
+			!m.outside_turnoff())
 			return labels_[type.ordinal()];
 		else
 			return labels_off_[type.ordinal()];

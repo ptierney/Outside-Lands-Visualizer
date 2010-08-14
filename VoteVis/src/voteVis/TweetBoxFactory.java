@@ -11,7 +11,7 @@ import java.util.*;
 public class TweetBoxFactory {
 	private static TweetBoxFactory instance_; 
 	private Type current_type_;
-	private static final int NUM_CREATE = 8; // the number of tweet boxes to create;
+	private static final int NUM_CREATE = 3; // the number of tweet boxes to create;
 	private static int CREATE_DELAY;
 	private static int CREATE_DELAY_MIN = 1000;
 	private static int CREATE_DELAY_MAX = 1500;
@@ -19,6 +19,7 @@ public class TweetBoxFactory {
 	private int delay_counter_;
 	private int boxes_made_;
 	private ParsedTweet[] parsed_tweets_ = null;
+	private ParsedTweet[] parsed_follow_tweets_ = null;
 	private static int BOX_SIDE_INSET = 175;
 	private ArrayList<TweetBox> tweet_boxes_;
 	private Box top_intro_box_;
@@ -26,8 +27,11 @@ public class TweetBoxFactory {
 	private static final int MAX_ATTEMPT_TIME = 750; // in millis
 	private int attempt_counter_;
 	
+	private int user_tweets_made_;
+	private int followed_tweets_made_;
+	
 	private boolean delaying_and_scrolling_;
-	private static final int SCROLL_DELAY_TIME = 2000;
+	private static final int SCROLL_DELAY_TIME = 3000;
 	private int scroll_delay_counter_;
 	
 	private enum IntroType {
@@ -71,10 +75,12 @@ public class TweetBoxFactory {
 	private void init() {
 		boxes_made_ = 0;
 		delaying_ = false;
+		followed_tweets_made_ = 0;
+		user_tweets_made_ = 0;
 	}
 	
 	public void update() {
-		if (delaying_) {
+		if (delaying_ && !delaying_and_scrolling_) {
 			if (VoteVisApp.instance().millis() - delay_counter_ > CREATE_DELAY)
 				make_next_box();
 		}
@@ -107,7 +113,12 @@ public class TweetBoxFactory {
 			PApplet.print(".");
 		}
 		
-		PApplet.print("done getting");
+		PApplet.print("Getting parsed follow tweets");
+		while (parsed_follow_tweets_ == null || parsed_follow_tweets_.length == 0
+			|| parsed_follow_tweets_.length != NUM_CREATE) {
+			parsed_follow_tweets_ = get_parsed_followed_tweets();
+			PApplet.print(".");
+		}
 
 		//make_next_box();
 		delaying_ = false;
@@ -149,16 +160,32 @@ public class TweetBoxFactory {
 		}
 		TweetBox b = null;
 		int attempts = 0;
+		TweetBox.TweetType tweet_type;
+		ParsedTweet[] parsed_tweets;
+		int index;
+		
+		// randomly decide between a follow tweet and a user tweet
+		if ((int)VoteVisApp.instance().random(2) == 0) {
+			tweet_type = TweetBox.TweetType.FOLLOW;
+			parsed_tweets = parsed_follow_tweets_;
+			index = followed_tweets_made_;
+		} else {
+			tweet_type = TweetBox.TweetType.USER;
+			parsed_tweets = parsed_tweets_;
+			index = user_tweets_made_;
+		}
+		
 		do {
 			++attempts;
 			b = new TweetBox(VoteVisApp.instance(), VoteVisApp.instance().random(VoteVisApp.instance().width),
 				VoteVisApp.instance().random(2 * VoteVisApp.instance().height / 3), 
-				parsed_tweets_[boxes_made_]);
+				parsed_tweets[index], tweet_type);
 			
 			// bail out if in a bad position
-			if (attempts > 10) {
+			if (attempts > 100) {
 				delaying_ = false;
 				delaying_and_scrolling_ = true;
+				scroll_delay_counter_ = VoteVisApp.instance().millis();
 				//SceneManager.instance().finished_tweet();
 				return;
 			}
@@ -167,6 +194,11 @@ public class TweetBoxFactory {
 		b.set_falling(false);
 		b.init();
 		BoxManager.instance().add_box(b);
+		
+		if (tweet_type == TweetBox.TweetType.FOLLOW)
+			followed_tweets_made_++;
+		else
+			user_tweets_made_++;
 		
 		++boxes_made_;
 		CREATE_DELAY = (int) VoteVisApp.instance().random(CREATE_DELAY_MIN, CREATE_DELAY_MAX);
@@ -179,7 +211,7 @@ public class TweetBoxFactory {
 		case FOOD:
 			return VoteVisApp.instance().feed().getFoodTweets(NUM_CREATE);
 		case ART:
-			return VoteVisApp.instance().feed().getArtTweets(NUM_CREATE);
+			return VoteVisApp.instance().feed().getOutsideLandsTweets(NUM_CREATE);
 		case ECO:
 			return VoteVisApp.instance().feed().getEcoTweets(NUM_CREATE);
 		case WINE:
@@ -187,6 +219,22 @@ public class TweetBoxFactory {
 		case MUSIC:
 		default:
 			return VoteVisApp.instance().feed().getMusicTweets(NUM_CREATE);	
+		}
+	}
+	
+	ParsedTweet[] get_parsed_followed_tweets() {
+		switch (current_type_) {
+		case FOOD:
+			return VoteVisApp.instance().feed().getFollowedFoodTweets(NUM_CREATE);
+		case ART:
+			return VoteVisApp.instance().feed().getFollowedOutsideLandsTweets(NUM_CREATE);
+		case ECO:
+			return VoteVisApp.instance().feed().getFollowedEcoTweets(NUM_CREATE);
+		case WINE:
+			return VoteVisApp.instance().feed().getFollowedWineTweets(NUM_CREATE);
+		case MUSIC:
+		default:
+			return VoteVisApp.instance().feed().getFollowedMusicTweets(NUM_CREATE);
 		}
 	}
 	

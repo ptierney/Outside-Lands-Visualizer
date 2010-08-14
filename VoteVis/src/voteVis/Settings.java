@@ -36,8 +36,12 @@ public class Settings {
 	public static int PROFILE_BOX_FONT_SIZE = 100;
 	public static int PROFILE_BOX_SMALL_FONT_SIZE = VOTE_BOX_FONT_SIZE;
 	
-	public static final int TWEET_BOX_FONT_SIZE = 14;
+	public static final int TWEET_BOX_FONT_SIZE = 22;
 	public static PFont TWEET_BOX_FONT;
+	
+	public static final int TWEET_USER_BOX_FONT_SIZE = 20;
+	public static PFont TWEET_USER_BOX_FONT;
+	public static PFont TWEET_USER_BOX_BOLD_FONT;
 	
 	private PFont[] trend_box_fonts_;
 	private int[] trend_box_font_sizes_;
@@ -59,14 +63,18 @@ public class Settings {
 		// TODO: load this font with processing
 		vote_box_font_ = p_.loadFont("AkzidenzGroteskBE-Bold-48.vlw");
 		profile_box_font_ = p_.loadFont("AkzidenzGroteskBE-Bold-100.vlw");
-		TWEET_BOX_FONT = p_.loadFont("AkzidenzGroteskBE-Bold-48.vlw");
+		TWEET_BOX_FONT = p_.loadFont("AkzidenzGroteskBE-Bold-22.vlw");
+		//TWEET_BOX_FONT = p_.loadFont("AkzidenzGroteskBE-Md-22.vlw");
+		TWEET_USER_BOX_FONT = p_.loadFont("AkzidenzGroteskBE-Md-20.vlw");
+		//TWEET_USER_BOX_FONT = p_.loadFont("AkzidenzGroteskBE-Bold-20.vlw");
+		TWEET_USER_BOX_BOLD_FONT = p_.loadFont("AkzidenzGroteskBE-Bold-20.vlw");
 		
 		trend_box_font_sizes_ = new int[5];
-		trend_box_font_sizes_[Size.XS.ordinal()] = 14;
+		trend_box_font_sizes_[Size.XS.ordinal()] = 16;
 		trend_box_font_sizes_[Size.S.ordinal()] = 18;
-		trend_box_font_sizes_[Size.M.ordinal()] = 50;
-		trend_box_font_sizes_[Size.L.ordinal()] = 64;
-		trend_box_font_sizes_[Size.XL.ordinal()] = 72;
+		trend_box_font_sizes_[Size.M.ordinal()] = 45;
+		trend_box_font_sizes_[Size.L.ordinal()] = 52;
+		trend_box_font_sizes_[Size.XL.ordinal()] = 66;
 		
 		trend_box_fonts_ = new PFont[5];
 		trend_box_fonts_[Size.XS.ordinal()] = p_.loadFont("AkzidenzGroteskBE-Bold-48.vlw");

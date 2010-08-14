@@ -25,7 +25,7 @@ public class ImageLoader {
 	public PImage profile_right_text_scaled;
 	
 	private PImage[] tweet_backgrounds_user_;
-	private PImage[] tweet_backgrounds_candidate_;
+	private PImage[] tweet_backgrounds_follow_;
 	
 	private PImage[] vote_background_images_;
 	
@@ -34,6 +34,8 @@ public class ImageLoader {
 	private PImage[] twitter_intro_top_;
 	private PImage[] twitter_intro_main_;
 	private PImage[] twitter_intro_tweets_;
+	
+	private PImage[][] trend_numbers_;
 	
 	private PImage[] icons_;
 	
@@ -52,6 +54,7 @@ public class ImageLoader {
 		load_profile_images();
 		load_billboards(); // must be after background images
 		load_twitter();
+		load_trend_numbers();
 	}
 
 	public PImage get_candidate_image(Type type, int index) {
@@ -136,19 +139,17 @@ public class ImageLoader {
 			candidate_names_[Type.MUSIC.ordinal()][i] = music_strings[i];
 			candidate_images_[Type.MUSIC.ordinal()][i] = p_.loadImage("music/music-" + (i+1) + ".png");
 		}
-
-		candidate_names_[Type.ART.ordinal()] = new String[5];
-		candidate_images_[Type.ART.ordinal()] = new PImage[5];
-		candidate_names_[Type.ART.ordinal()][0] = "Jeff Koons";
-		candidate_images_[Type.ART.ordinal()][0] = p_.loadImage("art-1.png");
-		candidate_names_[Type.ART.ordinal()][1] = "Jeff Koons";
-		candidate_images_[Type.ART.ordinal()][1] = p_.loadImage("art-2.png");
-		candidate_names_[Type.ART.ordinal()][2] = "Jeff Koons";
-		candidate_images_[Type.ART.ordinal()][2] = p_.loadImage("art-3.png");
-		candidate_names_[Type.ART.ordinal()][3] = "Jeff Koons";
-		candidate_images_[Type.ART.ordinal()][3] = p_.loadImage("art-4.png");
-		candidate_names_[Type.ART.ordinal()][4] = "Jeff Koons";
-		candidate_images_[Type.ART.ordinal()][4] = p_.loadImage("art-5.png");
+		
+		String[] art_strings = p_.loadStrings("art/art.txt");
+		
+		candidate_names_[Type.ART.ordinal()] = new String[art_strings.length];
+		candidate_images_[Type.ART.ordinal()] = new PImage[art_strings.length];
+		Settings.NUM_ART = art_strings.length;
+		
+		for (int i = 0; i < art_strings.length; ++i) {
+			candidate_names_[Type.ART.ordinal()][i] = art_strings[i];
+			candidate_images_[Type.ART.ordinal()][i] = p_.loadImage("art/art-" + (i+1) + ".png");
+		}
 	}
 
 	private void load_profiles() {
@@ -359,14 +360,14 @@ public class ImageLoader {
 	private void load_twitter() {
 		twitter_logo_bubble = p_.loadImage("twitter-logo-bubble.png");
 		
-		tweet_backgrounds_candidate_ = new PImage[5];
+		tweet_backgrounds_follow_ = new PImage[5];
 		tweet_backgrounds_user_ = new PImage[5];
 		
-		tweet_backgrounds_candidate_[Type.MUSIC.ordinal()] = p_.loadImage("twitter-candidate-box-music.png");
-		tweet_backgrounds_candidate_[Type.ECO.ordinal()] = p_.loadImage("twitter-candidate-box-eco.png");
-		tweet_backgrounds_candidate_[Type.ART.ordinal()] = p_.loadImage("twitter-candidate-box-art.png");
-		tweet_backgrounds_candidate_[Type.FOOD.ordinal()] = p_.loadImage("twitter-candidate-box-food.png");
-		tweet_backgrounds_candidate_[Type.WINE.ordinal()] = p_.loadImage("twitter-candidate-box-wine.png");
+		tweet_backgrounds_follow_[Type.MUSIC.ordinal()] = p_.loadImage("twitter-candidate-box-music.png");
+		tweet_backgrounds_follow_[Type.ECO.ordinal()] = p_.loadImage("twitter-candidate-box-eco.png");
+		tweet_backgrounds_follow_[Type.ART.ordinal()] = p_.loadImage("twitter-candidate-box-art.png");
+		tweet_backgrounds_follow_[Type.FOOD.ordinal()] = p_.loadImage("twitter-candidate-box-food.png");
+		tweet_backgrounds_follow_[Type.WINE.ordinal()] = p_.loadImage("twitter-candidate-box-wine.png");
 		
 		tweet_backgrounds_user_[Type.MUSIC.ordinal()] = p_.loadImage("twitter-user-box-music.png");
 		tweet_backgrounds_user_[Type.ECO.ordinal()] = p_.loadImage("twitter-user-box-eco.png");
@@ -377,21 +378,21 @@ public class ImageLoader {
 		twitter_intro_top_ = new PImage[5];
 		twitter_intro_top_[Type.MUSIC.ordinal()] = p_.loadImage("twitter-intro-music-top.png");
 		twitter_intro_top_[Type.ECO.ordinal()] = p_.loadImage("twitter-intro-eco-top.png");
-		twitter_intro_top_[Type.ART.ordinal()] = p_.loadImage("twitter-intro-art-top.png");
+		twitter_intro_top_[Type.ART.ordinal()] = p_.loadImage("twitter-intro-outside-top.png");
 		twitter_intro_top_[Type.FOOD.ordinal()] = p_.loadImage("twitter-intro-food-top.png");
 		twitter_intro_top_[Type.WINE.ordinal()] = p_.loadImage("twitter-intro-wine-top.png");
 		
 		twitter_intro_main_ = new PImage[5];
 		twitter_intro_main_[Type.MUSIC.ordinal()] = p_.loadImage("twitter-intro-music-main.png");
 		twitter_intro_main_[Type.ECO.ordinal()] = p_.loadImage("twitter-intro-eco-main.png");
-		twitter_intro_main_[Type.ART.ordinal()] = p_.loadImage("twitter-intro-art-main.png");
+		twitter_intro_main_[Type.ART.ordinal()] = p_.loadImage("twitter-intro-outside-main.png");
 		twitter_intro_main_[Type.FOOD.ordinal()] = p_.loadImage("twitter-intro-food-main.png");
 		twitter_intro_main_[Type.WINE.ordinal()] = p_.loadImage("twitter-intro-wine-main.png");
 	
 		twitter_intro_tweets_ = new PImage[5];
 		twitter_intro_tweets_[Type.MUSIC.ordinal()] = p_.loadImage("twitter-intro-music-tweets.png");
 		twitter_intro_tweets_[Type.ECO.ordinal()] = p_.loadImage("twitter-intro-eco-tweets.png");
-		twitter_intro_tweets_[Type.ART.ordinal()] = p_.loadImage("twitter-intro-art-tweets.png");
+		twitter_intro_tweets_[Type.ART.ordinal()] = p_.loadImage("twitter-intro-outside-tweets.png");
 		twitter_intro_tweets_[Type.FOOD.ordinal()] = p_.loadImage("twitter-intro-food-tweets.png");
 		twitter_intro_tweets_[Type.WINE.ordinal()] = p_.loadImage("twitter-intro-wine-tweets.png");
 	}
@@ -412,7 +413,50 @@ public class ImageLoader {
 		return tweet_backgrounds_user_[type.ordinal()];
 	}
 	
-	public PImage get_tweet_background_candidate(Type type) {
-		return tweet_backgrounds_candidate_[type.ordinal()];
+	public PImage get_tweet_background_follow(Type type) {
+		return tweet_backgrounds_follow_[type.ordinal()];
+	}
+	
+	private void load_trend_numbers() {
+		trend_numbers_ = new PImage[5][];
+		
+		trend_numbers_[Type.MUSIC.ordinal()] = new PImage[5];
+		trend_numbers_[Type.MUSIC.ordinal()][0] = p_.loadImage("Music_1.png");
+		trend_numbers_[Type.MUSIC.ordinal()][1] = p_.loadImage("Music_2.png");
+		trend_numbers_[Type.MUSIC.ordinal()][2] = p_.loadImage("Music_3.png");
+		trend_numbers_[Type.MUSIC.ordinal()][3] = p_.loadImage("Music_4.png");
+		trend_numbers_[Type.MUSIC.ordinal()][4] = p_.loadImage("Music_5.png");
+		
+		trend_numbers_[Type.ART.ordinal()] = new PImage[5];
+		trend_numbers_[Type.ART.ordinal()][0] = p_.loadImage("Art_1.png");
+		trend_numbers_[Type.ART.ordinal()][1] = p_.loadImage("Art_2.png");
+		trend_numbers_[Type.ART.ordinal()][2] = p_.loadImage("Art_3.png");
+		trend_numbers_[Type.ART.ordinal()][3] = p_.loadImage("Art_4.png");
+		trend_numbers_[Type.ART.ordinal()][4] = p_.loadImage("Art_5.png");
+		
+		trend_numbers_[Type.FOOD.ordinal()] = new PImage[5];
+		trend_numbers_[Type.FOOD.ordinal()][0] = p_.loadImage("Food_1.png");
+		trend_numbers_[Type.FOOD.ordinal()][1] = p_.loadImage("Food_2.png");
+		trend_numbers_[Type.FOOD.ordinal()][2] = p_.loadImage("Food_3.png");
+		trend_numbers_[Type.FOOD.ordinal()][3] = p_.loadImage("Food_4.png");
+		trend_numbers_[Type.FOOD.ordinal()][4] = p_.loadImage("Food_5.png");
+		
+		trend_numbers_[Type.WINE.ordinal()] = new PImage[5];
+		trend_numbers_[Type.WINE.ordinal()][0] = p_.loadImage("Wine_1.png");
+		trend_numbers_[Type.WINE.ordinal()][1] = p_.loadImage("Wine_2.png");
+		trend_numbers_[Type.WINE.ordinal()][2] = p_.loadImage("Wine_3.png");
+		trend_numbers_[Type.WINE.ordinal()][3] = p_.loadImage("Wine_4.png");
+		trend_numbers_[Type.WINE.ordinal()][4] = p_.loadImage("Wine_5.png");
+		
+		trend_numbers_[Type.ECO.ordinal()] = new PImage[5];
+		trend_numbers_[Type.ECO.ordinal()][0] = p_.loadImage("Eco_1.png");
+		trend_numbers_[Type.ECO.ordinal()][1] = p_.loadImage("Eco_2.png");
+		trend_numbers_[Type.ECO.ordinal()][2] = p_.loadImage("Eco_3.png");
+		trend_numbers_[Type.ECO.ordinal()][3] = p_.loadImage("Eco_4.png");
+		trend_numbers_[Type.ECO.ordinal()][4] = p_.loadImage("Eco_5.png");
+	}
+	
+	public PImage[][] trend_numbers() {
+		return trend_numbers_;
 	}
 }

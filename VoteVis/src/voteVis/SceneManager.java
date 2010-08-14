@@ -10,6 +10,7 @@ public class SceneManager {
 	private boolean twitter_mode_ = false;
 	private boolean moving_all_off_screen_ = false;
 	private Box top_box_;
+	private boolean outside_turnoff_ = false;
 	
 	public SceneManager() {
 		instance_ = this;
@@ -54,10 +55,15 @@ public class SceneManager {
 		TrendFactory.instance().switching_from();
 		TweetBoxFactory.instance().switched_to(current_type_);
 		twitter_mode_ = true;
+		
+		if (current_type_ == Type.ART)
+			outside_turnoff_ = true;
 	}
 	
 	private void move_from_tweet_to_vote() {
 		TweetBoxFactory.instance().switching_from();
+		
+		outside_turnoff_ = false;
 		
 		move_all_off_screen();
 	}
@@ -119,5 +125,9 @@ public class SceneManager {
 		display_all_labels_ = true;
 		
 		start_cycle();
+	}
+	
+	public boolean outside_turnoff() {
+		return outside_turnoff_;
 	}
 }

@@ -49,9 +49,27 @@ public class TrendBox extends DynamicBox {
 	
 	// returns a photo with the icon 1, 2, 3, etc
 	private PhotoState get_icon_state() {
-		// TODO: replace this
-		return get_photo_state();
+		return new PhotoState(p_, Utility.instance().scale_to_pane_size(
+				get_icon_image(),
+				Size.get_dim_from_size(size_) - TrendFrame.BORDER_WIDTH));
 	}
+	
+	private PImage get_icon_image() {
+		switch (size_) {
+		case XL:
+			return ImageLoader.instance().trend_numbers()[type_.ordinal()][0];
+		case L:
+			return ImageLoader.instance().trend_numbers()[type_.ordinal()][1];
+		case M:
+			return ImageLoader.instance().trend_numbers()[type_.ordinal()][2];
+		case S:
+			return ImageLoader.instance().trend_numbers()[type_.ordinal()][3];
+		case XS:
+		default:	
+			return ImageLoader.instance().trend_numbers()[type_.ordinal()][4];	
+		}
+	}
+	
 	
 	@Override
 	public void update() {
