@@ -14,7 +14,7 @@ public class VoteVisApp extends PApplet {
 	private static VoteVisApp instance_;
 	private PImage banner_;
 	
-	private static final int VERTICAL_SHIFT = 10; // equal to the # of px of OS X menu
+	private static final int VERTICAL_SHIFT = 23; // equal to the # of px of OS X menu
 	
 	// Testing vars
 	private Box box_;
@@ -160,10 +160,11 @@ public class VoteVisApp extends PApplet {
 		return feed_;
 	}
 	
-	
+	/*
 	 public static void main(String args[]) {
 		 PApplet.main(new String[] { "--present", "voteVis.VoteVisApp" });
 	 }
+	 */
 	 
 	 /*
 	 public void init() {
