@@ -11,7 +11,7 @@ import java.util.*;
 public class TweetBoxFactory {
 	private static TweetBoxFactory instance_; 
 	private Type current_type_;
-	private static final int NUM_CREATE = 8; // the number of tweet boxes to create;
+	private static final int NUM_CREATE = 4; // the number of tweet boxes to create;
 	private static int CREATE_DELAY;
 	private static int CREATE_DELAY_MIN = 1000;
 	private static int CREATE_DELAY_MAX = 1500;

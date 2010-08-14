@@ -3,11 +3,11 @@ package voteVis;
 import processing.core.*;
 
 public class ProfileBox extends DynamicBox {
-	private int user_id_;
+	private long user_id_;
 	private static int PROFILE_BORDER_SIZE = 30;
 	private static int PROFILE_PANE_SIZE = Settings.UNIT_DIM - PROFILE_BORDER_SIZE;
 	
-	public ProfileBox(VoteVisApp p_, float x_, float y_, int user_id_) {
+	public ProfileBox(VoteVisApp p_, float x_, float y_, long user_id_) {
 		super(p_, x_, y_);
 		
 		// use this to get the image and name from a utility class
@@ -54,7 +54,7 @@ public class ProfileBox extends DynamicBox {
 		expand_fully();
 	}
 	
-	public int user_id() {
+	public long user_id() {
 		return user_id_;
 	}
 	

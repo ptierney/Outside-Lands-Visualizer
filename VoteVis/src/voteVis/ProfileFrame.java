@@ -187,7 +187,7 @@ public class ProfileFrame extends ExpandingFrame {
 	}
 
 	private void determine_text_size() {
-		int user_id = profile_box_.user_id();
+		long user_id = profile_box_.user_id();
 		text_string_ = UserManager.instance().get_user(user_id).name()
 				.toUpperCase()
 				+ TEXT_BASE;

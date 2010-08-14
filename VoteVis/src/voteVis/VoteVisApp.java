@@ -14,7 +14,7 @@ public class VoteVisApp extends PApplet {
 	private static VoteVisApp instance_;
 	private PImage banner_;
 	
-	private static final int VERTICAL_SHIFT = 23; // equal to the # of px of OS X menu
+	private static final int VERTICAL_SHIFT = 0; // equal to the # of px of OS X menu
 	
 	// Testing vars
 	private Box box_;

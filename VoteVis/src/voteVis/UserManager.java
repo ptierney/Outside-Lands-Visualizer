@@ -6,16 +6,16 @@ import processing.core.*;
 public class UserManager {
 	private static UserManager instance_;
 	private VoteVisApp p_;
-	private HashMap<Integer, User> user_map_;
+	private HashMap<Long, User> user_map_;
 	
 	public UserManager(VoteVisApp p_) {
 		instance_ = this;
 		this.p_ = p_;
 		
-		user_map_ = new HashMap<Integer, User>();
+		user_map_ = new HashMap<Long, User>();
 	}
 	
-	public void add_user(Integer ballot_id, String name, PImage photo) {
+	public void add_user(Long ballot_id, String name, PImage photo) {
 		user_map_.put(ballot_id, new User(ballot_id, name, photo));
 	}
 	
@@ -23,7 +23,7 @@ public class UserManager {
 		return user_map_.get(user_id).profile_photo();
 	}
 	
-	public User get_user(int user_id) {
+	public User get_user(long user_id) {
 		return user_map_.get(user_id);
 	}
 	
@@ -32,7 +32,7 @@ public class UserManager {
 	}
 	
 	public class User {
-		private int id_;
+		private long id_;
 		private String name_;
 		private String first_name_;
 		private String last_name_;
@@ -40,7 +40,7 @@ public class UserManager {
 		private int display_count_;
 		private PImage profile_photo_;
 		
-		public User(int id_, String name_, PImage profile_photo_) {
+		public User(long id_, String name_, PImage profile_photo_) {
 			this.id_ = id_;
 			this.name_ = name_;
 			String[] name_split = name_.split(" ");
@@ -62,7 +62,7 @@ public class UserManager {
 			display_count_ = 0;
 		}
 		
-		public int id() {
+		public Long id() {
 			return id_;
 		}
 		

@@ -7,18 +7,18 @@ import processing.core.*;
 
 public class BallotCounter {
 	private static BallotCounter instance_;
-	private LinkedHashMap<Integer, Ballot> ballots_;
+	private LinkedHashMap<Long, Ballot> ballots_;
 	private VoteVisApp p_;
 	private ArrayList<Ballot> recent_ballots_;
 	
 	BallotCounter(VoteVisApp p_) {
 		instance_ = this;
-		ballots_ = new LinkedHashMap<Integer, Ballot>();
+		ballots_ = new LinkedHashMap<Long, Ballot>();
 		recent_ballots_ = new ArrayList<Ballot>();
 		this.p_ = p_;
 	}
 	
-	public LinkedHashMap<Integer, Ballot> ballots() {
+	public LinkedHashMap<Long, Ballot> ballots() {
 		return ballots_;
 	}
 	
@@ -62,14 +62,14 @@ public class BallotCounter {
 	}
 	
 	public void add_ballot(Ballot ballot) {
-		if (ballots_.containsKey(Integer.valueOf(ballot.user_id())))
+		if (ballots_.containsKey(Long.valueOf(ballot.user_id())))
 			return;
 		ballot.load_image();
 		UserManager.instance().add_user(ballot.user_id(), ballot.user_name(), ballot.user_photo());
 		
 		
 		
-		ballots_.put(Integer.valueOf(ballot.user_id()), ballot);
+		ballots_.put(Long.valueOf(ballot.user_id()), ballot);
 		recent_ballots_.add(0, ballot);
 	}
 	
@@ -96,7 +96,7 @@ public class BallotCounter {
 		// This holds the index (which musician, etc), and the number of votes for him/her.
 		HashMap<Integer, Integer> counter = new HashMap<Integer, Integer>();
 		
-		for (Integer key : ballots_.keySet()) {
+		for (Long key : ballots_.keySet()) {
 			Ballot b = ballots_.get(key);
 			int[] int_arr = b.votes();
 			Integer vote_key = int_arr[type.ordinal()];

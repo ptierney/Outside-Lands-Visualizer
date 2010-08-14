@@ -35,7 +35,7 @@ public class BallotRetriever {
 			}
 			*/
 			
-			int id = Integer.parseInt(string_split[0]);
+			long id = Long.parseLong(string_split[0]);
 			String user_name = string_split[1];
 			
 			Gender gender;
@@ -56,7 +56,7 @@ public class BallotRetriever {
 			//PApplet.println(string_split.length);
 			
 			if (string_split.length > 8)
-				image = IMAGE_MASTER_BASE + Integer.parseInt(string_split[8]) + ".jpg";
+				image = IMAGE_MASTER_BASE + Long.parseLong(string_split[8]) + ".jpg";
 			else {
 				if (gender == Gender.MALE)
 					image = "defalt-male.png";
