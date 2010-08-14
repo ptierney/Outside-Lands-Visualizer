@@ -151,4 +151,8 @@ public class VoteVisApp extends PApplet {
 	public TweetFeed feed() {
 		return feed_;
 	}
+	
+	 public static void main(String args[]) {
+		 PApplet.main(new String[] { "--present", "voteVis.VoteVisApp" });
+	 }
 }
