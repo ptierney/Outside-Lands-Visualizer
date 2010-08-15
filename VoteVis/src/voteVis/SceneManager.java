@@ -57,7 +57,7 @@ public class SceneManager {
 		VoteBoxFactory.instance().switching_from();
 		TrendFactory.instance().switched_to(current_type_);
 		
-		BoxManager.instance().set_move_accellerator(0.16f);
+		BoxManager.instance().set_move_accellerator(0.1f);
 	}
 	
 	private void move_from_trend_to_tweet() {
@@ -71,7 +71,7 @@ public class SceneManager {
 		}
 		*/
 		
-		BoxManager.instance().set_move_accellerator(0.35f);
+		BoxManager.instance().set_move_accellerator(0.2f);
 		
 		TweetBoxFactory.instance().switched_to(current_type_);
 		twitter_mode_ = true;
