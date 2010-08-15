@@ -44,6 +44,8 @@ public class ImageLoader {
 	public static PImage TWEET_BACKGROUND_USER;
 	public static PImage TWEET_BACKGROUND_CANDIDATE;
 	
+	public static PImage outside_background_image;
+	
 	ImageLoader(VoteVisApp p_) {
 		instance_ = this;
 		this.p_ = p_;
@@ -267,6 +269,8 @@ public class ImageLoader {
 		vote_background_images_[Type.ECO.ordinal()] = p_.loadImage("eco-background.png");
 		vote_background_images_[Type.WINE.ordinal()] = p_.loadImage("wine-background.png");
 		vote_background_images_[Type.ART.ordinal()] = p_.loadImage("art-background.png");
+		
+		outside_background_image = p_.loadImage("outside-background.png");
 	}
 	
 	public PImage get_vote_background(Type type) {

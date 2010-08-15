@@ -57,7 +57,7 @@ public class SceneManager {
 		VoteBoxFactory.instance().switching_from();
 		TrendFactory.instance().switched_to(current_type_);
 		
-		BoxManager.instance().set_move_accellerator(0.15f);
+		BoxManager.instance().set_move_accellerator(0.16f);
 	}
 	
 	private void move_from_trend_to_tweet() {
@@ -71,7 +71,7 @@ public class SceneManager {
 		}
 		*/
 		
-		BoxManager.instance().set_move_accellerator(0.35f);
+		BoxManager.instance().set_move_accellerator(0.37f);
 		
 		TweetBoxFactory.instance().switched_to(current_type_);
 		twitter_mode_ = true;
@@ -83,7 +83,7 @@ public class SceneManager {
 	private void move_from_tweet_to_vote() {
 		TweetBoxFactory.instance().switching_from();
 		
-		outside_turnoff_ = false;
+		
 		
 		move_all_off_screen();
 	}
@@ -141,7 +141,7 @@ public class SceneManager {
 		increment_type();
 		
 		VoteVisApp.instance().create_worker_classes();
-		
+		outside_turnoff_ = false;
 		display_all_labels_ = true;
 		
 		start_cycle();

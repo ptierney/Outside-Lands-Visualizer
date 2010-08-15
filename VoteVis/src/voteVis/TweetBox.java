@@ -23,7 +23,7 @@ public class TweetBox extends Box {
 	private static final int PROFILE_IMAGE_DIM = 80;
 	
 	private static final int FOLLOW_IMAGE_GAP = 15;
-	private static final int FOLLOW_IMAGE_TOP_GAP = 23;
+	private static final int FOLLOW_IMAGE_TOP_GAP = 26;
 	private static final int FOLLOW_IMAGE_DIM = 110;
 	
 	private float fade_counter_ = 0.0f;
@@ -99,10 +99,33 @@ public class TweetBox extends Box {
 				render_width_, render_height_);
 			render_.image(Utility.instance().scale_to_pane_size(user_photo_,
 				FOLLOW_IMAGE_DIM), FOLLOW_IMAGE_GAP, FOLLOW_IMAGE_GAP);
+			
+			p_.textFont(Settings.TWEET_BOX_FONT);
+			float text_width = p_.textWidth(user_name_);
+			int text_side_margin = 2;
+			int rect_increase_x = 10;
+			int rect_increase_y = 6;
+			PImage text_background;
+			if (type_ == Type.ART) {
+				text_background = ImageLoader.outside_background_image;
+			} else {
+				text_background = ImageLoader.instance().get_vote_background(type_);
+			}
+			
+			render_.image(text_background,
+				FOLLOW_IMAGE_GAP * 2 + FOLLOW_IMAGE_DIM, FOLLOW_IMAGE_TOP_GAP,
+				text_width + text_side_margin * 2 + rect_increase_x, 24 + rect_increase_y);
+			render_.fill(255);
+			render_.textFont(Settings.TWEET_BOX_FONT, Settings.TWEET_BOX_FONT_SIZE);
+			render_.text(user_name_, FOLLOW_IMAGE_GAP * 2 + FOLLOW_IMAGE_DIM + text_side_margin + rect_increase_x / 2, 
+					FOLLOW_IMAGE_TOP_GAP + 20 + rect_increase_y / 2);
+			
 			render_.textFont(Settings.TWEET_BOX_FONT, Settings.TWEET_BOX_FONT_SIZE);
 			render_.fill(255);
-			render_.text(tweet_, FOLLOW_IMAGE_GAP * 2 + FOLLOW_IMAGE_DIM, FOLLOW_IMAGE_TOP_GAP,
-				render_width_ - FOLLOW_IMAGE_GAP * 3 - FOLLOW_IMAGE_DIM, render_height_ - FOLLOW_IMAGE_GAP * 2);
+			render_.text(tweet_, FOLLOW_IMAGE_GAP * 2 + FOLLOW_IMAGE_DIM, FOLLOW_IMAGE_TOP_GAP + 28 + rect_increase_y,
+				render_width_ - FOLLOW_IMAGE_GAP * 3 - FOLLOW_IMAGE_DIM, 
+				render_height_ - FOLLOW_IMAGE_GAP * 2
+				+ 28 + rect_increase_y / 2);
 			render_.endDraw();
 		} else {
 			render_ = p.createGraphics(render_width_, render_height_, PApplet.JAVA2D);

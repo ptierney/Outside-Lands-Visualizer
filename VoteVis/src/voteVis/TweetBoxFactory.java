@@ -11,7 +11,7 @@ import java.util.*;
 public class TweetBoxFactory {
 	private static TweetBoxFactory instance_; 
 	private Type current_type_;
-	private static final int NUM_CREATE = 3;// the number of tweet boxes to create;
+	private static final int NUM_CREATE = 6;// the number of tweet boxes to create;
 	private static int CREATE_DELAY;
 	private static int CREATE_DELAY_MIN = 1000;
 	private static int CREATE_DELAY_MAX = 1500;
@@ -107,15 +107,15 @@ public class TweetBoxFactory {
 		current_type_ = current_type;
 		
 		PApplet.print("Getting parsed tweets");
-		while (parsed_tweets_ == null || parsed_tweets_.length == 0
-			|| parsed_tweets_.length != NUM_CREATE) {
+		while (parsed_tweets_ == null || parsed_tweets_.length == 0) {
+			//|| parsed_tweets_.length != NUM_CREATE) {
 			parsed_tweets_ = get_parsed_tweets();
 			PApplet.print(".");
 		}
 		
 		PApplet.print("Getting parsed follow tweets");
-		while (parsed_follow_tweets_ == null || parsed_follow_tweets_.length == 0
-			|| parsed_follow_tweets_.length != NUM_CREATE) {
+		while (parsed_follow_tweets_ == null || parsed_follow_tweets_.length == 0) {
+		//	|| parsed_follow_tweets_.length != NUM_CREATE) {
 			parsed_follow_tweets_ = get_parsed_followed_tweets();
 			PApplet.print(".");
 		}
@@ -165,7 +165,7 @@ public class TweetBoxFactory {
 		int index;
 		
 		// randomly decide between a follow tweet and a user tweet
-		if ((int)VoteVisApp.instance().random(2) == 0) {
+		if (boxes_made_ % 3 == 0) {
 			tweet_type = TweetBox.TweetType.FOLLOW;
 			parsed_tweets = parsed_follow_tweets_;
 			index = followed_tweets_made_;
