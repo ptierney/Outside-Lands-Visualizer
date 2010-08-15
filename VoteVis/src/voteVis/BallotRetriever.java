@@ -39,7 +39,7 @@ public class BallotRetriever {
 			String user_name = string_split[1];
 			
 			Gender gender;
-			if (string_split[2] == "m")
+			if (string_split[2].equalsIgnoreCase("m"))
 				gender = Gender.MALE;
 			else
 				gender = Gender.FEMALE;
@@ -59,7 +59,7 @@ public class BallotRetriever {
 				image = IMAGE_MASTER_BASE + Long.parseLong(string_split[8]) + ".jpg";
 			else {
 				if (gender == Gender.MALE)
-					image = "defalt-male.png";
+					image = "default-male.png";
 				else
 					image = "default-female.png";
 			}
