@@ -71,7 +71,7 @@ public class SceneManager {
 		}
 		*/
 		
-		BoxManager.instance().set_move_accellerator(0.2f);
+		BoxManager.instance().set_move_accellerator(0.25f);
 		
 		TweetBoxFactory.instance().switched_to(current_type_);
 		twitter_mode_ = true;
