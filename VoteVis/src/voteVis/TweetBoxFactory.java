@@ -31,7 +31,7 @@ public class TweetBoxFactory {
 	private int followed_tweets_made_;
 	
 	private boolean delaying_and_scrolling_;
-	private static final int SCROLL_DELAY_TIME = 2000;
+	private static final int SCROLL_DELAY_TIME = 6000;
 	private int scroll_delay_counter_;
 	
 	private enum IntroType {
@@ -182,7 +182,7 @@ public class TweetBoxFactory {
 				parsed_tweets[index], tweet_type);
 			
 			// bail out if in a bad position
-			if (attempts > 10) {
+			if (attempts > 5) {
 				delaying_ = false;
 				delaying_and_scrolling_ = true;
 				scroll_delay_counter_ = VoteVisApp.instance().millis();
