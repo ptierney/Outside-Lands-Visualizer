@@ -16,6 +16,8 @@ public class VoteVisApp extends PApplet {
 	
 	private static final int VERTICAL_SHIFT = 0; // equal to the # of px of OS X menu
 	
+	public static final boolean THANK_YOU_MODE = true;
+	
 	// Testing vars
 	private Box box_;
 	private PFont text_font_;
@@ -25,6 +27,8 @@ public class VoteVisApp extends PApplet {
 	private boolean waiting_;
 	
 	private TweetFeed feed_;
+	
+	public ArrayList<String> thanks;
 	
 	PImage foo;
 
@@ -57,6 +61,13 @@ public class VoteVisApp extends PApplet {
 			BallotCounter.instance().add_random_ballot();
 		}
 		*/
+		thanks = new ArrayList<String>();
+		String[] th = loadStrings("thanks");
+		
+		for (int i = 0; i < th.length; ++i) {
+			thanks.add(th[i]);
+			println(th[i]);
+		}
 		
 		setup_tweet_feed();
 		

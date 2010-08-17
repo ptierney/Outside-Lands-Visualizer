@@ -188,9 +188,14 @@ public class ProfileFrame extends ExpandingFrame {
 
 	private void determine_text_size() {
 		long user_id = profile_box_.user_id();
-		text_string_ = UserManager.instance().get_user(user_id).name()
-				.toUpperCase()
-				+ TEXT_BASE;
+		
+		if (VoteVisApp.THANK_YOU_MODE) {
+			text_string_ = VoteVisApp.instance().thanks.get(0);
+			VoteVisApp.instance().thanks.remove(0);
+		} else {
+			text_string_ = UserManager.instance().get_user(user_id).name()
+				.toUpperCase() + TEXT_BASE;
+		}
 
 		int size = 2;
 		int max_width = (int) (4.8 * (Settings.UNIT_DIM + Settings.BOX_GAP));

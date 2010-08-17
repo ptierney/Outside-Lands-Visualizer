@@ -17,7 +17,7 @@ public class VoteBoxFactory implements BoxListener {
 	private int create_delay_counter_;
 	private boolean delaying_create_;
 	private static int START_SCROLLING_HEIGHT = 1; // start scrolling after the n'th row has been added
-	public static int BEGIN_TRANSITION_COUNT = 5; // only show this many boxes before transitioning
+	public static int BEGIN_TRANSITION_COUNT; // now set in C'TOR
 	private static int TRANSITION_START_HEIGHT = 768 - Settings.UNIT_DIM / 2; // in px
 	private int row_count_ = 0; // the number of rows created
 	private VoteRow bottom_stop_row_ = null;
@@ -30,6 +30,12 @@ public class VoteBoxFactory implements BoxListener {
 
 	public VoteBoxFactory(VoteVisApp p_) {
 		instance_ = this;
+		
+		if (VoteVisApp.THANK_YOU_MODE)
+			BEGIN_TRANSITION_COUNT = 25;
+		else
+			BEGIN_TRANSITION_COUNT = 5;
+		
 		this.p_ = p_;
 		init();
 	}
