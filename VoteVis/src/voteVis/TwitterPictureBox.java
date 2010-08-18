@@ -1,4 +1,5 @@
 /* Copyright (c) 2010, Patrick Tierney 
+ * All rights reserved.
  * 
  * This file is part of the "Live Top Five" vote visualizer 
  * created for Mr Youth August 2010 
