@@ -16,5 +16,15 @@
 	<classpathentry kind="lib" path="lib/opengl.jar"/>
 	<classpathentry kind="lib" path="lib/mryouth/gson-1.3.jar"/>
 	<classpathentry kind="lib" path="lib/mryouth/TwitCache.jar"/>
+	<classpathentry kind="lib" path="lib/video.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Program Files (x86)/QuickTime/QTSystem"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/QuickTime/QTSystem/QTJava.zip">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Program Files (x86)/QuickTime/QTSystem"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

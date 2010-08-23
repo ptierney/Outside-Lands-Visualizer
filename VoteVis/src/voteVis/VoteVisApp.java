@@ -19,6 +19,7 @@ package voteVis;
 import java.util.ArrayList;
 
 import processing.core.*;
+import processing.video.*;
 //import processing.opengl.*;
 //import javax.media.opengl.GL;
 import voteVis.RotateBoxTransition.Axis;
@@ -29,10 +30,11 @@ import twitpull.*;
 public class VoteVisApp extends PApplet {
 	private static VoteVisApp instance_;
 	private PImage banner_;
+	private MovieMaker mm_;
 	
 	private static final int VERTICAL_SHIFT = 0; // equal to the # of px of OS X menu
 	
-	public static final boolean THANK_YOU_MODE = true;
+	public static final boolean THANK_YOU_MODE = false;
 	
 	// Testing vars
 	private Box box_;
@@ -57,6 +59,9 @@ public class VoteVisApp extends PApplet {
 		instance_ = this;
 
 		waiting_ = false;
+		
+		mm_ = new MovieMaker(this, width, height, "vis.mov",
+			30, MovieMaker.VIDEO, MovieMaker.HIGH);
 
 		// references are stored in static instance_ var
 		@SuppressWarnings("unused")
@@ -142,12 +147,15 @@ public class VoteVisApp extends PApplet {
 			translate(0, VERTICAL_SHIFT);
 			BannerDisplay.instance().draw();
 		popMatrix();
+		
+		mm_.addFrame();
 	}
 	
 	@Override
 	public void keyPressed() {
 		if (key == ' ') {
-			waiting_ = false;
+			mm_.finish();
+			//waiting_ = false;
 		} else if (key == '1') {
 			VoteBoxFactory.instance().drop_bottom_row();
 		} else if (key == '2') {
