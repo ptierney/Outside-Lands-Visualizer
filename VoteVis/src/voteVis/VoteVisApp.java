@@ -30,7 +30,7 @@ import twitpull.*;
 public class VoteVisApp extends PApplet {
 	private static VoteVisApp instance_;
 	private PImage banner_;
-	private MovieMaker mm_;
+	//private MovieMaker mm_;
 	
 	private static final int VERTICAL_SHIFT = 0; // equal to the # of px of OS X menu
 	
@@ -60,8 +60,8 @@ public class VoteVisApp extends PApplet {
 
 		waiting_ = false;
 		
-		mm_ = new MovieMaker(this, width, height, "vis.mov",
-			30, MovieMaker.VIDEO, MovieMaker.HIGH);
+		//mm_ = new MovieMaker(this, width, height, "vis.mov",
+		//	30, MovieMaker.VIDEO, MovieMaker.HIGH);
 
 		// references are stored in static instance_ var
 		@SuppressWarnings("unused")
@@ -148,13 +148,14 @@ public class VoteVisApp extends PApplet {
 			BannerDisplay.instance().draw();
 		popMatrix();
 		
-		mm_.addFrame();
+		//mm_.addFrame();
+		saveFrame("vis-######.jpg");
 	}
 	
 	@Override
 	public void keyPressed() {
 		if (key == ' ') {
-			mm_.finish();
+			//mm_.finish();
 			//waiting_ = false;
 		} else if (key == '1') {
 			VoteBoxFactory.instance().drop_bottom_row();
